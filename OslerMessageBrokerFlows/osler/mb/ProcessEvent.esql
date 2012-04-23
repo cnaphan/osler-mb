@@ -1,0 +1,95 @@
+BROKER SCHEMA osler.mb
+
+
+CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		
+		DECLARE i INTEGER 1;
+		DECLARE count INTEGER;
+		SET count = 3;
+		
+		WHILE i <= count DO 
+		  CALL CopyMessageHeaders(); 
+		  CALL CopyEntireMessage();
+		  
+		  
+		  SET OutputLocalEnvironment.Destination.RouterList.DestinationData."label" = 'SOAP';
+		  SET OutputLocalEnvironment.Destination.HTTP.RequestUrl = 'http://osler.eecs.uottawa.ca/PFM/services/PFMServer';
+		  
+		  
+		  PROPAGATE TO TERMINAL 'out'; 
+		  SET i = i+1; 
+		END WHILE; 
+		
+		-- Create a message to send to the logger service (the console)
+		CALL CopyMessageHeaders();
+		SET OutputRoot.XMLNSC.logEvent.event = 'eventName';
+		SET OutputLocalEnvironment.Destination.HTTP.RequestUrl = 'http://137.122.88.14:8080/osler-mb/log/logEvent';
+		  
+		RETURN FALSE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;
+
+
+CREATE COMPUTE MODULE ProcessEvent_UpdateRoutingRules
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		-- CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;
+
+
+CREATE COMPUTE MODULE ProcessEvent_PrepareToGetDefaults
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		-- CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;
