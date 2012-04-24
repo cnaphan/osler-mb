@@ -1,18 +1,48 @@
 BROKER SCHEMA osler.mb
 
+DECLARE getDefaultRoutingRulesURL EXTERNAL CHARACTER 'http://137.122.88.14:8080/osler-mb/event/getDefaultRoutingRules';
+
+DECLARE ruleCache SHARED ROW;
+DECLARE ruleRefreshAttempts SHARED INTEGER 0; -- Can be used to prevent endless refresh loops
 
 CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
+		--Basic flow is:
+		--1. Check if routing rules are cached in memory
+		--	1.1 If not, initiate subflow to go get them
+		--2. Prepare routing information based on routing rules and input message
+		--3. Create a logEvent message and send it to the log queue
+		--4. Propagate messages to destinations with routing parameters set
+					
+		IF ruleCache.valid <> TRUE THEN
+			-- If the routing rules in shared memory is null, then go into the refresh routing rules sub-flow
+			SET ruleRefreshAttempts = ruleRefreshAttempts + 1; 
+			-- Set aside the current input into the variables area
+			SET Environment.Variables.EventBody = InputRoot;
+			-- Go to OUT2
+			PROPAGATE TO TERMINAL 'out2';
+			RETURN FALSE;
+		END IF;
 		
+		-- Prepare some of the variables needed from the message and from the routing rules		
+		DECLARE eventName CHARACTER FIELDNAME(InputRoot.XMLNSC.*[<]);
+		DECLARE sourceSuffix CHARACTER FIELDVALUE(InputRoot.XMLNSC.*[<].(XMLNSC.Attribute)sourceSuffix);
+		DECLARE source CHARACTER 'BAD';
+		DECLARE inputMethod CHARACTER 'BAD';
+		DECLARE inputMethodAttribute CHARACTER FIELDVALUE(InputRoot.XMLNSC.*[<].(XMLNSC.Attribute)inputMethod);
+		IF sourceSuffix IS NOT NULL THEN
+			SET source = source || '-' || sourceSuffix;
+		END IF;
+		IF inputMethodAttribute IS NOT NULL THEN
+			SET inputMethod = inputMethodAttribute;
+		END IF;
 		
 		-- Create a message to send to the logger service (the console)
 		CALL CopyMessageHeaders();
-		SET OutputRoot.XMLNSC.logEvent.event = 'physicianInBathroom';
-		SET OutputRoot.XMLNSC.logEvent.source = 'TEST-RTLS';
-		SET OutputRoot.XMLNSC.logEvent.inputMethod = 'SOAP';
-		SET OutputRoot.XMLNSC.logEvent.requestUrl = 'http://137.122.88.14:8080/osler-mb/log/logEvent';
-		SET OutputLocalEnvironment.Destination.HTTP.RequestURL = 'http://137.122.88.14:8080/osler-mb/log/logEvent';
+		SET OutputRoot.XMLNSC.logEvent.event = eventName;
+		SET OutputRoot.XMLNSC.logEvent.source = source;
+		SET OutputRoot.XMLNSC.logEvent.inputMethod = inputMethod;
 		PROPAGATE TO LABEL 'LOG' FINALIZE DEFAULT;
 		
 		DECLARE i INTEGER 1;
@@ -48,31 +78,45 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		SET OutputRoot = InputRoot;
 	END;
+
 END MODULE;
 
-
-CREATE COMPUTE MODULE ProcessEvent_UpdateRoutingRules
+CREATE COMPUTE MODULE ProcessEvent_RefreshCache
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		-- CALL CopyMessageHeaders();
-		-- CALL CopyEntireMessage();
+		-- Set the routing rules data into the shared mem cache
+		SET ruleCache.oslerRoutingRules = InputRoot.XMLNSC.oslerRoutingRules;
+		SET ruleCache.valid = TRUE;
+		-- Swap the event back into the message body
+		IF Environment.Variables.EventBody IS NULL THEN
+			THROW USER EXCEPTION VALUES ('Tried to refresh cache but EventBody was lost in the process.');
+		END IF;
+		
+		SET ruleRefreshAttempts = 0; -- Refresh succeeded, so reset attempt counter
+		SET OutputRoot = Environment.Variables.EventBody;
 		RETURN TRUE;
-	END;
-
-	CREATE PROCEDURE CopyMessageHeaders() BEGIN
-		DECLARE I INTEGER 1;
-		DECLARE J INTEGER;
-		SET J = CARDINALITY(InputRoot.*[]);
-		WHILE I < J DO
-			SET OutputRoot.*[I] = InputRoot.*[I];
-			SET I = I + 1;
-		END WHILE;
-	END;
-
-	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		SET OutputRoot = InputRoot;
 	END;
 END MODULE;
 
+CREATE COMPUTE MODULE RefreshRoutingRules_SetURL
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputLocalEnvironment.Destination.HTTP.RequestURL = getDefaultRoutingRulesURL;
+		RETURN TRUE;
+	END;
+END MODULE;
 
-
+CREATE COMPUTE MODULE ProcessEvent_ReplyWithRules
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		IF ruleCache.valid THEN
+			SET OutputRoot.XMLNSC = ruleCache.oslerRoutingRules;
+			RETURN TRUE;
+		ELSE 
+			-- No cached rules, so proceed to refresh them
+			SET Environment.Variables.EventBody = InputRoot;
+			PROPAGATE TO TERMINAL 'out1' FINALIZE DEFAULT;
+			RETURN FALSE;
+		END IF;		
+	END;
+END MODULE;

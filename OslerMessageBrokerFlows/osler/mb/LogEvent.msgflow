@@ -4,6 +4,9 @@
     nsPrefix="osler_mb_LogEvent.msgflow">
   <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1">
     <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.logEventURL" name="logEventURL" lowerBound="1" defaultValueLiteral="http://137.122.88.14:8080/osler-mb/log/logEvent">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
     <translation xmi:type="utility:TranslatableString" key="LogEvent" bundleName="osler/mb/LogEvent" pluginId="OslerMessageBrokerFlows"/>
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/OslerMessageBrokerFlows/icons/full/obj16/LogEvent.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/OslerMessageBrokerFlows/icons/full/obj30/LogEvent.gif"/>
@@ -11,7 +14,7 @@
       <nodes xmi:type="ComIbmWSRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="280,161" URLSpecifier="http://bad.uottawa.ca/noservice" messageDomainProperty="XMLNSC">
         <translation xmi:type="utility:ConstantString" string="Log Event"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="385,229" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} -Log service failed with status code ${Root.HTTPResponseHeader.&quot;X-Original-HTTP-Status-Code&quot;}">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="385,229" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Log service returned failure with status code ${Root.HTTPResponseHeader.&quot;X-Original-HTTP-Status-Code&quot;}">
         <translation xmi:type="utility:ConstantString" string="Trace Log Fail"/>
       </nodes>
       <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="75,167" queueName="OSLER_LOG" messageDomainProperty="XMLNSC">
@@ -28,7 +31,11 @@
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_7" sourceNode="FCMComposite_1_3" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_1" sourceNode="FCMComposite_1_7" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
     </composition>
-    <propertyOrganizer/>
+    <propertyOrganizer>
+      <propertyDescriptor groupName="Group.Basic" configurable="true" userDefined="true" describedAttribute="Property.logEventURL">
+        <propertyName xmi:type="utility:TranslatableString" key="Property.logEventURL" bundleName="osler/mb/LogEvent" pluginId="OslerMessageBrokerFlows"/>
+      </propertyDescriptor>
+    </propertyOrganizer>
     <stickyBoard/>
   </eClassifiers>
 </ecore:EPackage>

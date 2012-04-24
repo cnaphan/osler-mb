@@ -1,15 +1,14 @@
 BROKER SCHEMA osler.mb
 
+DECLARE logEventURL EXTERNAL CHARACTER 'http://137.122.88.14:8080/osler-mb/log/logEvent';
 
 CREATE COMPUTE MODULE LogEvent_Set_URL
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		CALL CopyMessageHeaders();
 		CALL CopyEntireMessage();
-		-- Set the request URL in the local env to a URL stored in the message vars		
-		SET OutputLocalEnvironment.Destination.HTTP.RequestURL = InputRoot.XMLNSC.logEvent.requestUrl;
-		-- Remove the URL from the message now
-		SET OutputRoot.XMLNSC.logEvent.requestUrl = NULL;
+		-- Set the request URL in the local env to a URL stored in message flow	
+		SET OutputLocalEnvironment.Destination.HTTP.RequestURL = logEventURL;
 		
 		RETURN TRUE;
 	END;
