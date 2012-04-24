@@ -13,6 +13,8 @@ CREATE COMPUTE MODULE SoapIn_Generate_Ack
 		-- Create the response message
 		-- Insert this between TYPE and NAME to get a namespace: NAMESPACE 'http://patientflowmonitoring/'
 		CREATE LASTCHILD OF OutputRoot.XMLNSC TYPE NameValue  NAME EventName VALUE 'Message received';
+		
+		SET OutputLocalEnvironment.Destination.SOAP.Reply.Gateway.OneWay = 'true';
 		RETURN TRUE;
 	END;
 

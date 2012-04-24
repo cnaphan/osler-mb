@@ -13,7 +13,7 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 		SET OutputRoot.XMLNSC.logEvent.inputMethod = 'SOAP';
 		SET OutputRoot.XMLNSC.logEvent.requestUrl = 'http://137.122.88.14:8080/osler-mb/log/logEvent';
 		SET OutputLocalEnvironment.Destination.HTTP.RequestURL = 'http://137.122.88.14:8080/osler-mb/log/logEvent';
-		PROPAGATE TO TERMINAL 'out1' FINALIZE DEFAULT;
+		PROPAGATE TO LABEL 'LOG' FINALIZE DEFAULT;
 		
 		DECLARE i INTEGER 1;
 		DECLARE count INTEGER;
