@@ -6,6 +6,15 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 	BEGIN
 		
 		
+		-- Create a message to send to the logger service (the console)
+		CALL CopyMessageHeaders();
+		SET OutputRoot.XMLNSC.logEvent.event = 'physicianInBathroom';
+		SET OutputRoot.XMLNSC.logEvent.source = 'TEST-RTLS';
+		SET OutputRoot.XMLNSC.logEvent.inputMethod = 'SOAP';
+		SET OutputRoot.XMLNSC.logEvent.requestUrl = 'http://137.122.88.14:8080/osler-mb/log/logEvent';
+		SET OutputLocalEnvironment.Destination.HTTP.RequestURL = 'http://137.122.88.14:8080/osler-mb/log/logEvent';
+		PROPAGATE TO TERMINAL 'out1' FINALIZE DEFAULT;
+		
 		DECLARE i INTEGER 1;
 		DECLARE count INTEGER;
 		SET count = 3;
@@ -16,17 +25,12 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 		  
 		  
 		  SET OutputLocalEnvironment.Destination.RouterList.DestinationData."label" = 'SOAP';
-		  SET OutputLocalEnvironment.Destination.HTTP.RequestUrl = 'http://osler.eecs.uottawa.ca/PFM/services/PFMServer';
+		  SET OutputLocalEnvironment.Destination.HTTP.RequestURL = 'http://osler.eecs.uottawa.ca/PFM/services/PFMServer';
 		  
 		  
-		  PROPAGATE TO TERMINAL 'out'; 
+		  PROPAGATE TO LABEL 'SOAP'; 
 		  SET i = i+1; 
 		END WHILE; 
-		
-		-- Create a message to send to the logger service (the console)
-		CALL CopyMessageHeaders();
-		SET OutputRoot.XMLNSC.logEvent.event = 'eventName';
-		SET OutputLocalEnvironment.Destination.HTTP.RequestUrl = 'http://137.122.88.14:8080/osler-mb/log/logEvent';
 		  
 		RETURN FALSE;
 	END;
@@ -71,25 +75,4 @@ CREATE COMPUTE MODULE ProcessEvent_UpdateRoutingRules
 END MODULE;
 
 
-CREATE COMPUTE MODULE ProcessEvent_PrepareToGetDefaults
-	CREATE FUNCTION Main() RETURNS BOOLEAN
-	BEGIN
-		-- CALL CopyMessageHeaders();
-		-- CALL CopyEntireMessage();
-		RETURN TRUE;
-	END;
 
-	CREATE PROCEDURE CopyMessageHeaders() BEGIN
-		DECLARE I INTEGER 1;
-		DECLARE J INTEGER;
-		SET J = CARDINALITY(InputRoot.*[]);
-		WHILE I < J DO
-			SET OutputRoot.*[I] = InputRoot.*[I];
-			SET I = I + 1;
-		END WHILE;
-	END;
-
-	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		SET OutputRoot = InputRoot;
-	END;
-END MODULE;

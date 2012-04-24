@@ -8,3 +8,5 @@
 *.ear
 
 OslerMessageSet/log
+*.mbtest
+readlog.*
