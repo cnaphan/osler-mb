@@ -40,6 +40,7 @@ CREATE COMPUTE MODULE SoapIn_AppendMethod
 		CALL CopyMessageHeaders();
 		CALL CopyEntireMessage();
 		SET OutputRoot.XMLNSC.*[<].(XMLNSC.Attribute)inputMethod = 'SOAP';
+		SET OutputRoot.XMLNSC.*[<].(XMLNSC.Attribute)remoteHost = InputRoot.HTTPInputHeader."X-Server-Name";		
 		RETURN TRUE;
 	END;
 

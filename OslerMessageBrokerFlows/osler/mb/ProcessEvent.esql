@@ -15,35 +15,45 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 		--3. Create a logEvent message and send it to the log queue
 		--4. Propagate messages to destinations with routing parameters set
 					
-		IF ruleCache.valid <> TRUE THEN
+		IF CARDINALITY(ruleCache.oslerRoutingRules[]) = 0 THEN
 			-- If the routing rules in shared memory is null, then go into the refresh routing rules sub-flow
 			SET ruleRefreshAttempts = ruleRefreshAttempts + 1; 
-			-- Set aside the current input into the variables area
-			SET Environment.Variables.EventBody = InputRoot;
-			-- Go to OUT2
-			PROPAGATE TO TERMINAL 'out2';
-			RETURN FALSE;
-		END IF;
-		
+		  	CALL CopyMessageHeaders(); 
+		  	CALL CopyEntireMessage();
+			RETURN TRUE;
+		ELSE 
 		-- Prepare some of the variables needed from the message and from the routing rules		
 		DECLARE eventName CHARACTER FIELDNAME(InputRoot.XMLNSC.*[<]);
 		DECLARE sourceSuffix CHARACTER FIELDVALUE(InputRoot.XMLNSC.*[<].(XMLNSC.Attribute)sourceSuffix);
-		DECLARE source CHARACTER 'BAD';
-		DECLARE inputMethod CHARACTER 'BAD';
+		DECLARE remoteHost CHARACTER FIELDVALUE(InputRoot.XMLNSC.*[<].(XMLNSC.Attribute)remoteHost);
+		DECLARE source CHARACTER 'UNKNOWN';
+		DECLARE inputMethod CHARACTER 'NULL';		
 		DECLARE inputMethodAttribute CHARACTER FIELDVALUE(InputRoot.XMLNSC.*[<].(XMLNSC.Attribute)inputMethod);
-		IF sourceSuffix IS NOT NULL THEN
-			SET source = source || '-' || sourceSuffix;
-		END IF;
+		
+		-- If an input method was added to the event, use it for logging
 		IF inputMethodAttribute IS NOT NULL THEN
 			SET inputMethod = inputMethodAttribute;
 		END IF;
+		
+		-- Loop through the event sources and find one that matches the input remote host
+		IF remoteHost IS NOT NULL THEN
+			FOR s AS ruleCache.oslerRoutingRules.sources.source[] DO
+				IF CONTAINS(LOWER(remoteHost), LOWER(s.matchingString)) THEN
+					SET source = s.name;
+				END IF; 
+			END FOR;
+		END IF;
+		IF sourceSuffix IS NOT NULL THEN
+			SET source = source || '-' || sourceSuffix;
+		END IF;
+
 		
 		-- Create a message to send to the logger service (the console)
 		CALL CopyMessageHeaders();
 		SET OutputRoot.XMLNSC.logEvent.event = eventName;
 		SET OutputRoot.XMLNSC.logEvent.source = source;
 		SET OutputRoot.XMLNSC.logEvent.inputMethod = inputMethod;
-		PROPAGATE TO LABEL 'LOG' FINALIZE DEFAULT;
+		PROPAGATE TO LABEL 'LOG';
 		
 		DECLARE i INTEGER 1;
 		DECLARE count INTEGER;
@@ -62,7 +72,11 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 		  SET i = i+1; 
 		END WHILE; 
 		  
-		RETURN FALSE;
+		  
+		RETURN FALSE;		
+		END IF;
+		
+
 	END;
 
 	CREATE PROCEDURE CopyMessageHeaders() BEGIN
@@ -81,23 +95,6 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 
 END MODULE;
 
-CREATE COMPUTE MODULE ProcessEvent_RefreshCache
-	CREATE FUNCTION Main() RETURNS BOOLEAN
-	BEGIN
-		-- Set the routing rules data into the shared mem cache
-		SET ruleCache.oslerRoutingRules = InputRoot.XMLNSC.oslerRoutingRules;
-		SET ruleCache.valid = TRUE;
-		-- Swap the event back into the message body
-		IF Environment.Variables.EventBody IS NULL THEN
-			THROW USER EXCEPTION VALUES ('Tried to refresh cache but EventBody was lost in the process.');
-		END IF;
-		
-		SET ruleRefreshAttempts = 0; -- Refresh succeeded, so reset attempt counter
-		SET OutputRoot = Environment.Variables.EventBody;
-		RETURN TRUE;
-	END;
-END MODULE;
-
 CREATE COMPUTE MODULE RefreshRoutingRules_SetURL
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
@@ -109,14 +106,80 @@ END MODULE;
 CREATE COMPUTE MODULE ProcessEvent_ReplyWithRules
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		IF ruleCache.valid THEN
-			SET OutputRoot.XMLNSC = ruleCache.oslerRoutingRules;
-			RETURN TRUE;
-		ELSE 
+		IF CARDINALITY(ruleCache.oslerRoutingRules[]) = 0 THEN
 			-- No cached rules, so proceed to refresh them
-			SET Environment.Variables.EventBody = InputRoot;
+			CALL CopyMessageHeaders(); 
+		  	CALL CopyEntireMessage();			
 			PROPAGATE TO TERMINAL 'out1' FINALIZE DEFAULT;
 			RETURN FALSE;
+		ELSE 
+			SET OutputRoot = ruleCache.oslerRoutingRules;
+			RETURN TRUE;
 		END IF;		
+	END;
+	
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;
+
+-- Sets the routing rules into the local mem cache and then swaps the event back into the root
+CREATE COMPUTE MODULE ProcessEvent_RefreshCache
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- Set the routing rules data into the shared mem cache
+		SET ruleCache.oslerRoutingRules = InputRoot.XMLNSC.oslerRoutingRules;		
+		-- Swap the event back into the message body
+		IF CARDINALITY(Environment.Variables.EventBody[]) = 0 THEN
+			THROW USER EXCEPTION VALUES ('Tried to refresh cache but EventBody was lost in the process.',InputLocalEnvironment.Variables.EventBody);
+		ELSE 
+			SET ruleRefreshAttempts = 0; -- Refresh succeeded, so reset attempt counter
+			SET OutputRoot = Environment.Variables.EventBody;
+			RETURN TRUE;
+		END IF;		
+	END;
+END MODULE;
+
+-- Swaps out the event and continues
+CREATE COMPUTE MODULE ProcessEvent_SwapMessage
+		
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- Swap the input to a safe location in the local environment variables section
+		SET Environment.Variables.EventBody = InputRoot;
+		RETURN TRUE;
+	END;
+
+END MODULE;
+
+
+CREATE COMPUTE MODULE ProcessEvent_GenError
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyMessageHeaders();
+		DECLARE EventName CHARACTER;
+		SET EventName = FIELDNAME(InputRoot.XMLNSC.*[<]) || 'Response';
+		CREATE LASTCHILD OF OutputRoot.XMLNSC TYPE NameValue  NAME EventName VALUE 'Message was received but failed to be propagated. Check the message broeker logs.';		
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
 	END;
 END MODULE;
