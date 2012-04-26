@@ -13,36 +13,36 @@
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/OslerMessageBrokerFlows/icons/full/obj30/ProcessEvent.gif"/>
     <shortDescription xmi:type="utility:ConstantString" string="Processes events from the incoming queue and sends them out in the proper manner"/>
     <composition>
-      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="10,21" queueName="OSLER_INCOMING" messageDomainProperty="XMLNSC">
+      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="10,21" queueName="OSLER_INCOMING" messageDomainProperty="XMLNS">
         <translation xmi:type="utility:ConstantString" string="From Incoming"/>
         <shortDescription xmi:type="utility:ConstantString" string="Get event from the Incoming queue"/>
       </nodes>
-      <nodes xmi:type="ComIbmWSRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="330,289" URLSpecifier="http://bad.uottawa.ca/noservice" messageDomainProperty="XMLNSC">
+      <nodes xmi:type="ComIbmWSRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="330,289" URLSpecifier="http://bad.uottawa.ca/noservice" messageDomainProperty="XMLNS" responseMsgLocationInTree="OutputRoot.Response">
         <translation xmi:type="utility:ConstantString" string="To Destination"/>
         <shortDescription xmi:type="utility:ConstantString" string="Sends the messages via HTTP to the destination that was set in &quot;Apply Routing Rules&quot;"/>
       </nodes>
       <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="26,237" labelName="SOAP">
         <translation xmi:type="utility:ConstantString" string="If SOAP"/>
       </nodes>
-      <nodes xmi:type="ComIbmSOAPEnvelope.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="158,234" createEnvelope="true">
+      <nodes xmi:type="ComIbmSOAPEnvelope.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="158,237" createEnvelope="true">
         <translation xmi:type="utility:ConstantString" string="Create Envelope"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="476,279" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Request to ${LocalEnvironment.Destination.HTTP.RequestUrl} failed with status code ${Root.HTTPResponseHeader.&quot;X-Original-HTTP-Status-Code&quot;}">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="473,279" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Request to ${LocalEnvironment.Destination.HTTP.RequestUrl} failed with status code ${Root.HTTPResponseHeader.&quot;X-Original-HTTP-Status-Code&quot;}">
         <translation xmi:type="utility:ConstantString" string="Log HTTP Error"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_10" location="479,143" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Request to ${LocalEnvironment.Destination.HTTP.RequestUrl} failed to send from MB">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_10" location="477,143" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Request to ${LocalEnvironment.Destination.HTTP.RequestUrl} failed to send from MB">
         <translation xmi:type="utility:ConstantString" string="Log HTTP Fail"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_11" location="480,218" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Event service ${Root.HTTPRequestHeader.&quot;X-Server-Name&quot;} replied with status code ${Root.HTTPResponseHeader.&quot;X-Original-HTTP-Status-Code&quot;}">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_11" location="480,218" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Event service replied with status code ${Root.HTTPResponseHeader.&quot;X-Original-HTTP-Status-Code&quot;}">
         <translation xmi:type="utility:ConstantString" string="Log Success"/>
       </nodes>
       <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_19" location="24,318" labelName="HTTP">
         <translation xmi:type="utility:ConstantString" string="If HTTP"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="253,22" computeExpression="esql://routine/osler.mb#ProcessEvent_ApplyRoutingRules.Main" computeMode="all" treatWarningsAsErrors="true">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="253,21" computeExpression="esql://routine/osler.mb#ProcessEvent_ApplyRoutingRules.Main" computeMode="all" treatWarningsAsErrors="true">
         <translation xmi:type="utility:ConstantString" string="Apply Routing Rules"/>
       </nodes>
-      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="490,22" labelName="LOG">
+      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="490,21" labelName="LOG">
         <translation xmi:type="utility:ConstantString" string="Log"/>
       </nodes>
       <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="598,21" queueManagerName="MB7QMGR" queueName="OSLER_LOG" transactionMode="no" persistenceMode="no">
@@ -52,19 +52,19 @@
         <translation xmi:type="utility:ConstantString" string="To Local"/>
         <shortDescription xmi:type="utility:ConstantString" string="Copies the routing rules to the local drive"/>
       </nodes>
-      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_14" location="4,454" URLSpecifier="/http/updateRoutingRules" messageDomainProperty="XMLNSC">
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_14" location="4,454" URLSpecifier="/http/updateRoutingRules" messageDomainProperty="XMLNS">
         <translation xmi:type="utility:ConstantString" string="/http/updateRoutingRules"/>
       </nodes>
       <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_15" location="178,481" filePath="C:\MQSIFileInput\routing-rules-log.txt" pattern="${CURRENT_TIMESTAMP} - Received updated routing rules from ${Root.HTTPRequestHeader.&quot;X-Remote-Host&quot;}">
         <translation xmi:type="utility:ConstantString" string="Log Update"/>
       </nodes>
-      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_17" location="400,479" URLSpecifier="/http/getRoutingRules" messageDomainProperty="XMLNSC">
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_17" location="400,479" URLSpecifier="/http/getRoutingRules" messageDomainProperty="XMLNS">
         <translation xmi:type="utility:ConstantString" string="/http/getRoutingRules"/>
       </nodes>
       <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_20" location="602,476">
         <translation xmi:type="utility:ConstantString" string="Reply with Rules"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_21" location="522,475" computeExpression="esql://routine/osler.mb#ProcessEvent_ReplyWithRules.Main" computeMode="destinationAndMessage" treatWarningsAsErrors="true">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_21" location="523,475" computeExpression="esql://routine/osler.mb#ProcessEvent_ReplyWithRules.Main" computeMode="destinationAndMessage" treatWarningsAsErrors="true">
         <translation xmi:type="utility:ConstantString" string="Get Rules"/>
       </nodes>
       <nodes xmi:type="osler_mb_RefreshRoutingRules.msgflow:FCMComposite_1" xmi:id="FCMComposite_1_34" location="517,387" rotation="RIGHT_TO_LEFT">
@@ -73,16 +73,16 @@
       <nodes xmi:type="osler_mb_RefreshRoutingRules.msgflow:FCMComposite_1" xmi:id="FCMComposite_1_29" location="192,115" rotation="RIGHT_TO_LEFT">
         <translation xmi:type="utility:ConstantString" string="Refresh Rules"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_16" location="119,21" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Event incoming [event=${FIELDNAME(Root.XMLNSC.*[&lt;])}, method=${FIELDVALUE(Root.XMLNSC.*[>].(XMLNSC.Attribute)inputMethod)}]">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_16" location="119,21" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Event incoming [event=${FIELDNAME(Root.XMLNS.*[&lt;])}, method=${FIELDVALUE(Root.XMLNS.*[&lt;].(XML.Attribute)inputMethod)}]&#xD;&#xA;Root: ${Root}">
         <translation xmi:type="utility:ConstantString" string="Incoming"/>
       </nodes>
       <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_18" location="274,186" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Add Envelope failed">
         <translation xmi:type="utility:ConstantString" string="Envelope Fail"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_25" location="53,120" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Queue caught event  [event=${FIELDNAME(Root.XMLNSC.*[&lt;])}, method=${FIELDVALUE(Root.XMLNSC.*[&lt;].(XMLNSC.Attribute)inputMethod)}]">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_25" location="79,115" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Queue caught event  [event=${FIELDNAME(Root.XMLNS.*[&lt;])}, method=${FIELDVALUE(Root.XMLNS.*[&lt;].(XML.Attribute)inputMethod)}]&#xD;&#xA;Errors: ${ExceptionList}">
         <translation xmi:type="utility:ConstantString" string="Queue Catch"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_26" location="83,235" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Preparing to send SOAP [event=${FIELDNAME(Root.XMLNSC.*[&lt;])}, method=${FIELDVALUE(Root.XMLNSC.*[&lt;].(XMLNSC.Attribute)inputMethod)}]">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_26" location="83,237" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Preparing to send SOAP [event=${FIELDNAME(Root.XMLNS.*[&lt;])}, method=${FIELDVALUE(Root.XMLNS.*[&lt;].(XML.Attribute)inputMethod)}]">
         <translation xmi:type="utility:ConstantString" string="Pre SOAP"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_5" targetNode="FCMComposite_1_9" sourceNode="FCMComposite_1_4" sourceTerminalName="OutTerminal.error" targetTerminalName="InTerminal.in"/>

@@ -6,8 +6,8 @@ CREATE COMPUTE MODULE HttpIn_AppendMethod
 	BEGIN
 		CALL CopyMessageHeaders();
 		CALL CopyEntireMessage();
-		SET OutputRoot.XMLNSC.*[<].(XMLNSC.Attribute)inputMethod = 'HTTP';
-		SET OutputRoot.XMLNSC.*[<].(XMLNSC.Attribute)remoteHost = InputRoot.HTTPInputHeader."X-Server-Name";		
+		SET OutputRoot.XMLNS.*[<].inputMethod = 'HTTP';
+		SET OutputRoot.XMLNS.*[<].remoteHost = InputRoot.HTTPInputHeader."X-Server-Name";		
 		RETURN TRUE;
 	END;
 

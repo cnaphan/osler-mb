@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmCompute.msgnode="ComIbmCompute.msgnode" xmlns:ComIbmFileOutput.msgnode="ComIbmFileOutput.msgnode" xmlns:ComIbmFileRead.msgnode="ComIbmFileRead.msgnode" xmlns:ComIbmThrow.msgnode="ComIbmThrow.msgnode" xmlns:ComIbmTrace.msgnode="ComIbmTrace.msgnode" xmlns:ComIbmValidate.msgnode="ComIbmValidate.msgnode" xmlns:ComIbmWSRequest.msgnode="ComIbmWSRequest.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow"
-    xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="osler/mb/RefreshRoutingRules.msgflow"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmCompute.msgnode="ComIbmCompute.msgnode" xmlns:ComIbmFileOutput.msgnode="ComIbmFileOutput.msgnode" xmlns:ComIbmFileRead.msgnode="ComIbmFileRead.msgnode" xmlns:ComIbmResetContentDescriptor.msgnode="ComIbmResetContentDescriptor.msgnode" xmlns:ComIbmThrow.msgnode="ComIbmThrow.msgnode" xmlns:ComIbmTrace.msgnode="ComIbmTrace.msgnode" xmlns:ComIbmValidate.msgnode="ComIbmValidate.msgnode" xmlns:ComIbmWSRequest.msgnode="ComIbmWSRequest.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="osler/mb/RefreshRoutingRules.msgflow"
     nsPrefix="osler_mb_RefreshRoutingRules.msgflow">
   <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1">
     <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
@@ -12,69 +12,67 @@
     <longDescription xmi:type="utility:ConstantString" string="First, tries to read the rules from a local file"/>
     <version xmi:type="utility:ConstantString" string="1"/>
     <composition>
-      <nodes xmi:type="eflow:FCMSource" xmi:id="InTerminal.Input" location="6,190">
+      <nodes xmi:type="eflow:FCMSource" xmi:id="InTerminal.Input" location="6,126">
         <translation xmi:type="utility:TranslatableString" key="InTerminal.From%20Flow" bundleName="osler/mb/RefreshRoutingRules" pluginId="OslerMessageBrokerFlows"/>
       </nodes>
       <nodes xmi:type="eflow:FCMSink" xmi:id="OutTerminal.Output" location="715,126">
         <translation xmi:type="utility:TranslatableString" key="OutTerminal.Back%20to%20Flow" bundleName="osler/mb/RefreshRoutingRules" pluginId="OslerMessageBrokerFlows"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="236,269" computeExpression="esql://routine/osler.mb#RefreshRoutingRules_SetURL.Main" computeMode="destination">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="233,203" computeExpression="esql://routine/osler.mb#RefreshRoutingRules_SetURL.Main" computeMode="destination">
         <translation xmi:type="utility:ConstantString" string="Set URL"/>
         <shortDescription xmi:type="utility:ConstantString" string="Sets the URL for getting the default routing rules from a web service"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="344,119" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Read local routing rules">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="342,61" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Read local routing rules  [event=${FIELDNAME(Environment.EventBody.*[&lt;])}, method=${FIELDVALUE(Environment.EventBody.*[&lt;].(XML.Attribute)inputMethod)}]">
         <translation xmi:type="utility:ConstantString" string="Read Local"/>
       </nodes>
-      <nodes xmi:type="ComIbmFileRead.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="155,195" inputDirectory="/routing/" filenamePattern="routing-rules.xml" messageDomainProperty="XMLNSC" parserXmlnscUseForXmlnsDomain="true">
+      <nodes xmi:type="ComIbmFileRead.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="155,126" inputDirectory="/routing/" filenamePattern="routing-rules.xml" messageDomainProperty="XMLNS">
         <translation xmi:type="utility:ConstantString" string="Read Rules"/>
       </nodes>
-      <nodes xmi:type="ComIbmWSRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="308,296" URLSpecifier="http://bad.uottawa.ca/noservice" httpMethod="GET" messageDomainProperty="XMLNSC" parserXmlnscUseForXmlnsDomain="true" replaceInputMsgWithWSResponse="false" responseMsgLocationInTree="OutputRoot.XMLNSC">
+      <nodes xmi:type="ComIbmWSRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="285,247" URLSpecifier="http://bad.uottawa.ca/noservice" httpMethod="GET" messageDomainProperty="XMLNS" parserXmlnscUseForXmlnsDomain="true" replaceInputMsgWithWSResponse="false" responseMsgLocationInTree="OutputRoot.XMLNSC">
         <translation xmi:type="utility:ConstantString" string="Get Default Rules"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="399,241" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Got remote rules">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="393,229" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Got remote rules [event=${FIELDNAME(Root.XMLNS.*[&lt;])}, method=${FIELDVALUE(Root.XMLNS.*[&lt;].(XML.Attribute)inputMethod)}]">
         <translation xmi:type="utility:ConstantString" string="Read Remote"/>
       </nodes>
-      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="493,207" outputDirectory="/routing/" outputFilename="routing-rules.xml" outputMode="archiveAndReplace" replaceDuplicateArchives="true">
+      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="476,254" outputDirectory="/routing/" outputFilename="routing-rules.xml" outputMode="archiveAndReplace" replaceDuplicateArchives="true">
         <translation xmi:type="utility:ConstantString" string="To Local File"/>
         <shortDescription xmi:type="utility:ConstantString" string="Writes the rules to a local file"/>
       </nodes>
-      <nodes xmi:type="ComIbmThrow.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_12" location="400,412" messageText="The getDefaultRoutingRules service returned status code ${Root.HTTPResponseHeader.&quot;X-Original-HTTP-Status-Code&quot;}">
+      <nodes xmi:type="ComIbmThrow.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_12" location="368,397" messageText="The getDefaultRoutingRules service returned status code ${Root.HTTPResponseHeader.&quot;X-Original-HTTP-Status-Code&quot;}">
         <translation xmi:type="utility:ConstantString" string="Service Error"/>
       </nodes>
-      <nodes xmi:type="ComIbmThrow.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_13" location="477,398" messageText="The getDefaultRoutingRules service failed to call">
+      <nodes xmi:type="ComIbmThrow.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_13" location="372,324" messageText="The getDefaultRoutingRules service failed to call">
         <translation xmi:type="utility:ConstantString" string="Service Fail"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="555,126" computeExpression="esql://routine/osler.mb#ProcessEvent_RefreshCache.Main" computeMode="destinationAndMessage" treatWarningsAsErrors="true">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="516,126" computeExpression="esql://routine/osler.mb#ProcessEvent_RefreshCache.Main" computeMode="all" treatWarningsAsErrors="true">
         <translation xmi:type="utility:ConstantString" string="Refresh Cache"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="69,192" computeExpression="esql://routine/osler.mb#ProcessEvent_SwapMessage.Main" computeMode="destinationAndMessage" treatWarningsAsErrors="true">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="69,126" computeExpression="esql://routine/osler.mb#ProcessEvent_SwapMessage.Main" computeMode="all" treatWarningsAsErrors="true">
         <translation xmi:type="utility:ConstantString" string="Swap Message"/>
       </nodes>
-      <nodes xmi:type="ComIbmValidate.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="647,123" domain="XMLNSC" checkDomain="true" validateMaster="contentAndValue">
-        <translation xmi:type="utility:ConstantString" string="Validate"/>
-        <shortDescription xmi:type="utility:ConstantString" string="Ensures that the body passed back is valid against the XMLNSC namespace"/>
-      </nodes>
-      <nodes xmi:type="ComIbmThrow.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_10" location="687,27" messageText="Attempt to validate EventBody failed">
-        <translation xmi:type="utility:ConstantString" string="Validate Fail"/>
-      </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_11" location="639,193" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Swapped back event ${FIELDNAME(Root.XMLNSC.*[&lt;])}">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_11" location="666,126" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Swapped back event  [event=${FIELDNAME(Root.XMLNS.*[&lt;])}, method=${FIELDVALUE(Root.XMLNS.*[&lt;].(XML.Attribute)inputMethod)}]">
         <translation xmi:type="utility:ConstantString" string="Swap"/>
+      </nodes>
+      <nodes xmi:type="ComIbmResetContentDescriptor.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="600,60" messageDomain="XMLNS" resetMessageDomain="true" validateTiming="immediate" parserXmlnscUseForXmlnsDomain="true">
+        <translation xmi:type="utility:ConstantString" string="Re-Parse"/>
+      </nodes>
+      <nodes xmi:type="ComIbmValidate.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_14" location="601,123" domain="XMLNS" checkDomain="true">
+        <translation xmi:type="utility:ConstantString" string="Validate"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_5" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_7" targetNode="FCMComposite_1_6" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_10" targetNode="FCMComposite_1_8" sourceNode="FCMComposite_1_6" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_11" targetNode="FCMComposite_1_9" sourceNode="FCMComposite_1_8" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_6" targetNode="FCMComposite_1_12" sourceNode="FCMComposite_1_6" sourceTerminalName="OutTerminal.error" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_8" targetNode="FCMComposite_1_13" sourceNode="FCMComposite_1_6" sourceTerminalName="OutTerminal.failure" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_3" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_9" targetNode="FCMComposite_1_7" sourceNode="InTerminal.Input" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_12" targetNode="FCMComposite_1_5" sourceNode="FCMComposite_1_7" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_15" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_9" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_16" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_5" sourceTerminalName="OutTerminal.noMatch" targetTerminalName="InTerminal.in"/>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_1" sourceNode="FCMComposite_1_4" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_4" targetNode="OutTerminal.Output" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.match" targetTerminalName="InTerminal.in"/>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_5" targetNode="FCMComposite_1_10" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.failure" targetTerminalName="InTerminal.in"/>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_13" targetNode="FCMComposite_1_11" sourceNode="FCMComposite_1_4" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_17" targetNode="OutTerminal.Output" sourceNode="FCMComposite_1_11" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_22" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_8" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_23" targetNode="FCMComposite_1_9" sourceNode="FCMComposite_1_8" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_25" targetNode="FCMComposite_1_14" sourceNode="FCMComposite_1_4" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_26" targetNode="FCMComposite_1_11" sourceNode="FCMComposite_1_14" sourceTerminalName="OutTerminal.match" targetTerminalName="InTerminal.in"/>
     </composition>
     <propertyOrganizer/>
     <stickyBoard/>

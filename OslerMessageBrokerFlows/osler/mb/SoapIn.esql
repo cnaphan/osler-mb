@@ -8,11 +8,11 @@ CREATE COMPUTE MODULE SoapIn_Generate_Ack
 		
 		-- Extract the event name from the name of the first element of the body
 		DECLARE EventName CHARACTER;
-		SET EventName = FIELDNAME(InputRoot.XMLNSC.*[<]) || 'Response';
+		SET EventName = FIELDNAME(InputRoot.XMLNS.*[<]) || 'Response';
 		
 		-- Create the response message
 		-- Insert this between TYPE and NAME to get a namespace: NAMESPACE 'http://patientflowmonitoring/'
-		CREATE LASTCHILD OF OutputRoot.XMLNSC TYPE NameValue  NAME EventName VALUE 'Message received';
+		CREATE LASTCHILD OF OutputRoot.XMLNS TYPE XML.Element  NAME EventName VALUE 'Message received';
 		
 		SET OutputLocalEnvironment.Destination.SOAP.Reply.Gateway.OneWay = 'true';
 		RETURN TRUE;
@@ -39,8 +39,8 @@ CREATE COMPUTE MODULE SoapIn_AppendMethod
 	BEGIN
 		CALL CopyMessageHeaders();
 		CALL CopyEntireMessage();
-		SET OutputRoot.XMLNSC.*[<].(XMLNSC.Attribute)inputMethod = 'SOAP';
-		SET OutputRoot.XMLNSC.*[<].(XMLNSC.Attribute)remoteHost = InputRoot.HTTPInputHeader."X-Server-Name";		
+		SET OutputRoot.XMLNS.*[<].(XML.Attribute)inputMethod = 'SOAP';
+		SET OutputRoot.XMLNS.*[<].(XML.Attribute)remoteHost = InputRoot.HTTPInputHeader."X-Server-Name";		
 		RETURN TRUE;
 	END;
 

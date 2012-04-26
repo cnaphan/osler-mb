@@ -10,7 +10,7 @@
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/OslerMessageBrokerFlows/icons/full/obj30/SoapIn.gif"/>
     <shortDescription xmi:type="utility:ConstantString" string="Accepts events via a generic SOAP gateway and puts events onto the incoming queue"/>
     <composition>
-      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="461,183" queueManagerName="MB7QMGR" queueName="OSLER_INCOMING" request="true" replyToQMgr="MB7QMGR" replyToQ="OSLER_SOAP_REPLY">
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="461,183" queueManagerName="MB7QMGR" queueName="OSLER_INCOMING" replyToQMgr="MB7QMGR" replyToQ="OSLER_SOAP_REPLY">
         <translation xmi:type="utility:ConstantString" string="To Incoming Queue"/>
       </nodes>
       <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="474,63">
@@ -22,8 +22,9 @@
       <nodes xmi:type="ComIbmSOAPExtract.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_11" location="119,110">
         <translation xmi:type="utility:ConstantString" string="Strip SOAP"/>
       </nodes>
-      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_12" location="30,114" URLSpecifier="/soap/registerEvent" messageDomainProperty="XMLNSC" parserXmlnscUseForXmlnsDomain="true">
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_12" location="30,114" URLSpecifier="/soap/registerEvent" messageDomainProperty="XMLNS">
         <translation xmi:type="utility:ConstantString" string="From SOAP"/>
+        <nsMappingTable nsPrefix="ns1" namespace="*"/>
       </nodes>
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="243,74" computeExpression="esql://routine/osler.mb#SoapIn_Generate_Ack.Main" computeMode="destinationAndMessage">
         <translation xmi:type="utility:ConstantString" string="Generate Ack"/>

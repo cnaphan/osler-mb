@@ -20,7 +20,7 @@
       <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="42,162" queueName="OSLER_LOG" messageDomainProperty="XMLNSC">
         <translation xmi:type="utility:ConstantString" string="From Log Queue"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="463,77" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Logging event[source=${Root.XMLNSC.logEvent.source}, inputMethod=${Root.XMLNSC.logEvent.inputMethod}] to ${LocalEnvironment.Destination.HTTP.RequestURL}">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="463,77" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Logging event[source=${Root.XMLNS.logEvent.source}, inputMethod=${Root.XMLNS.logEvent.inputMethod}] to ${LocalEnvironment.Destination.HTTP.RequestURL}">
         <translation xmi:type="utility:ConstantString" string="Log Success"/>
       </nodes>
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="149,162" computeExpression="esql://routine/osler.mb#LogEvent_Set_URL.Main" computeMode="destinationAndMessage">
@@ -29,7 +29,7 @@
       <nodes xmi:type="ComIbmTryCatch.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="241,162">
         <translation xmi:type="utility:ConstantString" string="Try Catch"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="354,49" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Caught error sending log event[source=${Root.XMLNSC.logEvent.source}, inputMethod=${Root.XMLNSC.logEvent.inputMethod}] to ${LocalEnvironment.Destination.HTTP.RequestURL} ">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="354,49" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Caught error sending log event[source=${Root.XMLNS.logEvent.source}, inputMethod=${Root.XMLNS.logEvent.inputMethod}] to ${LocalEnvironment.Destination.HTTP.RequestURL} ">
         <translation xmi:type="utility:ConstantString" string="Log Exception"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.error" targetTerminalName="InTerminal.in"/>

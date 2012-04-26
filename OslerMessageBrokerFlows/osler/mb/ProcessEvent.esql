@@ -17,18 +17,21 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 					
 		IF CARDINALITY(ruleCache.oslerRoutingRules[]) = 0 THEN
 			-- If the routing rules in shared memory is null, then go into the refresh routing rules sub-flow
+			IF ruleRefreshAttempts > 0 THEN
+				THROW USER EXCEPTION VALUES ('Attempted to get routing-rules twice in a row. Failed...');
+			END IF;
 			SET ruleRefreshAttempts = ruleRefreshAttempts + 1; 
 		  	CALL CopyMessageHeaders(); 
 		  	CALL CopyEntireMessage();
 			RETURN TRUE;
 		ELSE 
 		-- Prepare some of the variables needed from the message and from the routing rules		
-		DECLARE eventName CHARACTER FIELDNAME(InputRoot.XMLNSC.*[<]);
-		DECLARE sourceSuffix CHARACTER FIELDVALUE(InputRoot.XMLNSC.*[<].(XMLNSC.Attribute)sourceSuffix);
-		DECLARE remoteHost CHARACTER FIELDVALUE(InputRoot.XMLNSC.*[<].(XMLNSC.Attribute)remoteHost);
+		DECLARE eventName CHARACTER FIELDNAME(InputRoot.XMLNS.*[<]);
+		DECLARE sourceSuffix CHARACTER FIELDVALUE(InputRoot.XMLNS.*[<].(XML.Attribute)sourceSuffix);
+		DECLARE remoteHost CHARACTER FIELDVALUE(InputRoot.XMLNS.*[<].(XML.Attribute)remoteHost);
 		DECLARE source CHARACTER 'UNKNOWN';
 		DECLARE inputMethod CHARACTER 'NULL';		
-		DECLARE inputMethodAttribute CHARACTER FIELDVALUE(InputRoot.XMLNSC.*[<].(XMLNSC.Attribute)inputMethod);
+		DECLARE inputMethodAttribute CHARACTER FIELDVALUE(InputRoot.XMLNS.*[<].(XML.Attribute)inputMethod);
 		
 		-- If an input method was added to the event, use it for logging
 		IF inputMethodAttribute IS NOT NULL THEN
@@ -50,9 +53,9 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 		
 		-- Create a message to send to the logger service (the console)
 		CALL CopyMessageHeaders();
-		SET OutputRoot.XMLNSC.logEvent.event = eventName;
-		SET OutputRoot.XMLNSC.logEvent.source = source;
-		SET OutputRoot.XMLNSC.logEvent.inputMethod = inputMethod;
+		SET OutputRoot.XMLNS.logEvent.event = eventName;
+		SET OutputRoot.XMLNS.logEvent.source = source;
+		SET OutputRoot.XMLNS.logEvent.inputMethod = inputMethod;
 		PROPAGATE TO LABEL 'LOG';
 		
 		DECLARE i INTEGER 1;
@@ -60,16 +63,19 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 		SET count = 3;
 		
 		WHILE i <= count DO 
-		  CALL CopyMessageHeaders(); 
-		  CALL CopyEntireMessage();
+			CALL CopyMessageHeaders(); 
+			CALL CopyEntireMessage();
+			SET OutputRoot.XMLNS.*[<].remoteHost = NULL;
+			SET OutputRoot.XMLNS.*[<].sourceSuffix = NULL;
+			SET OutputRoot.XMLNS.*[<].inputMethod = NULL;
 		  
 		  
-		  SET OutputLocalEnvironment.Destination.RouterList.DestinationData."label" = 'SOAP';
-		  SET OutputLocalEnvironment.Destination.HTTP.RequestURL = 'http://osler.eecs.uottawa.ca/PFM/services/PFMServer';
+		  	SET OutputLocalEnvironment.Destination.RouterList.DestinationData."label" = 'SOAP';
+		  	SET OutputLocalEnvironment.Destination.HTTP.RequestURL = 'http://osler.eecs.uottawa.ca/PFM/services/PFMServer';
 		  
 		  
-		  PROPAGATE TO LABEL 'SOAP'; 
-		  SET i = i+1; 
+		  	PROPAGATE TO LABEL 'SOAP'; 
+		  	SET i = i+1; 
 		END WHILE; 
 		  
 		  
@@ -133,46 +139,37 @@ CREATE COMPUTE MODULE ProcessEvent_ReplyWithRules
 	END;
 END MODULE;
 
--- Sets the routing rules into the local mem cache and then swaps the event back into the root
-CREATE COMPUTE MODULE ProcessEvent_RefreshCache
-	CREATE FUNCTION Main() RETURNS BOOLEAN
-	BEGIN
-		-- Set the routing rules data into the shared mem cache
-		SET ruleCache.oslerRoutingRules = InputRoot.XMLNSC.oslerRoutingRules;		
-		-- Swap the event back into the message body
-		IF CARDINALITY(Environment.Variables.EventBody[]) = 0 THEN
-			THROW USER EXCEPTION VALUES ('Tried to refresh cache but EventBody was lost in the process.',InputLocalEnvironment.Variables.EventBody);
-		ELSE 
-			SET ruleRefreshAttempts = 0; -- Refresh succeeded, so reset attempt counter
-			SET OutputRoot = Environment.Variables.EventBody;
-			RETURN TRUE;
-		END IF;		
-	END;
-END MODULE;
-
 -- Swaps out the event and continues
 CREATE COMPUTE MODULE ProcessEvent_SwapMessage
 		
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- Swap the input to a safe location in the local environment variables section
-		SET Environment.Variables.EventBody = InputRoot;
+		--SET Environment.Variables.EventBody = InputRoot.XMLNS.*[<];
+		CREATE LASTCHILD OF Environment DOMAIN 'XMLNS' NAME 'EventBody';
+		SET Environment.EventBody = InputRoot.XMLNS;
 		RETURN TRUE;
 	END;
 
 END MODULE;
 
-
-CREATE COMPUTE MODULE ProcessEvent_GenError
+-- Sets the routing rules into the local mem cache and then swaps the event back into the root
+CREATE COMPUTE MODULE ProcessEvent_RefreshCache
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		CALL CopyMessageHeaders();
-		DECLARE EventName CHARACTER;
-		SET EventName = FIELDNAME(InputRoot.XMLNSC.*[<]) || 'Response';
-		CREATE LASTCHILD OF OutputRoot.XMLNSC TYPE NameValue  NAME EventName VALUE 'Message was received but failed to be propagated. Check the message broeker logs.';		
-		RETURN TRUE;
+		-- Set the routing rules data into the shared mem cache
+		SET ruleCache.oslerRoutingRules = InputRoot.XMLNS;		
+		-- Swap the event back into the message body
+		IF CARDINALITY(Environment.EventBody[]) = 0 THEN
+			THROW USER EXCEPTION VALUES ('Tried to refresh cache but event was lost in the process.',InputLocalEnvironment.Variables.EventBody);
+		ELSE 			
+			SET ruleRefreshAttempts = 0;
+			SET OutputRoot.XMLNS = Environment.EventBody;
+			SET Environment.EventBody = InputRoot.XMLNS; 
+			RETURN TRUE;
+		END IF;		
 	END;
-
+	
 	CREATE PROCEDURE CopyMessageHeaders() BEGIN
 		DECLARE I INTEGER 1;
 		DECLARE J INTEGER;
@@ -183,3 +180,4 @@ CREATE COMPUTE MODULE ProcessEvent_GenError
 		END WHILE;
 	END;
 END MODULE;
+
