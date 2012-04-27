@@ -6,6 +6,7 @@
 *.jar
 *.war
 *.ear
+*.bar
 
 OslerMessageSet/log
 *.mbtest
