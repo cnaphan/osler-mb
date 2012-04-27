@@ -11,16 +11,16 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/OslerMessageBrokerFlows/icons/full/obj16/LogEvent.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/OslerMessageBrokerFlows/icons/full/obj30/LogEvent.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmWSRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="357,161" URLSpecifier="http://bad.uottawa.ca/noservice" messageDomainProperty="XMLNSC" replaceInputMsgWithWSResponse="false" responseMsgLocationInTree="OutputRoot.LogResponse">
+      <nodes xmi:type="ComIbmWSRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="357,161" URLSpecifier="http://bad.uottawa.ca/noservice" messageDomainProperty="BLOB" replaceInputMsgWithWSResponse="false" responseMsgLocationInTree="OutputRoot.BLOB.LogResponse">
         <translation xmi:type="utility:ConstantString" string="Log Event"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="473,277" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Log service returned failure with status code ${Root.HTTPResponseHeader.&quot;X-Original-HTTP-Status-Code&quot;}">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="489,201" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Log service returned failure with status code ${Root.HTTPResponseHeader.&quot;X-Original-HTTP-Status-Code&quot;}">
         <translation xmi:type="utility:ConstantString" string="Trace Log Fail"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="42,162" queueName="OSLER_LOG" messageDomainProperty="XMLNSC">
+      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="42,162" queueName="OSLER_LOG" messageDomainProperty="XMLNS">
         <translation xmi:type="utility:ConstantString" string="From Log Queue"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="463,77" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Logging event[source=${Root.XMLNS.logEvent.source}, inputMethod=${Root.XMLNS.logEvent.inputMethod}] to ${LocalEnvironment.Destination.HTTP.RequestURL}">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="493,97" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Logged event[source=${Root.XMLNS.logEvent.source}, inputMethod=${Root.XMLNS.logEvent.inputMethod}] to ${LocalEnvironment.Destination.HTTP.RequestURL}">
         <translation xmi:type="utility:ConstantString" string="Log Success"/>
       </nodes>
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="149,162" computeExpression="esql://routine/osler.mb#LogEvent_Set_URL.Main" computeMode="destinationAndMessage">
@@ -28,8 +28,10 @@
       </nodes>
       <nodes xmi:type="ComIbmTryCatch.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="241,162">
         <translation xmi:type="utility:ConstantString" string="Try Catch"/>
+        <shortDescription xmi:type="utility:ConstantString" string="Catch any errors that result from sending the log"/>
+        <longDescription xmi:type="utility:ConstantString" string="We don't want exceptions to go back to the queue. If the logging service fails, trace the failure and ignore it."/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="354,49" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Caught error sending log event[source=${Root.XMLNS.logEvent.source}, inputMethod=${Root.XMLNS.logEvent.inputMethod}] to ${LocalEnvironment.Destination.HTTP.RequestURL} ">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="354,49" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Caught error sending log event[source=${Root.XMLNS.logEvent.source}, inputMethod=${Root.XMLNS.logEvent.inputMethod}] to ${LocalEnvironment.Destination.HTTP.RequestURL}. Probable cause is console not running.&#xD;&#xA;Errors: ${ExceptionList}">
         <translation xmi:type="utility:ConstantString" string="Log Exception"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.error" targetTerminalName="InTerminal.in"/>

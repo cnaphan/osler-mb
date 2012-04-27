@@ -10,7 +10,7 @@
     <shortDescription xmi:type="utility:ConstantString" string="Accepts input on a HTTP (REST) web service and puts it on the incoming queue"/>
     <composition>
       <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="29,88" URLSpecifier="/http/RegisterEvent">
-        <translation xmi:type="utility:ConstantString" string="HTTP In"/>
+        <translation xmi:type="utility:ConstantString" string="/http/RegisterEvent"/>
       </nodes>
       <nodes xmi:type="ComIbmHTTPHeader.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="336,86" httpInputHeader="DeleteHeader" httpReplyHeader="CarryForward">
         <translation xmi:type="utility:ConstantString" string="Strip Header"/>
