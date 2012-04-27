@@ -27,13 +27,13 @@
       <nodes xmi:type="ComIbmSOAPEnvelope.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="128,230" createEnvelope="true">
         <translation xmi:type="utility:ConstantString" string="Create Envelope"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="476,355" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Event service ${LocalEnvironment.Destination.HTTP.RequestURL} failed with status code ${Root.HTTPResponseHeader.&quot;X-Original-HTTP-Status-Code&quot;}">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="476,355" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Event service '${LEFT(LocalEnvironment.Destination.HTTP.RequestURL,20)}' returned error with status code ${Root.HTTPResponseHeader.&quot;X-Original-HTTP-Status-Code&quot;}&#xD;&#xA;Message: ${Root.XMLNS}">
         <translation xmi:type="utility:ConstantString" string="Log HTTP Error"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_10" location="480,219" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Event service ${LocalEnvironment.Destination.HTTP.RequestURL} failed to send from broker">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_10" location="480,219" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Event service '${LEFT(LocalEnvironment.Destination.HTTP.RequestURL,20)}' failed to send from broker">
         <translation xmi:type="utility:ConstantString" string="Log HTTP Fail"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_11" location="483,294" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Event service ${LocalEnvironment.Destination.HTTP.RequestURL} replied with status code ${Root.HTTPResponseHeader.&quot;X-Original-HTTP-Status-Code&quot;}">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_11" location="483,294" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Event service '${LEFT(LocalEnvironment.Destination.HTTP.RequestURL,20)}' replied with status code ${Root.HTTPResponseHeader.&quot;X-Original-HTTP-Status-Code&quot;}">
         <translation xmi:type="utility:ConstantString" string="Log Success"/>
       </nodes>
       <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_19" location="24,318" labelName="HTTP">
@@ -55,7 +55,7 @@
       <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_14" location="8,498" URLSpecifier="/http/updateRoutingRules" messageDomainProperty="XMLNS">
         <translation xmi:type="utility:ConstantString" string="/http/updateRoutingRules"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_15" location="142,449" filePath="C:\MQSIFileInput\routing-rules-log.txt" pattern="${CURRENT_TIMESTAMP} - Received updated routing rules from ${Root.HTTPInputHeader.&quot;X-Remote-Host&quot;}">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_15" location="142,449" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Received updated routing rules from ${Root.HTTPInputHeader.&quot;X-Remote-Host&quot;}">
         <translation xmi:type="utility:ConstantString" string="Log Update"/>
       </nodes>
       <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_17" location="401,523" URLSpecifier="/http/getRoutingRules">
@@ -76,7 +76,7 @@
       <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_16" location="141,21" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Event incoming [event=${FIELDNAME(Root.XMLNS.*[&lt;])}, method=${FIELDVALUE(Root.XMLNS.*[&lt;].(XML.Attribute)inputMethod)}, remoteHost=${FIELDVALUE(Root.XMLNS.*[&lt;].(XML.Attribute)remoteHost)}]">
         <translation xmi:type="utility:ConstantString" string="Incoming"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_18" location="218,191" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Event service ${LocalEnvironment.Destination.HTTP.RequestURL} failed to add envelope. Parser is corrupt or message is null.">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_18" location="218,191" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Event service '${LEFT(LocalEnvironment.Destination.HTTP.RequestURL,20)}' failed to add envelope. Parser is corrupt or message is null.">
         <translation xmi:type="utility:ConstantString" string="Envelope Fail"/>
       </nodes>
       <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_25" location="136,108" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Queue caught event  [event=${FIELDNAME(Root.XMLNS.*[&lt;])}, method=${FIELDVALUE(Root.XMLNS.*[&lt;].(XML.Attribute)inputMethod)}]&#xD;&#xA;Errors: ${ExceptionList}">

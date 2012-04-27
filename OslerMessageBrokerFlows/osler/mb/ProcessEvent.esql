@@ -66,7 +66,7 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 		-- WHILE i <= CARDINALITY(ruleCache.oslerRoutingRules.destinations.destination[]) DO
 		FOR d AS ruleCache.oslerRoutingRules.destinations.destination[] DO
 			-- Only process this destination if it is not disabled
-			IF NOT UPPER(d.(XML.Attribute)disabled) = 'TRUE' THEN 	
+			--IF NOT (UPPER(FIELDVALUE(d.(XML.Attribute)disabled)) = 'TRUE') THEN 	
 				-- Test to see if this destination routes to this event (assume not at first)
 			  	DECLARE hasEvent BOOLEAN FALSE;
 			  	FOR e AS d.receives.event[] DO
@@ -94,7 +94,7 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 				  	-- Increment the number of messages sent (for possible tracing purposes)
 				  	SET numSent = numSent + 1; 
 			  	END IF;
-			END IF; -- If not disabled
+			--END IF; -- If not disabled
 		END FOR; 		  
 		  
 		RETURN FALSE; -- Do not propagate normally
