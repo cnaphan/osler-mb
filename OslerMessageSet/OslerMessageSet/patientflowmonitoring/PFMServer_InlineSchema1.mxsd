@@ -1,0 +1,713 @@
+<?xml version="1.0" encoding="UTF-8"?><xs:schema elementFormDefault="unqualified" targetNamespace="http://patientflowmonitoring/" version="1.0" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://patientflowmonitoring/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<xs:element name="bedRequest" type="tns:bedRequest">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/bedRequest;XSDElementDeclaration$MRObject" schemaObject="/0/bedRequest;XSDElementDeclaration"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="bedRequestResponse" type="tns:bedRequestResponse">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/bedRequestResponse;XSDElementDeclaration=1$MRObject" schemaObject="/0/bedRequestResponse;XSDElementDeclaration=1"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="consultationCompleted1" type="tns:consultationCompleted1">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/consultationCompleted1;XSDElementDeclaration=2$MRObject" schemaObject="/0/consultationCompleted1;XSDElementDeclaration=2"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="consultationCompleted1Response" type="tns:consultationCompleted1Response">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/consultationCompleted1Response;XSDElementDeclaration=3$MRObject" schemaObject="/0/consultationCompleted1Response;XSDElementDeclaration=3"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="consultationCompleted2" type="tns:consultationCompleted2">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/consultationCompleted2;XSDElementDeclaration=4$MRObject" schemaObject="/0/consultationCompleted2;XSDElementDeclaration=4"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="consultationCompleted2Response" type="tns:consultationCompleted2Response">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/consultationCompleted2Response;XSDElementDeclaration=5$MRObject" schemaObject="/0/consultationCompleted2Response;XSDElementDeclaration=5"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="consultationStarted1" type="tns:consultationStarted1">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/consultationStarted1;XSDElementDeclaration=6$MRObject" schemaObject="/0/consultationStarted1;XSDElementDeclaration=6"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="consultationStarted1Response" type="tns:consultationStarted1Response">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/consultationStarted1Response;XSDElementDeclaration=7$MRObject" schemaObject="/0/consultationStarted1Response;XSDElementDeclaration=7"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="consultationStarted2" type="tns:consultationStarted2">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/consultationStarted2;XSDElementDeclaration=8$MRObject" schemaObject="/0/consultationStarted2;XSDElementDeclaration=8"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="consultationStarted2Response" type="tns:consultationStarted2Response">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/consultationStarted2Response;XSDElementDeclaration=9$MRObject" schemaObject="/0/consultationStarted2Response;XSDElementDeclaration=9"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="discharge" type="tns:discharge">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/discharge;XSDElementDeclaration=10$MRObject" schemaObject="/0/discharge;XSDElementDeclaration=10"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="dischargeResponse" type="tns:dischargeResponse">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/dischargeResponse;XSDElementDeclaration=11$MRObject" schemaObject="/0/dischargeResponse;XSDElementDeclaration=11"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="orderExecutionCompleted" type="tns:orderExecutionCompleted">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/orderExecutionCompleted;XSDElementDeclaration=12$MRObject" schemaObject="/0/orderExecutionCompleted;XSDElementDeclaration=12"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="orderExecutionCompletedResponse" type="tns:orderExecutionCompletedResponse">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/orderExecutionCompletedResponse;XSDElementDeclaration=13$MRObject" schemaObject="/0/orderExecutionCompletedResponse;XSDElementDeclaration=13"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="orderRequest" type="tns:orderRequest">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/orderRequest;XSDElementDeclaration=14$MRObject" schemaObject="/0/orderRequest;XSDElementDeclaration=14"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="orderRequestCompleted" type="tns:orderRequestCompleted">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/orderRequestCompleted;XSDElementDeclaration=15$MRObject" schemaObject="/0/orderRequestCompleted;XSDElementDeclaration=15"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="orderRequestCompletedResponse" type="tns:orderRequestCompletedResponse">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/orderRequestCompletedResponse;XSDElementDeclaration=16$MRObject" schemaObject="/0/orderRequestCompletedResponse;XSDElementDeclaration=16"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="orderRequestResponse" type="tns:orderRequestResponse">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/orderRequestResponse;XSDElementDeclaration=17$MRObject" schemaObject="/0/orderRequestResponse;XSDElementDeclaration=17"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="patientAdmittedWithBed" type="tns:patientAdmittedWithBed">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/patientAdmittedWithBed;XSDElementDeclaration=18$MRObject" schemaObject="/0/patientAdmittedWithBed;XSDElementDeclaration=18"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="patientAdmittedWithBedResponse" type="tns:patientAdmittedWithBedResponse">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/patientAdmittedWithBedResponse;XSDElementDeclaration=19$MRObject" schemaObject="/0/patientAdmittedWithBedResponse;XSDElementDeclaration=19"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="patientAdmittedWithNoBed" type="tns:patientAdmittedWithNoBed">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/patientAdmittedWithNoBed;XSDElementDeclaration=20$MRObject" schemaObject="/0/patientAdmittedWithNoBed;XSDElementDeclaration=20"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="patientAdmittedWithNoBedResponse" type="tns:patientAdmittedWithNoBedResponse">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/patientAdmittedWithNoBedResponse;XSDElementDeclaration=21$MRObject" schemaObject="/0/patientAdmittedWithNoBedResponse;XSDElementDeclaration=21"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="patientArrivedInBed" type="tns:patientArrivedInBed">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/patientArrivedInBed;XSDElementDeclaration=22$MRObject" schemaObject="/0/patientArrivedInBed;XSDElementDeclaration=22"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="patientArrivedInBedResponse" type="tns:patientArrivedInBedResponse">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/patientArrivedInBedResponse;XSDElementDeclaration=23$MRObject" schemaObject="/0/patientArrivedInBedResponse;XSDElementDeclaration=23"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="patientInCCU" type="tns:patientInCCU">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/patientInCCU;XSDElementDeclaration=24$MRObject" schemaObject="/0/patientInCCU;XSDElementDeclaration=24"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="patientInCCUResponse" type="tns:patientInCCUResponse">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/patientInCCUResponse;XSDElementDeclaration=25$MRObject" schemaObject="/0/patientInCCUResponse;XSDElementDeclaration=25"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="patientInED" type="tns:patientInED">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/patientInED;XSDElementDeclaration=26$MRObject" schemaObject="/0/patientInED;XSDElementDeclaration=26"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="patientInEDResponse" type="tns:patientInEDResponse">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/patientInEDResponse;XSDElementDeclaration=27$MRObject" schemaObject="/0/patientInEDResponse;XSDElementDeclaration=27"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="patientOutED" type="tns:patientOutED">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/patientOutED;XSDElementDeclaration=28$MRObject" schemaObject="/0/patientOutED;XSDElementDeclaration=28"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="patientOutEDResponse" type="tns:patientOutEDResponse">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/patientOutEDResponse;XSDElementDeclaration=29$MRObject" schemaObject="/0/patientOutEDResponse;XSDElementDeclaration=29"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="patientRegistered" type="tns:patientRegistered">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/patientRegistered;XSDElementDeclaration=30$MRObject" schemaObject="/0/patientRegistered;XSDElementDeclaration=30"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="patientRegisteredResponse" type="tns:patientRegisteredResponse">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/patientRegisteredResponse;XSDElementDeclaration=31$MRObject" schemaObject="/0/patientRegisteredResponse;XSDElementDeclaration=31"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="patientTransportRequest" type="tns:patientTransportRequest">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/patientTransportRequest;XSDElementDeclaration=32$MRObject" schemaObject="/0/patientTransportRequest;XSDElementDeclaration=32"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="patientTransportRequestResponse" type="tns:patientTransportRequestResponse">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/patientTransportRequestResponse;XSDElementDeclaration=33$MRObject" schemaObject="/0/patientTransportRequestResponse;XSDElementDeclaration=33"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="patientTransportStarted" type="tns:patientTransportStarted">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/patientTransportStarted;XSDElementDeclaration=34$MRObject" schemaObject="/0/patientTransportStarted;XSDElementDeclaration=34"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="patientTransportStartedResponse" type="tns:patientTransportStartedResponse">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/patientTransportStartedResponse;XSDElementDeclaration=35$MRObject" schemaObject="/0/patientTransportStartedResponse;XSDElementDeclaration=35"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="physicianInED" type="tns:physicianInED">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/physicianInED;XSDElementDeclaration=36$MRObject" schemaObject="/0/physicianInED;XSDElementDeclaration=36"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="physicianInEDResponse" type="tns:physicianInEDResponse">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/physicianInEDResponse;XSDElementDeclaration=37$MRObject" schemaObject="/0/physicianInEDResponse;XSDElementDeclaration=37"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="physicianOutED" type="tns:physicianOutED">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/physicianOutED;XSDElementDeclaration=38$MRObject" schemaObject="/0/physicianOutED;XSDElementDeclaration=38"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="physicianOutEDResponse" type="tns:physicianOutEDResponse">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/physicianOutEDResponse;XSDElementDeclaration=39$MRObject" schemaObject="/0/physicianOutEDResponse;XSDElementDeclaration=39"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="ping" type="tns:ping">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/ping;XSDElementDeclaration=40$MRObject" schemaObject="/0/ping;XSDElementDeclaration=40"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="pingResponse" type="tns:pingResponse">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/pingResponse;XSDElementDeclaration=41$MRObject" schemaObject="/0/pingResponse;XSDElementDeclaration=41"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="triageScore" type="tns:triageScore">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/triageScore;XSDElementDeclaration=42$MRObject" schemaObject="/0/triageScore;XSDElementDeclaration=42"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="triageScoreResponse" type="tns:triageScoreResponse">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/triageScoreResponse;XSDElementDeclaration=43$MRObject" schemaObject="/0/triageScoreResponse;XSDElementDeclaration=43"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="waitForBed" type="tns:waitForBed">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/waitForBed;XSDElementDeclaration=44$MRObject" schemaObject="/0/waitForBed;XSDElementDeclaration=44"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="waitForBedResponse" type="tns:waitForBedResponse">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/waitForBedResponse;XSDElementDeclaration=45$MRObject" schemaObject="/0/waitForBedResponse;XSDElementDeclaration=45"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="waitForConsultation1" type="tns:waitForConsultation1">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/waitForConsultation1;XSDElementDeclaration=46$MRObject" schemaObject="/0/waitForConsultation1;XSDElementDeclaration=46"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="waitForConsultation1Response" type="tns:waitForConsultation1Response">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/waitForConsultation1Response;XSDElementDeclaration=47$MRObject" schemaObject="/0/waitForConsultation1Response;XSDElementDeclaration=47"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="waitForConsultation2" type="tns:waitForConsultation2">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/waitForConsultation2;XSDElementDeclaration=48$MRObject" schemaObject="/0/waitForConsultation2;XSDElementDeclaration=48"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="waitForConsultation2Response" type="tns:waitForConsultation2Response">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/waitForConsultation2Response;XSDElementDeclaration=49$MRObject" schemaObject="/0/waitForConsultation2Response;XSDElementDeclaration=49"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="waitForOrderExecution" type="tns:waitForOrderExecution">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/waitForOrderExecution;XSDElementDeclaration=50$MRObject" schemaObject="/0/waitForOrderExecution;XSDElementDeclaration=50"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="waitForOrderExecutionResponse" type="tns:waitForOrderExecutionResponse">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/waitForOrderExecutionResponse;XSDElementDeclaration=51$MRObject" schemaObject="/0/waitForOrderExecutionResponse;XSDElementDeclaration=51"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="waitForTransport" type="tns:waitForTransport">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/waitForTransport;XSDElementDeclaration=52$MRObject" schemaObject="/0/waitForTransport;XSDElementDeclaration=52"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:element name="waitForTransportResponse" type="tns:waitForTransportResponse">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/waitForTransportResponse;XSDElementDeclaration=53$MRObject" schemaObject="/0/waitForTransportResponse;XSDElementDeclaration=53"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xs:element>
+<xs:complexType name="patientAdmittedWithBed">
+<xs:sequence>
+<xs:element minOccurs="0" name="patientId" type="xs:string"/>
+<xs:element minOccurs="0" name="unitId" type="xs:string"/>
+<xs:element minOccurs="0" name="bedId" type="xs:string"/>
+<xs:element minOccurs="0" name="timestamp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="patientAdmittedWithBedResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="PatientAdmittedWithBedResponse" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="consultationCompleted2">
+<xs:sequence>
+<xs:element minOccurs="0" name="patientId" type="xs:string"/>
+<xs:element minOccurs="0" name="providerId" type="xs:string"/>
+<xs:element minOccurs="0" name="locationId" type="xs:string"/>
+<xs:element minOccurs="0" name="timestamp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="consultationCompleted2Response">
+<xs:sequence>
+<xs:element minOccurs="0" name="ConsultationCompleted2Response" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="patientRegistered">
+<xs:sequence>
+<xs:element minOccurs="0" name="patientId" type="xs:string"/>
+<xs:element minOccurs="0" name="roomId" type="xs:string"/>
+<xs:element minOccurs="0" name="timestamp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="patientRegisteredResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="PatientRegisteredResponse" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="consultationStarted1">
+<xs:sequence>
+<xs:element minOccurs="0" name="patientId" type="xs:string"/>
+<xs:element minOccurs="0" name="providerId" type="xs:string"/>
+<xs:element minOccurs="0" name="locationId" type="xs:string"/>
+<xs:element minOccurs="0" name="timestamp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="consultationStarted1Response">
+<xs:sequence>
+<xs:element minOccurs="0" name="ConsultationStarted1Response" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="orderExecutionCompleted">
+<xs:sequence>
+<xs:element minOccurs="0" name="patientId" type="xs:string"/>
+<xs:element minOccurs="0" name="timestamp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="orderExecutionCompletedResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="OrderExecutionCompletedResponse" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="discharge">
+<xs:sequence>
+<xs:element minOccurs="0" name="patientId" type="xs:string"/>
+<xs:element minOccurs="0" name="providerId" type="xs:string"/>
+<xs:element minOccurs="0" name="timestamp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="dischargeResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="DischargeResponse" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="consultationCompleted1">
+<xs:sequence>
+<xs:element minOccurs="0" name="patientId" type="xs:string"/>
+<xs:element minOccurs="0" name="providerId" type="xs:string"/>
+<xs:element minOccurs="0" name="locationId" type="xs:string"/>
+<xs:element minOccurs="0" name="timestamp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="consultationCompleted1Response">
+<xs:sequence>
+<xs:element minOccurs="0" name="ConsultationCompleted1Response" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="waitForTransport">
+<xs:sequence>
+<xs:element minOccurs="0" name="patientId" type="xs:string"/>
+<xs:element minOccurs="0" name="unitId" type="xs:string"/>
+<xs:element minOccurs="0" name="timestamp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="waitForTransportResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="WaitForTransportResponse" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="patientInED">
+<xs:sequence>
+<xs:element minOccurs="0" name="patientId" type="xs:string"/>
+<xs:element minOccurs="0" name="locationId" type="xs:string"/>
+<xs:element minOccurs="0" name="timestamp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="patientInEDResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="PatientInEDResponse" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="physicianInED">
+<xs:sequence>
+<xs:element minOccurs="0" name="physicianId" type="xs:string"/>
+<xs:element minOccurs="0" name="locationId" type="xs:string"/>
+<xs:element minOccurs="0" name="timestamp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="physicianInEDResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="PhysicianInEDResponse" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ping">
+<xs:sequence>
+<xs:element minOccurs="0" name="message" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="pingResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="pingResponse" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="waitForOrderExecution">
+<xs:sequence>
+<xs:element minOccurs="0" name="patientId" type="xs:string"/>
+<xs:element minOccurs="0" name="timestamp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="waitForOrderExecutionResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="WaitForOrderExecutionResponse" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="patientOutED">
+<xs:sequence>
+<xs:element minOccurs="0" name="patientId" type="xs:string"/>
+<xs:element minOccurs="0" name="locationId" type="xs:string"/>
+<xs:element minOccurs="0" name="timestamp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="patientOutEDResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="PatientOutEDResponse" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="patientTransportRequest">
+<xs:sequence>
+<xs:element minOccurs="0" name="patientId" type="xs:string"/>
+<xs:element minOccurs="0" name="providerId" type="xs:string"/>
+<xs:element minOccurs="0" name="unitId" type="xs:string"/>
+<xs:element minOccurs="0" name="timestamp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="patientTransportRequestResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="PatientTransportRequestResponse" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="consultationStarted2">
+<xs:sequence>
+<xs:element minOccurs="0" name="patientId" type="xs:string"/>
+<xs:element minOccurs="0" name="providerId" type="xs:string"/>
+<xs:element minOccurs="0" name="locationId" type="xs:string"/>
+<xs:element minOccurs="0" name="timestamp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="consultationStarted2Response">
+<xs:sequence>
+<xs:element minOccurs="0" name="ConsultationStarted2Response" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="waitForConsultation2">
+<xs:sequence>
+<xs:element minOccurs="0" name="patientId" type="xs:string"/>
+<xs:element minOccurs="0" name="locationId" type="xs:string"/>
+<xs:element minOccurs="0" name="timestamp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="waitForConsultation2Response">
+<xs:sequence>
+<xs:element minOccurs="0" name="WaitForConsultation2Response" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="bedRequest">
+<xs:sequence>
+<xs:element minOccurs="0" name="patientId" type="xs:string"/>
+<xs:element minOccurs="0" name="providerId" type="xs:string"/>
+<xs:element minOccurs="0" name="unitId" type="xs:string"/>
+<xs:element minOccurs="0" name="timestamp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="bedRequestResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="BedRequestResponse" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="waitForConsultation1">
+<xs:sequence>
+<xs:element minOccurs="0" name="patientId" type="xs:string"/>
+<xs:element minOccurs="0" name="locationId" type="xs:string"/>
+<xs:element minOccurs="0" name="timestamp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="waitForConsultation1Response">
+<xs:sequence>
+<xs:element minOccurs="0" name="WaitForConsultation1Response" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="patientTransportStarted">
+<xs:sequence>
+<xs:element minOccurs="0" name="patientId" type="xs:string"/>
+<xs:element minOccurs="0" name="unitId" type="xs:string"/>
+<xs:element minOccurs="0" name="timestamp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="patientTransportStartedResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="PatientTransportStartedResponse" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="patientArrivedInBed">
+<xs:sequence>
+<xs:element minOccurs="0" name="patientId" type="xs:string"/>
+<xs:element minOccurs="0" name="unitId" type="xs:string"/>
+<xs:element minOccurs="0" name="bedId" type="xs:string"/>
+<xs:element minOccurs="0" name="timestamp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="patientArrivedInBedResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="PatientArrivedInBedResponse" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="waitForBed">
+<xs:sequence>
+<xs:element minOccurs="0" name="patientId" type="xs:string"/>
+<xs:element minOccurs="0" name="unitId" type="xs:string"/>
+<xs:element minOccurs="0" name="timestamp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="waitForBedResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="WaitForBedResponse" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="triageScore">
+<xs:sequence>
+<xs:element minOccurs="0" name="patientId" type="xs:string"/>
+<xs:element minOccurs="0" name="providerId" type="xs:string"/>
+<xs:element minOccurs="0" name="ctas" type="xs:string"/>
+<xs:element minOccurs="0" name="timestamp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="triageScoreResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="triageScoreResponse" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="orderRequestCompleted">
+<xs:sequence>
+<xs:element minOccurs="0" name="patientId" type="xs:string"/>
+<xs:element minOccurs="0" name="providerId" type="xs:string"/>
+<xs:element minOccurs="0" name="orderType" type="xs:string"/>
+<xs:element minOccurs="0" name="orderId" type="xs:string"/>
+<xs:element minOccurs="0" name="timestamp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="orderRequestCompletedResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="OrderRequestCompletedResponse" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="orderRequest">
+<xs:sequence>
+<xs:element minOccurs="0" name="patientId" type="xs:string"/>
+<xs:element minOccurs="0" name="providerId" type="xs:string"/>
+<xs:element minOccurs="0" name="orderType" type="xs:string"/>
+<xs:element minOccurs="0" name="orderId" type="xs:string"/>
+<xs:element minOccurs="0" name="timestamp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="orderRequestResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="OrderRequestResponse" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="patientInCCU">
+<xs:sequence>
+<xs:element minOccurs="0" name="patientId" type="xs:string"/>
+<xs:element minOccurs="0" name="locationId" type="xs:string"/>
+<xs:element minOccurs="0" name="timestamp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="patientInCCUResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="PatientInCCUResponse" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="patientAdmittedWithNoBed">
+<xs:sequence>
+<xs:element minOccurs="0" name="patientId" type="xs:string"/>
+<xs:element minOccurs="0" name="unitId" type="xs:string"/>
+<xs:element minOccurs="0" name="timestamp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="patientAdmittedWithNoBedResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="PatientAdmittedWithNoBedResponse" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="physicianOutED">
+<xs:sequence>
+<xs:element minOccurs="0" name="physicianId" type="xs:string"/>
+<xs:element minOccurs="0" name="locationId" type="xs:string"/>
+<xs:element minOccurs="0" name="timestamp" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="physicianOutEDResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="PhysicianOutEDResponse" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
