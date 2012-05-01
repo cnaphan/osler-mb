@@ -25,3 +25,13 @@ CREATE COMPUTE MODULE HttpIn_AppendMethod
 		SET OutputRoot = InputRoot;
 	END;
 END MODULE;
+
+
+CREATE COMPUTE MODULE HttpIn_GenerateAck
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- Create the response message	
+		SET OutputRoot.BLOB = 'Message received';		
+		RETURN TRUE;
+	END;
+END MODULE;
