@@ -1,14 +1,17 @@
 BROKER SCHEMA osler.mb
 
+DECLARE errorCount SHARED INTEGER 0;
 
-CREATE COMPUTE MODULE HttpIn_AppendMethod
+CREATE COMPUTE MODULE HandleErrors_CheckFinished
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		CALL CopyMessageHeaders();
-		CALL CopyEntireMessage();
-		SET OutputRoot.XMLNSC.*[<].(XMLNSC.Attribute)inputMethod = 'HTTP';
-		SET OutputRoot.XMLNSC.*[<].(XMLNSC.Attribute)remoteHost = InputRoot.HTTPInputHeader."X-Remote-Host";		
-		RETURN TRUE;
+		IF errorCount > 50 THEN
+			SET errorCount = 0;
+			RETURN TRUE;
+		ELSE 
+			SET errorCount = errorCount + 1;
+			RETURN FALSE;
+		END IF;
 	END;
 
 	CREATE PROCEDURE CopyMessageHeaders() BEGIN

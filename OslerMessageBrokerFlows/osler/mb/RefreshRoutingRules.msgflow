@@ -21,16 +21,16 @@
         <translation xmi:type="utility:ConstantString" string="Set URL"/>
         <shortDescription xmi:type="utility:ConstantString" string="Sets the URL for getting the default routing rules from a web service"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="342,61" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Read local routing rules [event=${FIELDNAME(Environment.EventBody.*[&lt;])}, method=${FIELDVALUE(Environment.EventBody.*[&lt;].(XML.Attribute)inputMethod)}]">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="342,61" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Read local routing rules [event=${FIELDNAME(Environment.Variables.EventBody.*[&lt;])}, method=${FIELDVALUE(Environment.Variables.EventBody.*[&lt;].(XMLNSC.Attribute)inputMethod)}]">
         <translation xmi:type="utility:ConstantString" string="Read Local"/>
       </nodes>
-      <nodes xmi:type="ComIbmFileRead.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="155,126" inputDirectory="/routing/" filenamePattern="routing-rules.xml" messageDomainProperty="XMLNS">
+      <nodes xmi:type="ComIbmFileRead.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="155,126" inputDirectory="/routing/" filenamePattern="routing-rules.xml" messageDomainProperty="XMLNSC">
         <translation xmi:type="utility:ConstantString" string="Read Rules"/>
       </nodes>
-      <nodes xmi:type="ComIbmWSRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="285,247" URLSpecifier="http://bad.uottawa.ca/noservice" httpMethod="GET" messageDomainProperty="XMLNS" responseMsgLocationInTree="OutputRoot.XMLNSC">
+      <nodes xmi:type="ComIbmWSRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="285,247" URLSpecifier="http://bad.uottawa.ca/noservice" httpMethod="GET" messageDomainProperty="XMLNSC" responseMsgLocationInTree="OutputRoot.XMLNSC">
         <translation xmi:type="utility:ConstantString" string="Get Default Rules"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="393,229" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Got remote rules with ${CARDINALITY(Root.XMLNS.oslerRoutingRules.events.event[])} events. event[event=${FIELDNAME(Environment.EventBody.*[&lt;])}, method=${FIELDVALUE(Environment.EventBody.*[&lt;].(XML.Attribute)inputMethod)}]">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="393,229" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Got remote rules with ${CARDINALITY(Root.XMLNSC.oslerRoutingRules.events.event[])} events. event[event=${FIELDNAME(Environment.EventBody.*[&lt;])}, method=${FIELDVALUE(Environment.EventBody.*[&lt;].(XMLNSC.Attribute)inputMethod)}]">
         <translation xmi:type="utility:ConstantString" string="Read Remote"/>
       </nodes>
       <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="476,254" outputDirectory="/routing/" outputFilename="routing-rules.xml" outputMode="archiveAndReplace" replaceDuplicateArchives="true">
@@ -49,7 +49,7 @@
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="69,126" computeExpression="esql://routine/osler.mb#ProcessEvent_SwapMessage.Main" computeMode="all" treatWarningsAsErrors="true">
         <translation xmi:type="utility:ConstantString" string="Swap Message"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_11" location="610,127" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Swapped back event  [event=${FIELDNAME(Root.XMLNS.*[&lt;])}, method=${FIELDVALUE(Root.XMLNS.*[&lt;].(XML.Attribute)inputMethod)}]">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_11" location="610,127" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Swapped back event  [event=${FIELDNAME(Root.XMLNSC.*[&lt;])}, method=${FIELDVALUE(Root.XMLNSC.*[&lt;].(XMLNSC.Attribute)inputMethod)}]">
         <translation xmi:type="utility:ConstantString" string="Swap"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_5" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>

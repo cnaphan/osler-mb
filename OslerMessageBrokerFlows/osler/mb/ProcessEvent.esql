@@ -11,9 +11,10 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 		--Basic flow is:
 		--1. Check if routing rules are cached in memory
 		--	1.1 If not, initiate subflow to go get them
-		--2. Prepare routing information based on routing rules and input message
-		--3. Create a logEvent message and send it to the log queue
-		--4. Propagate messages to destinations with routing parameters set
+		--2. Prepare routing information based on routing rules and input message 
+		--3. If appropriate, route a message to the outbound queue (JMS)
+		--4. Propagate messages to point-to-point destinations (HTTP or SOAP)
+		--5. Create a logEvent message and send it to the log queue
 	
 		IF CARDINALITY(ruleCache.oslerRoutingRules[]) = 0 THEN
 			-- If the routing rules in shared memory is null, then go into the refresh routing rules sub-flow
@@ -21,21 +22,20 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 				THROW USER EXCEPTION VALUES ('Attempted to get routing-rules twice in a row. Failed...');
 			END IF;
 			SET ruleRefreshAttempts = ruleRefreshAttempts + 1; 
-		  	CALL CopyMessageHeaders(); 
-		  	CALL CopyEntireMessage();
-			RETURN TRUE;
+		  	SET OutputRoot = InputRoot;
+			PROPAGATE TO TERMINAL 'out1' FINALIZE DEFAULT; -- Propagate to secondary terminal
+			RETURN FALSE;
 		END IF;
-		
 		
 		-- LOG EVENT VALUES ('Rules are cached', CARDINALITY(ruleCache.oslerRoutingRules[]), ruleCache.oslerRoutingRules, FIELDVALUE(ruleCache.oslerRoutingRules.events.event[1]));
 		
 		-- Prepare some of the variables needed from the message and from the routing rules		
-		DECLARE eventName CHARACTER FIELDNAME(InputRoot.XMLNS.*[<]);
-		DECLARE sourceSuffix CHARACTER FIELDVALUE(InputRoot.XMLNS.*[<].(XML.Attribute)sourceSuffix);
-		DECLARE remoteHost CHARACTER FIELDVALUE(InputRoot.XMLNS.*[<].(XML.Attribute)remoteHost);
+		DECLARE eventName CHARACTER FIELDNAME(InputRoot.XMLNSC.*[<]);
+		DECLARE sourceSuffix CHARACTER FIELDVALUE(InputRoot.XMLNSC.*[<].(XMLNSC.Attribute)sourceSuffix);
+		DECLARE remoteHost CHARACTER FIELDVALUE(InputRoot.XMLNSC.*[<].(XMLNSC.Attribute)remoteHost);
 		DECLARE source CHARACTER 'UNKNOWN';
 		DECLARE inputMethod CHARACTER 'NULL';		
-		DECLARE inputMethodAttribute CHARACTER FIELDVALUE(InputRoot.XMLNS.*[<].(XML.Attribute)inputMethod);
+		DECLARE inputMethodAttribute CHARACTER FIELDVALUE(InputRoot.XMLNSC.*[<].(XMLNSC.Attribute)inputMethod);
 		
 		-- If an input method was added to the event, use it for logging
 		IF inputMethodAttribute IS NOT NULL THEN
@@ -53,51 +53,63 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 		IF sourceSuffix IS NOT NULL THEN
 			SET source = source || '-' || sourceSuffix;
 		END IF;
+			
+		DECLARE numSentP2P INTEGER 0;
+		DECLARE numSentPubSub INTEGER 0;
 		
-		-- Create a message to send to the logger service (the console)
-		CALL CopyMessageHeaders();
-		SET OutputRoot.XMLNS.logEvent.event = eventName;
-		SET OutputRoot.XMLNS.logEvent.source = source;
-		SET OutputRoot.XMLNS.logEvent.inputMethod = inputMethod;
-		PROPAGATE TO LABEL 'LOG';
-		
-		DECLARE numSent INTEGER 0;		
-		-- Loop through each destination 
-		-- WHILE i <= CARDINALITY(ruleCache.oslerRoutingRules.destinations.destination[]) DO
+		-- Check if any destination receives via JMS. If so, propagate one message to JMS
+		DECLARE hasJms BOOLEAN FALSE;
 		FOR d AS ruleCache.oslerRoutingRules.destinations.destination[] DO
-			-- Only process this destination if it is not disabled
-			--IF NOT (UPPER(FIELDVALUE(d.(XML.Attribute)disabled)) = 'TRUE') THEN 	
+			IF NOT hasJms AND d.(XMLNSC.Attribute)disabled IS NULL AND d.accessMethod = 'JMS' THEN
+				SET hasJms = TRUE;
+			END IF;
+		END FOR;
+		IF hasJms THEN
+			CALL CopyEntireMessage();
+			PROPAGATE TO LABEL 'JMS'; 	
+			SET numSentPubSub = numSentPubSub + 1;					
+		END IF; -- If hasJms
+		
+		-- Loop through each destination that requires point-to-point (HTTP and SOAP)
+		FOR d AS ruleCache.oslerRoutingRules.destinations.destination[] DO
+			 -- If the destination uses HTTP or SOAP, and it's not disabled, then process it
+			IF (d.accessMethod = 'HTTP' OR d.accessMethod = 'SOAP') AND d.(XMLNSC.Attribute)disabled IS NULL THEN
+				
 				-- Test to see if this destination routes to this event (assume not at first)
 			  	DECLARE hasEvent BOOLEAN FALSE;
 			  	FOR e AS d.receives.event[] DO
-			  		-- If hasEvent hasn't been set yet (no break in ESQL) and the event name matches the
-			  		-- incoming event name, set to true
+			  		-- If event name matches the incoming event name, set to true
 			  		IF NOT hasEvent AND FIELDVALUE(e) = eventName THEN
 			  			SET hasEvent = TRUE;
 			  		END IF; 
 			  	END FOR;
 			  	
 			  	-- If the destination routes to this event, package up the message and propagate it accordingly
-			  	IF hasEvent THEN
-			  		-- Copy the entire message to the output
-				  	CALL CopyMessageHeaders(); 
+			  	IF hasEvent THEN			  		
+			  		-- Copy the entire message to the output				  
 					CALL CopyEntireMessage();
-					-- Remove all the intermediary attributes used thus far
-					SET OutputRoot.XMLNS.*[<].(XML.Attribute)remoteHost = NULL;
-					SET OutputRoot.XMLNS.*[<].(XML.Attribute)sourceSuffix = NULL;
-					SET OutputRoot.XMLNS.*[<].(XML.Attribute)inputMethod = NULL;
+										
 					-- Set the destination parameters of the message (label is not strictly necessary since we are propagating directly to label, but it doesn't hurt)
 				  	SET OutputLocalEnvironment.Destination.RouterList.DestinationData."label" = d.accessMethod;
 				  	SET OutputLocalEnvironment.Destination.HTTP.RequestURL = d.url;
 				  	-- Propagate to appropriate label
-				  	PROPAGATE TO LABEL d.accessMethod; 
-				  	-- Increment the number of messages sent (for possible tracing purposes)
-				  	SET numSent = numSent + 1; 
+				  	PROPAGATE TO LABEL d.accessMethod FINALIZE NONE;
+				  	-- Increment the counter
+				  	SET numSentP2P = numSentP2P + 1; 
 			  	END IF;
-			--END IF; -- If not disabled
+			  	
+			END IF; -- If the destination is HTTP or SOAP, and not disabled
+			
 		END FOR; 		  
-		  
-		RETURN FALSE; -- Do not propagate normally
+				
+		-- Create a message to send to the logger service (the console)
+		CALL CopyMessageHeaders();
+		SET OutputRoot.XMLNSC.logEvent.event = eventName;
+		SET OutputRoot.XMLNSC.logEvent.source = source;
+		SET OutputRoot.XMLNSC.logEvent.inputMethod = inputMethod;
+		SET OutputRoot.XMLNSC.logEvent.numSentPubSub = numSentPubSub;
+		SET OutputRoot.XMLNSC.logEvent.numSentP2P = numSentP2P;		
+		RETURN TRUE; -- Propagate this final message to the default (out) terminal
 	END;
 
 	CREATE PROCEDURE CopyMessageHeaders() BEGIN
@@ -112,6 +124,10 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		SET OutputRoot = InputRoot;
+		-- On the outbound message, remove intermediary attributes
+		SET OutputRoot.XMLNSC.*[<].(XMLNSC.Attribute)remoteHost = NULL;
+		SET OutputRoot.XMLNSC.*[<].(XMLNSC.Attribute)sourceSuffix = NULL;
+		SET OutputRoot.XMLNSC.*[<].(XMLNSC.Attribute)inputMethod = NULL;		
 	END;
 
 END MODULE;
@@ -134,7 +150,7 @@ CREATE COMPUTE MODULE ProcessEvent_ReplyWithRules
 			PROPAGATE TO TERMINAL 'out1' FINALIZE DEFAULT;
 			RETURN FALSE;
 		ELSE 
-			SET OutputRoot.XMLNS = ruleCache;
+			SET OutputRoot.XMLNSC = ruleCache;
 			RETURN TRUE;
 		END IF;		
 	END;
@@ -160,9 +176,9 @@ CREATE COMPUTE MODULE ProcessEvent_SwapMessage
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- Swap the input to a safe location in the local environment variables section
-		--SET Environment.Variables.EventBody = InputRoot.XMLNS.*[<];
-		CREATE LASTCHILD OF Environment DOMAIN 'XMLNS' NAME 'EventBody';
-		SET Environment.EventBody = InputRoot.XMLNS;
+		--SET Environment.Variables.EventBody = InputRoot.XMLNSC.*[<];
+		CREATE LASTCHILD OF Environment.Variables DOMAIN 'XMLNSC' NAME 'EventBody';
+		SET Environment.Variables.EventBody = InputRoot.XMLNSC;
 		RETURN TRUE;
 	END;
 
@@ -173,13 +189,13 @@ CREATE COMPUTE MODULE ProcessEvent_RefreshCache
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- Set the routing rules data into the shared mem cache
-		SET ruleCache.oslerRoutingRules = InputRoot.XMLNS.*[<];		
+		SET ruleCache.oslerRoutingRules = InputRoot.XMLNSC.*[<];		
 		-- Swap the event back into the message body
-		IF CARDINALITY(Environment.EventBody[]) > 0 THEN
+		IF CARDINALITY(Environment.Variables.EventBody[]) > 0 THEN
 			-- If possible, bring back the event into the output and clear the environment		
 			SET ruleRefreshAttempts = 0;
-			SET OutputRoot.XMLNS = Environment.EventBody;
-			SET Environment.EventBody = InputRoot.XMLNS; 
+			SET OutputRoot.XMLNSC = Environment.Variables.EventBody;
+			SET Environment.Variables.EventBody = NULL; 
 		END IF;		
 		RETURN TRUE;
 	END;
