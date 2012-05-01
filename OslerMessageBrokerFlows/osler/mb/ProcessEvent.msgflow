@@ -39,7 +39,7 @@
       <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="598,21" queueManagerName="MB7QMGR" queueName="OSLER_LOG" transactionMode="no" persistenceMode="no">
         <translation xmi:type="utility:ConstantString" string="To Log Queue"/>
       </nodes>
-      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_13" location="150,549" outputDirectory="/routing/" outputFilename="routing-rules.xml" outputMode="archiveAndReplace" replaceDuplicateArchives="true">
+      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_13" location="150,549" outputDirectory="routing" outputFilename="routing-rules.xml" outputMode="archiveAndReplace" replaceDuplicateArchives="true">
         <translation xmi:type="utility:ConstantString" string="To Local"/>
         <shortDescription xmi:type="utility:ConstantString" string="Copies the routing rules to the local drive"/>
       </nodes>

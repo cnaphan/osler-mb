@@ -33,7 +33,7 @@
       <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="393,229" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Got remote rules with ${CARDINALITY(Root.XMLNSC.oslerRoutingRules.events.event[])} events. event[event=${FIELDNAME(Environment.EventBody.*[&lt;])}, method=${FIELDVALUE(Environment.EventBody.*[&lt;].(XMLNSC.Attribute)inputMethod)}]">
         <translation xmi:type="utility:ConstantString" string="Read Remote"/>
       </nodes>
-      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="476,254" outputDirectory="/routing/" outputFilename="routing-rules.xml" outputMode="archiveAndReplace" replaceDuplicateArchives="true">
+      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="476,254" outputDirectory="routing" outputFilename="routing-rules.xml" outputMode="archiveAndReplace" replaceDuplicateArchives="true">
         <translation xmi:type="utility:ConstantString" string="To Local"/>
         <shortDescription xmi:type="utility:ConstantString" string="Writes the rules to a local file"/>
       </nodes>
