@@ -11,7 +11,7 @@
       <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="97,144" queueName="OSLER_ERRORS" messageDomainProperty="XMLNSC">
         <translation xmi:type="utility:ConstantString" string="From Errors"/>
       </nodes>
-      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="380,144" outputDirectory="errors" outputFilename="error-log.txt" outputMode="archiveAndReplaceWithTimestamp" replaceDuplicateArchives="true">
+      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="380,144" outputDirectory="errors" outputFilename="error-log.txt" outputMode="archiveAndReplaceWithTimestamp" replaceDuplicateArchives="true" recordDefinition="asIs">
         <translation xmi:type="utility:ConstantString" string="To Error Log"/>
       </nodes>
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="226,181" computeExpression="esql://routine/osler.mb#HandleErrors_CheckFinished.Main">

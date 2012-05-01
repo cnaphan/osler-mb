@@ -1,6 +1,6 @@
 BROKER SCHEMA osler.mb
 
-DECLARE getDefaultRoutingRulesURL EXTERNAL CHARACTER 'http://137.122.88.14:8080/osler-mb/event/getDefaultRoutingRules';
+DECLARE getDefaultRoutingRulesURL EXTERNAL CHARACTER 'http://localhost/osler-mb/event/getDefaultRoutingRules';
 
 DECLARE ruleCache SHARED ROW;
 DECLARE ruleRefreshAttempts SHARED INTEGER 0; -- Can be used to prevent endless refresh loops
@@ -74,6 +74,10 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 		FOR d AS ruleCache.oslerRoutingRules.destinations.destination[] DO
 			 -- If the destination uses HTTP or SOAP, and it's not disabled, then process it
 			IF (d.accessMethod = 'HTTP' OR d.accessMethod = 'SOAP') AND d.(XMLNSC.Attribute)disabled IS NULL THEN
+				-- Set some environment variables that can be used later for logging
+			  	SET Environment.Variables.EventName = eventName;
+			  	SET Environment.Variables.DestinationName = d.name;
+			  	SET Environment.Variables.AccessMethod = d.accessMethod;
 				
 				-- Test to see if this destination routes to this event (assume not at first)
 			  	DECLARE hasEvent BOOLEAN FALSE;
@@ -87,8 +91,7 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 			  	-- If the destination routes to this event, package up the message and propagate it accordingly
 			  	IF hasEvent THEN			  		
 			  		-- Copy the entire message to the output				  
-					CALL CopyEntireMessage();
-										
+					CALL CopyEntireMessage();										
 					-- Set the destination parameters of the message (label is not strictly necessary since we are propagating directly to label, but it doesn't hurt)
 				  	SET OutputLocalEnvironment.Destination.RouterList.DestinationData."label" = d.accessMethod;
 				  	SET OutputLocalEnvironment.Destination.HTTP.RequestURL = d.url;
@@ -211,3 +214,15 @@ CREATE COMPUTE MODULE ProcessEvent_RefreshCache
 	END;
 END MODULE;
 
+
+
+CREATE COMPUTE MODULE ProcessEvent_PrepareLogResponse
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN		
+		SET OutputRoot.XMLNSC.logResponse.event = Environment.Variables.EventName;
+		SET OutputRoot.XMLNSC.logResponse.destinationName = Environment.Variables.DestinationName;
+		SET OutputRoot.XMLNSC.logResponse.accessMethod = Environment.Variables.AccessMethod;
+		SET OutputRoot.XMLNSC.logResponse.responseStatusCode = InputRoot.HTTPResponseHeader."X-Original-HTTP-Status-Code";
+		RETURN TRUE;
+	END;
+END MODULE;
