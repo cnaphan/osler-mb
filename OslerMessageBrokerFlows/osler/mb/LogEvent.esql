@@ -8,8 +8,7 @@ CREATE COMPUTE MODULE LogEvent_Set_URL
 		CALL CopyMessageHeaders();
 		CALL CopyEntireMessage();
 		-- Set the request URL in the local env to a URL stored in message flow	
-		SET OutputLocalEnvironment.Destination.HTTP.RequestURL = logEventURL;
-		
+		SET OutputLocalEnvironment.Destination.HTTP.RequestURL = logEventURL;		
 		RETURN TRUE;
 	END;
 
