@@ -72,8 +72,8 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 		
 		-- Loop through each destination that requires point-to-point (HTTP and SOAP)
 		FOR d AS ruleCache.oslerRoutingRules.destinations.destination[] DO
-			 -- If the destination uses HTTP or SOAP, and it's not disabled, then process it
-			IF (d.accessMethod = 'HTTP' OR d.accessMethod = 'SOAP') AND d.(XMLNSC.Attribute)disabled IS NULL THEN
+			 -- If the destination uses HTTP, SOAP or TWS, and it's not disabled, then process it
+			IF (d.accessMethod = 'HTTP' OR d.accessMethod = 'SOAP' OR d.accessMethod = 'TWS') AND d.(XMLNSC.Attribute)disabled IS NULL THEN
 				-- Set some environment variables that can be used later for logging
 			  	SET Environment.Variables.EventName = eventName;
 			  	SET Environment.Variables.DestinationName = d.name;

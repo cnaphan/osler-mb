@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmSOAPEnvelope.msgnode="ComIbmSOAPEnvelope.msgnode" xmlns:ComIbmXslMqsi.msgnode="ComIbmXslMqsi.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="osler/mb/FormatTws.msgflow" nsPrefix="osler_mb_FormatTws.msgflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <translation xmi:type="utility:TranslatableString" key="FormatTws" bundleName="osler/mb/FormatTws" pluginId="OslerMessageBrokerFlows"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/OslerMessageBrokerFlows/icons/full/obj16/FormatTws.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/OslerMessageBrokerFlows/icons/full/obj30/FormatTws.gif"/>
+    <shortDescription xmi:type="utility:ConstantString" string="Prepares a message to be send to Teamworks AKA IBM WebSphere Lombardi"/>
+    <longDescription xmi:type="utility:ConstantString" string="Lombardi uses a special format that differs slightly from the canonical format established by Shirley. This flow transforms a message from the normal format into Lombardi format and sends it in the usual way. The purpose of putting it into a sub-flow is to hide any complexity from the Process Event flow."/>
+    <composition>
+      <nodes xmi:type="eflow:FCMSource" xmi:id="InTerminal.Input" location="130,205">
+        <translation xmi:type="utility:TranslatableString" key="InTerminal.Input" bundleName="osler/mb/FormatTws" pluginId="OslerMessageBrokerFlows"/>
+      </nodes>
+      <nodes xmi:type="ComIbmSOAPEnvelope.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="303,205" createEnvelope="true" envelopeLocation="$Environment/Variables/SOAP/Envelope">
+        <translation xmi:type="utility:ConstantString" string="TWS SOAP"/>
+      </nodes>
+      <nodes xmi:type="ComIbmXslMqsi.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="487,205" stylesheetName="ToTwsFormat.xsl">
+        <translation xmi:type="utility:ConstantString" string="Transform"/>
+      </nodes>
+      <nodes xmi:type="eflow:FCMSink" xmi:id="OutTerminal.Output" location="604,206">
+        <translation xmi:type="utility:TranslatableString" key="OutTerminal.Output" bundleName="osler/mb/FormatTws" pluginId="OslerMessageBrokerFlows"/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_1" sourceNode="InTerminal.Input" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="OutTerminal.Output" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+    </composition>
+    <propertyOrganizer/>
+    <stickyBoard/>
+  </eClassifiers>
+</ecore:EPackage>

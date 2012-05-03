@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmCompute.msgnode="ComIbmCompute.msgnode" xmlns:ComIbmFileOutput.msgnode="ComIbmFileOutput.msgnode" xmlns:ComIbmLabel.msgnode="ComIbmLabel.msgnode" xmlns:ComIbmMQInput.msgnode="ComIbmMQInput.msgnode" xmlns:ComIbmMQOutput.msgnode="ComIbmMQOutput.msgnode" xmlns:ComIbmSOAPEnvelope.msgnode="ComIbmSOAPEnvelope.msgnode" xmlns:ComIbmTrace.msgnode="ComIbmTrace.msgnode" xmlns:ComIbmTryCatch.msgnode="ComIbmTryCatch.msgnode" xmlns:ComIbmWSInput.msgnode="ComIbmWSInput.msgnode"
-    xmlns:ComIbmWSReply.msgnode="ComIbmWSReply.msgnode" xmlns:ComIbmWSRequest.msgnode="ComIbmWSRequest.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:osler_mb_RefreshRoutingRules.msgflow="osler/mb/RefreshRoutingRules.msgflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="osler/mb/ProcessEvent.msgflow"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmCompute.msgnode="ComIbmCompute.msgnode" xmlns:ComIbmFileOutput.msgnode="ComIbmFileOutput.msgnode" xmlns:ComIbmLabel.msgnode="ComIbmLabel.msgnode" xmlns:ComIbmMQInput.msgnode="ComIbmMQInput.msgnode" xmlns:ComIbmMQOutput.msgnode="ComIbmMQOutput.msgnode" xmlns:ComIbmSOAPEnvelope.msgnode="ComIbmSOAPEnvelope.msgnode" xmlns:ComIbmTrace.msgnode="ComIbmTrace.msgnode" xmlns:ComIbmWSInput.msgnode="ComIbmWSInput.msgnode" xmlns:ComIbmWSReply.msgnode="ComIbmWSReply.msgnode"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:osler_mb_FormatTws.msgflow="osler/mb/FormatTws.msgflow" xmlns:osler_mb_RefreshRoutingRules.msgflow="osler/mb/RefreshRoutingRules.msgflow" xmlns:osler_mb_SendEventHttp.msgflow="osler/mb/SendEventHttp.msgflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="osler/mb/ProcessEvent.msgflow"
     nsPrefix="osler_mb_ProcessEvent.msgflow">
   <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1">
     <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
@@ -17,20 +17,13 @@
         <translation xmi:type="utility:ConstantString" string="From Incoming"/>
         <shortDescription xmi:type="utility:ConstantString" string="Get event from the Incoming queue"/>
       </nodes>
-      <nodes xmi:type="ComIbmWSRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="385,291" URLSpecifier="http://bad.uottawa.ca/noservice" messageDomainProperty="BLOB" responseMsgLocationInTree="OutputRoot.Response">
-        <translation xmi:type="utility:ConstantString" string="To Destination"/>
-        <shortDescription xmi:type="utility:ConstantString" string="Sends the messages via HTTP to the destination that was set in &quot;Apply Routing Rules&quot;"/>
-      </nodes>
-      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="26,230" labelName="SOAP">
+      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="20,207" labelName="SOAP">
         <translation xmi:type="utility:ConstantString" string="If SOAP"/>
       </nodes>
-      <nodes xmi:type="ComIbmSOAPEnvelope.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="128,230" createEnvelope="true" envelopeLocation="$Environment/Variables/SOAP/Envelope">
+      <nodes xmi:type="ComIbmSOAPEnvelope.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="129,207" createEnvelope="true" envelopeLocation="$Environment/Variables/SOAP/Envelope">
         <translation xmi:type="utility:ConstantString" string="Create Envelope"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_11" location="486,293" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Event service '${LEFT(LocalEnvironment.Destination.HTTP.RequestURL,20)}' replied with status code ${Root.HTTPResponseHeader.&quot;X-Original-HTTP-Status-Code&quot;}">
-        <translation xmi:type="utility:ConstantString" string="Log Result"/>
-      </nodes>
-      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_19" location="24,318" labelName="HTTP">
+      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_19" location="20,268" labelName="HTTP">
         <translation xmi:type="utility:ConstantString" string="If HTTP"/>
       </nodes>
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="316,21" computeExpression="esql://routine/osler.mb#ProcessEvent_ApplyRoutingRules.Main" computeMode="all" treatWarningsAsErrors="true">
@@ -67,13 +60,10 @@
       <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_16" location="141,21" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Event incoming [event=${FIELDNAME(Root.XMLNSC.*[&lt;])}, method=${FIELDVALUE(Root.XMLNSC.*[&lt;].(XMLNSC.Attribute)inputMethod)}, remoteHost=${FIELDVALUE(Root.XMLNSC.*[&lt;].(XMLNSC.Attribute)remoteHost)}]">
         <translation xmi:type="utility:ConstantString" string="Incoming"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_18" location="218,191" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Event service '${LEFT(LocalEnvironment.Destination.HTTP.RequestURL,20)}' failed to add envelope. Parser is corrupt or message is null.">
-        <translation xmi:type="utility:ConstantString" string="Envelope Fail"/>
-      </nodes>
       <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_25" location="136,108" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Queue caught event  [event=${FIELDNAME(Root.XMLNSC.*[&lt;])}, method=${FIELDVALUE(Root.XMLNSC.*[&lt;].(XMLNSC.Attribute)inputMethod)}]&#xD;&#xA;Errors: ${ExceptionList}">
         <translation xmi:type="utility:ConstantString" string="Queue Catch"/>
       </nodes>
-      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_12" location="25,397" labelName="JMS">
+      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_12" location="20,397" labelName="JMS">
         <translation xmi:type="utility:ConstantString" string="If JMS"/>
       </nodes>
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="229,549" computeExpression="esql://routine/osler.mb#ProcessEvent_RefreshCache.Main" computeMode="all" treatWarningsAsErrors="true">
@@ -82,23 +72,19 @@
       <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_22" location="220,482">
         <translation xmi:type="utility:ConstantString" string="Reply to Update"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="115,397" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Event sent to JMS [event=${FIELDNAME(Root.XMLNS.*[&lt;])}]">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="142,397" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Event sent to JMS [event=${FIELDNAME(Root.XMLNS.*[&lt;])}]. Not implemented yet.">
         <translation xmi:type="utility:ConstantString" string="JMS"/>
       </nodes>
-      <nodes xmi:type="ComIbmTryCatch.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_23" location="298,290">
-        <translation xmi:type="utility:ConstantString" string="Try Send"/>
-        <shortDescription xmi:type="utility:ConstantString" string="Ensures that failures to send to certain destinations do not roll back too far and interrupt other sends"/>
+      <nodes xmi:type="osler_mb_SendEventHttp.msgflow:FCMComposite_1" xmi:id="FCMComposite_1_4" location="300,268">
+        <translation xmi:type="utility:ConstantString" string="Send"/>
+        <shortDescription xmi:type="utility:ConstantString" string="Sends an event via HTTP to the destination"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_10" location="395,204" queueManagerName="MB7QMGR" queueName="OSLER_ERRORS">
-        <translation xmi:type="utility:ConstantString" string="To Errors"/>
+      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="20,329" labelName="TWS">
+        <translation xmi:type="utility:ConstantString" string="If TWS"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_24" location="566,289" computeExpression="esql://routine/osler.mb#ProcessEvent_PrepareLogResponse.Main" computeMode="destinationAndMessage" treatWarningsAsErrors="true">
-        <translation xmi:type="utility:ConstantString" string="Prepare Response Log"/>
+      <nodes xmi:type="osler_mb_FormatTws.msgflow:FCMComposite_1" xmi:id="FCMComposite_1_23" location="142,329">
+        <translation xmi:type="utility:ConstantString" string="Format TWS"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_26" location="679,291" queueManagerName="MB7QMGR" queueName="OSLER_RESPONSELOG">
-        <translation xmi:type="utility:ConstantString" string="To Response Log"/>
-      </nodes>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_14" targetNode="FCMComposite_1_11" sourceNode="FCMComposite_1_4" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_10" targetNode="FCMComposite_1_13" sourceNode="FCMComposite_1_14" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_13" targetNode="FCMComposite_1_21" sourceNode="FCMComposite_1_17" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_16" targetNode="FCMComposite_1_20" sourceNode="FCMComposite_1_21" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
@@ -108,7 +94,6 @@
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_4" targetNode="FCMComposite_1_21" sourceNode="FCMComposite_1_34" sourceTerminalName="OutTerminal.Output" targetTerminalName="InTerminal.in">
         <bendPoints>-54,26,-54,-64</bendPoints>
       </connections>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_17" targetNode="FCMComposite_1_18" sourceNode="FCMComposite_1_8" sourceTerminalName="OutTerminal.failure" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_24" targetNode="FCMComposite_1_25" sourceNode="FCMComposite_1_3" sourceTerminalName="OutTerminal.catch" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_8" sourceNode="FCMComposite_1_7" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_1" sourceNode="FCMComposite_1_29" sourceTerminalName="OutTerminal.Output" targetTerminalName="InTerminal.in">
@@ -124,13 +109,10 @@
         <bendPoints>65,24,65,-45</bendPoints>
       </connections>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_18" targetNode="FCMComposite_1_5" sourceNode="FCMComposite_1_12" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_15" targetNode="FCMComposite_1_23" sourceNode="FCMComposite_1_8" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_20" targetNode="FCMComposite_1_23" sourceNode="FCMComposite_1_19" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_21" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_23" sourceTerminalName="OutTerminal.try" targetTerminalName="InTerminal.in"/>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_8" targetNode="FCMComposite_1_10" sourceNode="FCMComposite_1_23" sourceTerminalName="OutTerminal.catch" targetTerminalName="InTerminal.in"/>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_22" targetNode="FCMComposite_1_24" sourceNode="FCMComposite_1_11" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_23" targetNode="FCMComposite_1_26" sourceNode="FCMComposite_1_24" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_27" targetNode="FCMComposite_1_11" sourceNode="FCMComposite_1_4" sourceTerminalName="OutTerminal.error" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_8" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_8" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_14" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_19" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_17" targetNode="FCMComposite_1_23" sourceNode="FCMComposite_1_9" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_20" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_23" sourceTerminalName="OutTerminal.Output" targetTerminalName="InTerminal.Input"/>
     </composition>
     <propertyOrganizer>
       <propertyDescriptor groupName="Group.Basic" configurable="true" userDefined="true" describedAttribute="Property.getDefaultRoutingRulesURL">
