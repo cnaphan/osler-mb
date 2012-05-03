@@ -13,7 +13,7 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 		--	1.1 If not, initiate subflow to go get them
 		--2. Prepare routing information based on routing rules and input message 
 		--3. If appropriate, route a message to the outbound queue (JMS)
-		--4. Propagate messages to point-to-point destinations (HTTP or SOAP)
+		--4. Propagate messages to point-to-point destinations (HTTP, SOAP or TWS)
 		--5. Create a logEvent message and send it to the log queue
 	
 		IF CARDINALITY(ruleCache.oslerRoutingRules[]) = 0 THEN
@@ -34,12 +34,17 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 		DECLARE sourceSuffix CHARACTER FIELDVALUE(InputRoot.XMLNSC.*[<].(XMLNSC.Attribute)sourceSuffix);
 		DECLARE remoteHost CHARACTER FIELDVALUE(InputRoot.XMLNSC.*[<].(XMLNSC.Attribute)remoteHost);
 		DECLARE source CHARACTER 'UNKNOWN';
-		DECLARE inputMethod CHARACTER 'NULL';		
+		DECLARE inputMethod CHARACTER 'NULL';
+		DECLARE isTest BOOLEAN FALSE;		
 		DECLARE inputMethodAttribute CHARACTER FIELDVALUE(InputRoot.XMLNSC.*[<].(XMLNSC.Attribute)inputMethod);
+		DECLARE test CHARACTER FIELDVALUE(InputRoot.XMLNSC.*[<].(XMLNSC.Attribute)test);
 		
 		-- If an input method was added to the event, use it for logging
 		IF inputMethodAttribute IS NOT NULL THEN
 			SET inputMethod = inputMethodAttribute;
+		END IF;
+		IF test = 'true' THEN
+			SET isTest = TRUE;
 		END IF;
 		
 		-- Loop through the event sources and find one that matches the input remote host
@@ -72,8 +77,10 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 		
 		-- Loop through each destination that requires point-to-point (HTTP and SOAP)
 		FOR d AS ruleCache.oslerRoutingRules.destinations.destination[] DO
-			 -- If the destination uses HTTP or SOAP, and it's not disabled, then process it
-			IF (d.accessMethod = 'HTTP' OR d.accessMethod = 'SOAP') AND d.(XMLNSC.Attribute)disabled IS NULL THEN
+			 -- If the destination uses HTTP, SOAP or TWS, and it's not disabled, then process it
+			IF (d.accessMethod = 'HTTP' OR d.accessMethod = 'SOAP' OR d.accessMethod = 'TWS') AND d.(XMLNSC.Attribute)disabled IS NULL THEN
+			-- If this is a test message, only send to destinations starting with the word 'test' (i.e. the console)
+			IF NOT isTest OR LEFT(LOWER(d.name), 4) = 'test' THEN
 				-- Set some environment variables that can be used later for logging
 			  	SET Environment.Variables.EventName = eventName;
 			  	SET Environment.Variables.DestinationName = d.name;
@@ -100,8 +107,8 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 				  	-- Increment the counter
 				  	SET numSentP2P = numSentP2P + 1; 
 			  	END IF;
-			  	
-			END IF; -- If the destination is HTTP or SOAP, and not disabled
+			END IF; -- If either not a test event or this destination is a test destination
+			END IF; -- If the destination is HTTP, SOAP or TWS, and not disabled
 			
 		END FOR; 		  
 				
@@ -130,7 +137,8 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 		-- On the outbound message, remove intermediary attributes
 		SET OutputRoot.XMLNSC.*[<].(XMLNSC.Attribute)remoteHost = NULL;
 		SET OutputRoot.XMLNSC.*[<].(XMLNSC.Attribute)sourceSuffix = NULL;
-		SET OutputRoot.XMLNSC.*[<].(XMLNSC.Attribute)inputMethod = NULL;		
+		SET OutputRoot.XMLNSC.*[<].(XMLNSC.Attribute)inputMethod = NULL;
+		SET OutputRoot.XMLNSC.*[<].(XMLNSC.Attribute)test = NULL;		
 	END;
 
 END MODULE;
@@ -214,8 +222,7 @@ CREATE COMPUTE MODULE ProcessEvent_RefreshCache
 	END;
 END MODULE;
 
-
-
+-- Creates a message to pass to the console that will log a destination response
 CREATE COMPUTE MODULE ProcessEvent_PrepareLogResponse
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN		
@@ -226,3 +233,4 @@ CREATE COMPUTE MODULE ProcessEvent_PrepareLogResponse
 		RETURN TRUE;
 	END;
 END MODULE;
+
