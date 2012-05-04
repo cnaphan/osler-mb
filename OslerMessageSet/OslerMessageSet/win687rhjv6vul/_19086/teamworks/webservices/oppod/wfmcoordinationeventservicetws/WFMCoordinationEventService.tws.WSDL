@@ -1,0 +1,800 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions targetNamespace="http://WIN-687RHJV6VUL:19086/teamworks/webservices/OPPOD/WFMCoordinationEventService.tws" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://WIN-687RHJV6VUL:19086/teamworks/webservices/OPPOD/WFMCoordinationEventService.tws" xmlns:intf="http://WIN-687RHJV6VUL:19086/teamworks/webservices/OPPOD/WFMCoordinationEventService.tws" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:documentation>
+    <wsdl:appinfo source="WMQI_APPINFO">
+      <MRWSDLAppInfo imported="true">
+        <generatedMXSD location="WFMCoordinationEventService_InlineSchema1.mxsd"/>
+        <binding hasEncoding="false" imported="true" name="WFMCoordinationEventServiceSoapSoapBinding" originalBindingStyle="document"/>
+      </MRWSDLAppInfo>
+    </wsdl:appinfo>
+  </wsdl:documentation>
+<!--WSDL created by Apache Axis version: 1.3
+Built on Oct 05, 2005 (05:23:37 EDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://WIN-687RHJV6VUL:19086/teamworks/webservices/OPPOD/WFMCoordinationEventService.tws" xmlns="http://www.w3.org/2001/XMLSchema">
+   <xsd:include schemaLocation="WFMCoordinationEventService_InlineSchema1.mxsd"/>
+    </schema>
+ </wsdl:types>
+
+   <wsdl:message name="PatientTransportRequestResponse">
+
+      <wsdl:part element="impl:PatientTransportRequestResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="WaitForBedResponse">
+
+      <wsdl:part element="impl:WaitForBedResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="OrderRequestRequest">
+
+      <wsdl:part element="impl:OrderRequest" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="BedRequestResponse">
+
+      <wsdl:part element="impl:BedRequestResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="PatientArriveInBedRequest">
+
+      <wsdl:part element="impl:PatientArriveInBed" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="PatientRegisteredRequest">
+
+      <wsdl:part element="impl:PatientRegistered" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="ConsultationCompleted1Request">
+
+      <wsdl:part element="impl:ConsultationCompleted1" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="BedRequestRequest">
+
+      <wsdl:part element="impl:BedRequest" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="PatientArriveInBedResponse">
+
+      <wsdl:part element="impl:PatientArriveInBedResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="OrderExecutionCompletedResponse">
+
+      <wsdl:part element="impl:OrderExecutionCompletedResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="ConsultationCompleted2Request">
+
+      <wsdl:part element="impl:ConsultationCompleted2" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="WaitForOrderExecutionResponse">
+
+      <wsdl:part element="impl:WaitForOrderExecutionResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="PatientAdmittedWithNoBedResponse">
+
+      <wsdl:part element="impl:PatientAdmittedWithNoBedResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="PatientAdmittedWithNoBedRequest">
+
+      <wsdl:part element="impl:PatientAdmittedWithNoBed" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="PatientAdmittedWithBedResponse">
+
+      <wsdl:part element="impl:PatientAdmittedWithBedResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="WaitForConsultation2Request">
+
+      <wsdl:part element="impl:WaitForConsultation2" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="ConsultationStarted2Request">
+
+      <wsdl:part element="impl:ConsultationStarted2" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="WaitForConsultation1Response">
+
+      <wsdl:part element="impl:WaitForConsultation1Response" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="WaitForConsultation2Response">
+
+      <wsdl:part element="impl:WaitForConsultation2Response" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="TriageScoreRequest">
+
+      <wsdl:part element="impl:TriageScore" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="OrderExecutionCompletedRequest">
+
+      <wsdl:part element="impl:OrderExecutionCompleted" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="PatientRegisteredResponse">
+
+      <wsdl:part element="impl:PatientRegisteredResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="OrderRequestCompletedResponse">
+
+      <wsdl:part element="impl:OrderRequestCompletedResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="PatientTransportRequestRequest">
+
+      <wsdl:part element="impl:PatientTransportRequest" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="OrderRequestCompletedRequest">
+
+      <wsdl:part element="impl:OrderRequestCompleted" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="WaitForBedRequest">
+
+      <wsdl:part element="impl:WaitForBed" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="OrderRequestResponse">
+
+      <wsdl:part element="impl:OrderRequestResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="PatientTransportStartedResponse">
+
+      <wsdl:part element="impl:PatientTransportStartedResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="TriageScoreResponse">
+
+      <wsdl:part element="impl:TriageScoreResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="ConsultationStarted1Response">
+
+      <wsdl:part element="impl:ConsultationStarted1Response" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="WaitForTransportRequest">
+
+      <wsdl:part element="impl:WaitForTransport" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="ConsultationStarted2Response">
+
+      <wsdl:part element="impl:ConsultationStarted2Response" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="WaitForConsultation1Request">
+
+      <wsdl:part element="impl:WaitForConsultation1" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="ConsultationStarted1Request">
+
+      <wsdl:part element="impl:ConsultationStarted1" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="WaitForTransportResponse">
+
+      <wsdl:part element="impl:WaitForTransportResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="PatientAdmittedWithBedRequest">
+
+      <wsdl:part element="impl:PatientAdmittedWithBed" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="ConsultationCompleted1Response">
+
+      <wsdl:part element="impl:ConsultationCompleted1Response" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="ConsultationCompleted2Response">
+
+      <wsdl:part element="impl:ConsultationCompleted2Response" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="WaitForOrderExecutionRequest">
+
+      <wsdl:part element="impl:WaitForOrderExecution" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="PatientTransportStartedRequest">
+
+      <wsdl:part element="impl:PatientTransportStarted" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="WFMCoordinationEventServicePortType">
+
+      <wsdl:operation name="WaitForConsultation1">
+
+         <wsdl:input message="impl:WaitForConsultation1Request" name="WaitForConsultation1Request"/>
+
+         <wsdl:output message="impl:WaitForConsultation1Response" name="WaitForConsultation1Response"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="ConsultationStarted1">
+
+         <wsdl:input message="impl:ConsultationStarted1Request" name="ConsultationStarted1Request"/>
+
+         <wsdl:output message="impl:ConsultationStarted1Response" name="ConsultationStarted1Response"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="ConsultationCompleted1">
+
+         <wsdl:input message="impl:ConsultationCompleted1Request" name="ConsultationCompleted1Request"/>
+
+         <wsdl:output message="impl:ConsultationCompleted1Response" name="ConsultationCompleted1Response"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="WaitForOrderExecution">
+
+         <wsdl:input message="impl:WaitForOrderExecutionRequest" name="WaitForOrderExecutionRequest"/>
+
+         <wsdl:output message="impl:WaitForOrderExecutionResponse" name="WaitForOrderExecutionResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="OrderExecutionCompleted">
+
+         <wsdl:input message="impl:OrderExecutionCompletedRequest" name="OrderExecutionCompletedRequest"/>
+
+         <wsdl:output message="impl:OrderExecutionCompletedResponse" name="OrderExecutionCompletedResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="WaitForBed">
+
+         <wsdl:input message="impl:WaitForBedRequest" name="WaitForBedRequest"/>
+
+         <wsdl:output message="impl:WaitForBedResponse" name="WaitForBedResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="PatientArriveInBed">
+
+         <wsdl:input message="impl:PatientArriveInBedRequest" name="PatientArriveInBedRequest"/>
+
+         <wsdl:output message="impl:PatientArriveInBedResponse" name="PatientArriveInBedResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="WaitForTransport">
+
+         <wsdl:input message="impl:WaitForTransportRequest" name="WaitForTransportRequest"/>
+
+         <wsdl:output message="impl:WaitForTransportResponse" name="WaitForTransportResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="PatientTransportStarted">
+
+         <wsdl:input message="impl:PatientTransportStartedRequest" name="PatientTransportStartedRequest"/>
+
+         <wsdl:output message="impl:PatientTransportStartedResponse" name="PatientTransportStartedResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="TriageScore">
+
+         <wsdl:input message="impl:TriageScoreRequest" name="TriageScoreRequest"/>
+
+         <wsdl:output message="impl:TriageScoreResponse" name="TriageScoreResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="PatientRegistered">
+
+         <wsdl:input message="impl:PatientRegisteredRequest" name="PatientRegisteredRequest"/>
+
+         <wsdl:output message="impl:PatientRegisteredResponse" name="PatientRegisteredResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="OrderRequest">
+
+         <wsdl:input message="impl:OrderRequestRequest" name="OrderRequestRequest"/>
+
+         <wsdl:output message="impl:OrderRequestResponse" name="OrderRequestResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="OrderRequestCompleted">
+
+         <wsdl:input message="impl:OrderRequestCompletedRequest" name="OrderRequestCompletedRequest"/>
+
+         <wsdl:output message="impl:OrderRequestCompletedResponse" name="OrderRequestCompletedResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="BedRequest">
+
+         <wsdl:input message="impl:BedRequestRequest" name="BedRequestRequest"/>
+
+         <wsdl:output message="impl:BedRequestResponse" name="BedRequestResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="PatientAdmittedWithNoBed">
+
+         <wsdl:input message="impl:PatientAdmittedWithNoBedRequest" name="PatientAdmittedWithNoBedRequest"/>
+
+         <wsdl:output message="impl:PatientAdmittedWithNoBedResponse" name="PatientAdmittedWithNoBedResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="PatientAdmittedWithBed">
+
+         <wsdl:input message="impl:PatientAdmittedWithBedRequest" name="PatientAdmittedWithBedRequest"/>
+
+         <wsdl:output message="impl:PatientAdmittedWithBedResponse" name="PatientAdmittedWithBedResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="PatientTransportRequest">
+
+         <wsdl:input message="impl:PatientTransportRequestRequest" name="PatientTransportRequestRequest"/>
+
+         <wsdl:output message="impl:PatientTransportRequestResponse" name="PatientTransportRequestResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="WaitForConsultation2">
+
+         <wsdl:input message="impl:WaitForConsultation2Request" name="WaitForConsultation2Request"/>
+
+         <wsdl:output message="impl:WaitForConsultation2Response" name="WaitForConsultation2Response"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="ConsultationStarted2">
+
+         <wsdl:input message="impl:ConsultationStarted2Request" name="ConsultationStarted2Request"/>
+
+         <wsdl:output message="impl:ConsultationStarted2Response" name="ConsultationStarted2Response"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="ConsultationCompleted2">
+
+         <wsdl:input message="impl:ConsultationCompleted2Request" name="ConsultationCompleted2Request"/>
+
+         <wsdl:output message="impl:ConsultationCompleted2Response" name="ConsultationCompleted2Response"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="WFMCoordinationEventServiceSoapSoapBinding" type="impl:WFMCoordinationEventServicePortType">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="WaitForConsultation1">
+
+         <wsdlsoap:operation soapAction="http://WIN-687RHJV6VUL:19086/teamworks/webservices/OPPOD/WFMCoordinationEventService.tws/WaitForConsultation1"/>
+
+         <wsdl:input name="WaitForConsultation1Request">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="WaitForConsultation1Response">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="ConsultationStarted1">
+
+         <wsdlsoap:operation soapAction="http://WIN-687RHJV6VUL:19086/teamworks/webservices/OPPOD/WFMCoordinationEventService.tws/ConsultationStarted1"/>
+
+         <wsdl:input name="ConsultationStarted1Request">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="ConsultationStarted1Response">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="ConsultationCompleted1">
+
+         <wsdlsoap:operation soapAction="http://WIN-687RHJV6VUL:19086/teamworks/webservices/OPPOD/WFMCoordinationEventService.tws/ConsultationCompleted1"/>
+
+         <wsdl:input name="ConsultationCompleted1Request">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="ConsultationCompleted1Response">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="WaitForOrderExecution">
+
+         <wsdlsoap:operation soapAction="http://WIN-687RHJV6VUL:19086/teamworks/webservices/OPPOD/WFMCoordinationEventService.tws/WaitForOrderExecution"/>
+
+         <wsdl:input name="WaitForOrderExecutionRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="WaitForOrderExecutionResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="OrderExecutionCompleted">
+
+         <wsdlsoap:operation soapAction="http://WIN-687RHJV6VUL:19086/teamworks/webservices/OPPOD/WFMCoordinationEventService.tws/OrderExecutionCompleted"/>
+
+         <wsdl:input name="OrderExecutionCompletedRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="OrderExecutionCompletedResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="WaitForBed">
+
+         <wsdlsoap:operation soapAction="http://WIN-687RHJV6VUL:19086/teamworks/webservices/OPPOD/WFMCoordinationEventService.tws/WaitForBed"/>
+
+         <wsdl:input name="WaitForBedRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="WaitForBedResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="PatientArriveInBed">
+
+         <wsdlsoap:operation soapAction="http://WIN-687RHJV6VUL:19086/teamworks/webservices/OPPOD/WFMCoordinationEventService.tws/PatientArriveInBed"/>
+
+         <wsdl:input name="PatientArriveInBedRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="PatientArriveInBedResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="WaitForTransport">
+
+         <wsdlsoap:operation soapAction="http://WIN-687RHJV6VUL:19086/teamworks/webservices/OPPOD/WFMCoordinationEventService.tws/WaitForTransport"/>
+
+         <wsdl:input name="WaitForTransportRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="WaitForTransportResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="PatientTransportStarted">
+
+         <wsdlsoap:operation soapAction="http://WIN-687RHJV6VUL:19086/teamworks/webservices/OPPOD/WFMCoordinationEventService.tws/PatientTransportStarted"/>
+
+         <wsdl:input name="PatientTransportStartedRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="PatientTransportStartedResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="TriageScore">
+
+         <wsdlsoap:operation soapAction="http://WIN-687RHJV6VUL:19086/teamworks/webservices/OPPOD/WFMCoordinationEventService.tws/TriageScore"/>
+
+         <wsdl:input name="TriageScoreRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="TriageScoreResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="PatientRegistered">
+
+         <wsdlsoap:operation soapAction="http://WIN-687RHJV6VUL:19086/teamworks/webservices/OPPOD/WFMCoordinationEventService.tws/PatientRegistered"/>
+
+         <wsdl:input name="PatientRegisteredRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="PatientRegisteredResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="OrderRequest">
+
+         <wsdlsoap:operation soapAction="http://WIN-687RHJV6VUL:19086/teamworks/webservices/OPPOD/WFMCoordinationEventService.tws/OrderRequest"/>
+
+         <wsdl:input name="OrderRequestRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="OrderRequestResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="OrderRequestCompleted">
+
+         <wsdlsoap:operation soapAction="http://WIN-687RHJV6VUL:19086/teamworks/webservices/OPPOD/WFMCoordinationEventService.tws/OrderRequestCompleted"/>
+
+         <wsdl:input name="OrderRequestCompletedRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="OrderRequestCompletedResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="BedRequest">
+
+         <wsdlsoap:operation soapAction="http://WIN-687RHJV6VUL:19086/teamworks/webservices/OPPOD/WFMCoordinationEventService.tws/BedRequest"/>
+
+         <wsdl:input name="BedRequestRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="BedRequestResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="PatientAdmittedWithNoBed">
+
+         <wsdlsoap:operation soapAction="http://WIN-687RHJV6VUL:19086/teamworks/webservices/OPPOD/WFMCoordinationEventService.tws/PatientAdmittedWithNoBed"/>
+
+         <wsdl:input name="PatientAdmittedWithNoBedRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="PatientAdmittedWithNoBedResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="PatientAdmittedWithBed">
+
+         <wsdlsoap:operation soapAction="http://WIN-687RHJV6VUL:19086/teamworks/webservices/OPPOD/WFMCoordinationEventService.tws/PatientAdmittedWithBed"/>
+
+         <wsdl:input name="PatientAdmittedWithBedRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="PatientAdmittedWithBedResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="PatientTransportRequest">
+
+         <wsdlsoap:operation soapAction="http://WIN-687RHJV6VUL:19086/teamworks/webservices/OPPOD/WFMCoordinationEventService.tws/PatientTransportRequest"/>
+
+         <wsdl:input name="PatientTransportRequestRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="PatientTransportRequestResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="WaitForConsultation2">
+
+         <wsdlsoap:operation soapAction="http://WIN-687RHJV6VUL:19086/teamworks/webservices/OPPOD/WFMCoordinationEventService.tws/WaitForConsultation2"/>
+
+         <wsdl:input name="WaitForConsultation2Request">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="WaitForConsultation2Response">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="ConsultationStarted2">
+
+         <wsdlsoap:operation soapAction="http://WIN-687RHJV6VUL:19086/teamworks/webservices/OPPOD/WFMCoordinationEventService.tws/ConsultationStarted2"/>
+
+         <wsdl:input name="ConsultationStarted2Request">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="ConsultationStarted2Response">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="ConsultationCompleted2">
+
+         <wsdlsoap:operation soapAction="http://WIN-687RHJV6VUL:19086/teamworks/webservices/OPPOD/WFMCoordinationEventService.tws/ConsultationCompleted2"/>
+
+         <wsdl:input name="ConsultationCompleted2Request">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="ConsultationCompleted2Response">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="WFMCoordinationEventService">
+
+      <wsdl:port binding="impl:WFMCoordinationEventServiceSoapSoapBinding" name="WFMCoordinationEventServiceSoap">
+   <wsdl:documentation>
+SOAP Port   </wsdl:documentation>
+
+         <wsdlsoap:address location="http://WIN-687RHJV6VUL:19086/teamworks/webservices/OPPOD/WFMCoordinationEventService.tws"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
