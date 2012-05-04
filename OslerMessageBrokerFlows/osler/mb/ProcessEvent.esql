@@ -187,7 +187,9 @@ CREATE COMPUTE MODULE ProcessEvent_SwapMessage
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- Swap the input to a safe location in the local environment variables section
-		--SET Environment.Variables.EventBody = InputRoot.XMLNSC.*[<];
+		--CREATE LASTCHILD OF Environment.Variables DOMAIN 'PropertyParser' NAME 'EventProperties';
+		SET Environment.Variables.EventProperties = InputRoot.Properties;
+		
 		CREATE LASTCHILD OF Environment.Variables DOMAIN 'XMLNSC' NAME 'EventBody';
 		SET Environment.Variables.EventBody = InputRoot.XMLNSC;
 		RETURN TRUE;
@@ -205,8 +207,10 @@ CREATE COMPUTE MODULE ProcessEvent_RefreshCache
 		IF CARDINALITY(Environment.Variables.EventBody[]) > 0 THEN
 			-- If possible, bring back the event into the output and clear the environment		
 			SET ruleRefreshAttempts = 0;
-			SET OutputRoot.XMLNSC = Environment.Variables.EventBody;
+			SET OutputRoot.XMLNSC = Environment.Variables.EventBody;		
 			SET Environment.Variables.EventBody = NULL; 
+			SET OutputRoot.Properties = Environment.Variables.EventProperties;
+			SET Environment.Variables.EventProperties = NULL; 
 		END IF;		
 		RETURN TRUE;
 	END;

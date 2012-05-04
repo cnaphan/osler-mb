@@ -1,11 +1,111 @@
 BROKER SCHEMA osler.mb
 
 
+-- The following two functions come from the XMLNSC Namespace sample
+-- Basically, they are used to add a namespace to an incoming HTTP request. There is likely a much easier way.
+-- Further reading: http://127.0.0.1:3097/help/topic/com.ibm.etools.mft.samples.XMLNSCnamespace.doc/doc/overview.htm
+
+CREATE FUNCTION ChangeNamespaceInOutputRoot(In rootNode REFERENCE, In oldNamespace CHARACTER, In newNamespace CHARACTER)
+BEGIN
+	--
+	-- Need to remove schemalocation and namespace declarations
+	--
+	IF newNamespace = '' THEN
+		SET rootNode.(XMLNSC.Element)*[1].*:schemaLocation = NULL;
+		DECLARE I1 INTEGER CARDINALITY(rootNode.(XMLNSC.Element)*[1].(XMLNSC.NamespaceDecl)*[]);
+		DECLARE I2 INTEGER 1;
+		WHILE I2 <= I1 DO
+			SET rootNode.(XMLNSC.Element)*[1].(XMLNSC.NamespaceDecl)*[1] = NULL;
+			SET I2 = I2 + 1;
+		END WHILE;	 
+	ELSE
+	--
+	-- Need to modify the schema locations and the namespace declarations
+	--
+	-- The target schemalocations can be identified within the source message's
+	-- MQRFH2 header, <usr> folder, tag <TargetSchemaLocation>
+	--
+		IF rootNode.(XMLNSC.Element)*[1].*:schemaLocation IS NOT NULL THEN
+			SET rootNode.(XMLNSC.Element)*[1].*:schemaLocation = newNamespace;
+		END IF;	
+	END IF;	
+	--		
+	-- CHECKSIBLING is a flag which, when set to TRUE, ensures that the WHILE loop does an
+	-- unconditional MOVE ... NEXTSIBLING (rather than MOVE ... FIRSTCHILD)
+	-- We need this when we go up a level in the tree... otherwise we go back where we have
+	-- just come from
+	--
+	DECLARE CHECKSIBLING BOOLEAN FALSE;
+	--
+	-- DEPTH determines when to finish.  
+	-- Every time we MOVE FIRSTCHILD we add 1 to DEPTH
+	-- Every time we MOVE PARENT we subtract 1 from DEPTH
+	-- MOVE NEXTSIBLING does not change DEPTH
+	-- Initial value is 1, so we are finished when DEPTH = 0
+	--
+	DECLARE DEPTH INTEGER 1;
+	--
+	-- Walk the tree top to bottom, left to right
+	--
+	WHILE DEPTH <> 0 DO 
+		IF CHECKSIBLING = FALSE THEN 
+			MOVE rootNode FirstChild;
+		 	IF LASTMOVE(rootNode) = TRUE THEN
+				SET DEPTH = DEPTH + 1;
+				CALL ChangeNamespace(rootNode, oldNamespace, newNamespace);
+		 	ELSE
+		 		MOVE rootNode NEXTSIBLING;
+			 	IF LASTMOVE(rootNode) = TRUE THEN
+					CALL ChangeNamespace(rootNode, oldNamespace, newNamespace);
+					SET CHECKSIBLING = FALSE;
+			 	ELSE
+					SET DEPTH = DEPTH - 1;
+					Move rootNode PARENT;		 		
+					SET CHECKSIBLING = TRUE;
+				END IF;
+		 	END IF;	
+		ELSE
+			MOVE rootNode NEXTSIBLING;
+		 	IF LASTMOVE(rootNode) = TRUE THEN
+				CALL ChangeNamespace(rootNode, oldNamespace, newNamespace);
+				SET CHECKSIBLING = FALSE;
+		 	ELSE
+				SET DEPTH = DEPTH - 1;
+				Move rootNode PARENT;		 		
+				SET CHECKSIBLING = TRUE;
+			END IF;
+		END IF;
+	END WHILE;
+END;
+
+CREATE FUNCTION ChangeNamespace(IN rootNode REFERENCE, In oldNamespace CHARACTER, In newNamespace CHARACTER)
+BEGIN
+	--
+	-- Check for elements/attributes with the source namespace		
+	--
+    IF (FIELDTYPE(rootNode) = Name) OR (FIELDTYPE(rootNode) = NameValue) THEN
+		IF FIELDNAMESPACE(rootNode) IN (oldNamespace) THEN 
+			--
+			-- Set the new target namespace
+			--
+			SET rootNode NAMESPACE = newNamespace;
+			--
+			-- Get rid of any inline namespace definitions
+			--
+			SET rootNode.(XMLNSC.NamespaceDecl)* = NULL;
+		END IF;
+    END IF;
+END;
+
 CREATE COMPUTE MODULE HttpIn_AppendMethod
 	CREATE FUNCTION Main() RETURNS BOOLEAN
-	BEGIN
-		CALL CopyMessageHeaders();
+	BEGIN		
 		CALL CopyEntireMessage();
+		DECLARE oldNs NAMESPACE '';
+		DECLARE pfmNs NAMESPACE 'http://patientflowmonitoring/';
+		DECLARE rootNode REFERENCE TO OutputRoot.XMLNSC.*[<];
+		CALL ChangeNamespace (rootNode, oldNs, pfmNs);
+		
 		SET OutputRoot.XMLNSC.*[<].(XMLNSC.Attribute)inputMethod = 'HTTP';
 		SET OutputRoot.XMLNSC.*[<].(XMLNSC.Attribute)remoteHost = InputRoot.HTTPInputHeader."X-Remote-Host";		
 		RETURN TRUE;
@@ -32,7 +132,7 @@ CREATE COMPUTE MODULE HttpIn_GenerateAck
 	BEGIN
 		CALL CopyMessageHeaders();
 		-- Extract the event name from the name of the first element of the body
-		DECLARE EventName CHARACTER;
+		DECLARE EventName CHARACTER 'GenericEventName';
 		SET EventName = FIELDNAME(InputRoot.XMLNSC.*[<]) || 'Response';
 		-- Create the response message	
 		CREATE LASTCHILD OF OutputRoot.XMLNSC TYPE XML.Element  NAME EventName VALUE 'Message received';
