@@ -23,8 +23,8 @@
       <nodes xmi:type="ComIbmSOAPEnvelope.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="129,207" createEnvelope="true" envelopeLocation="$Environment/Variables/SOAP/Envelope">
         <translation xmi:type="utility:ConstantString" string="Create Envelope"/>
       </nodes>
-      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_19" location="23,293" labelName="HTTP">
-        <translation xmi:type="utility:ConstantString" string="If HTTP"/>
+      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_19" location="23,293" labelName="REST">
+        <translation xmi:type="utility:ConstantString" string="If REST"/>
       </nodes>
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="316,21" computeExpression="esql://routine/osler.mb#ProcessEvent_ApplyRoutingRules.Main" computeMode="all" treatWarningsAsErrors="true">
         <translation xmi:type="utility:ConstantString" string="Apply Routing Rules"/>
@@ -36,14 +36,14 @@
         <translation xmi:type="utility:ConstantString" string="To Local"/>
         <shortDescription xmi:type="utility:ConstantString" string="Copies the routing rules to the local drive"/>
       </nodes>
-      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_14" location="5,527" URLSpecifier="/http/updateRoutingRules" messageDomainProperty="XMLNSC">
-        <translation xmi:type="utility:ConstantString" string="/http/updateRoutingRules"/>
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_14" location="5,527" URLSpecifier="/rest/updateRoutingRules" messageDomainProperty="XMLNSC">
+        <translation xmi:type="utility:ConstantString" string="/rest/updateRoutingRules"/>
       </nodes>
       <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_15" location="150,482" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Received updated routing rules from ${Root.HTTPInputHeader.&quot;X-Remote-Host&quot;}">
         <translation xmi:type="utility:ConstantString" string="Log Update"/>
       </nodes>
-      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_17" location="420,541" URLSpecifier="/http/getRoutingRules">
-        <translation xmi:type="utility:ConstantString" string="/http/getRoutingRules"/>
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_17" location="420,541" URLSpecifier="/rest/getRoutingRules">
+        <translation xmi:type="utility:ConstantString" string="/rest/getRoutingRules"/>
       </nodes>
       <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_20" location="615,541">
         <translation xmi:type="utility:ConstantString" string="Reply with Rules"/>

@@ -97,7 +97,7 @@ BEGIN
     END IF;
 END;
 
-CREATE COMPUTE MODULE HttpIn_AppendMethod
+CREATE COMPUTE MODULE RestIn_AppendMethod
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN		
 		CALL CopyEntireMessage();
@@ -106,7 +106,7 @@ CREATE COMPUTE MODULE HttpIn_AppendMethod
 		DECLARE rootNode REFERENCE TO OutputRoot.XMLNSC.*[<];
 		CALL ChangeNamespace (rootNode, oldNs, pfmNs);
 		
-		SET OutputRoot.XMLNSC.*[<].(XMLNSC.Attribute)inputMethod = 'HTTP';
+		SET OutputRoot.XMLNSC.*[<].(XMLNSC.Attribute)inputMethod = 'REST';
 		SET OutputRoot.XMLNSC.*[<].(XMLNSC.Attribute)remoteHost = InputRoot.HTTPInputHeader."X-Remote-Host";		
 		RETURN TRUE;
 	END;
@@ -127,7 +127,7 @@ CREATE COMPUTE MODULE HttpIn_AppendMethod
 END MODULE;
 
 
-CREATE COMPUTE MODULE HttpIn_GenerateAck
+CREATE COMPUTE MODULE RestIn_GenerateAck
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		CALL CopyMessageHeaders();

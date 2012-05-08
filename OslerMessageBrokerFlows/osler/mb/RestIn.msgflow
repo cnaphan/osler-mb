@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmCompute.msgnode="ComIbmCompute.msgnode" xmlns:ComIbmHTTPHeader.msgnode="ComIbmHTTPHeader.msgnode" xmlns:ComIbmMQOutput.msgnode="ComIbmMQOutput.msgnode" xmlns:ComIbmTrace.msgnode="ComIbmTrace.msgnode" xmlns:ComIbmWSInput.msgnode="ComIbmWSInput.msgnode" xmlns:ComIbmWSReply.msgnode="ComIbmWSReply.msgnode" xmlns:ComIbmXslMqsi.msgnode="ComIbmXslMqsi.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow"
-    xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="osler/mb/HttpIn.msgflow"
-    nsPrefix="osler_mb_HttpIn.msgflow">
+    xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="osler/mb/RestIn.msgflow"
+    nsPrefix="osler_mb_RestIn.msgflow">
   <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1">
     <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
-    <translation xmi:type="utility:TranslatableString" key="HttpIn" bundleName="osler/mb/HttpIn" pluginId="OslerMessageBrokerFlows"/>
-    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/OslerMessageBrokerFlows/icons/full/obj16/HttpIn.gif"/>
-    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/OslerMessageBrokerFlows/icons/full/obj30/HttpIn.gif"/>
+    <translation xmi:type="utility:TranslatableString" key="RestIn" bundleName="osler/mb/RestIn" pluginId="OslerMessageBrokerFlows"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/OslerMessageBrokerFlows/icons/full/obj16/RestIn.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/OslerMessageBrokerFlows/icons/full/obj30/RestIn.gif"/>
     <shortDescription xmi:type="utility:ConstantString" string="Accepts input on a HTTP (REST) web service and puts it on the incoming queue"/>
     <composition>
-      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="29,88" URLSpecifier="/http/registerEvent" messageDomainProperty="XMLNSC">
-        <translation xmi:type="utility:ConstantString" string="/http/registerEvent"/>
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="29,88" URLSpecifier="/rest/registerEvent" messageDomainProperty="XMLNSC">
+        <translation xmi:type="utility:ConstantString" string="/rest/registerEvent"/>
       </nodes>
       <nodes xmi:type="ComIbmHTTPHeader.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="490,137" httpInputHeader="DeleteHeader" httpReplyHeader="CarryForward">
         <translation xmi:type="utility:ConstantString" string="Strip Header"/>
@@ -23,10 +23,10 @@
       <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="682,142" queueManagerName="MB7QMGR" queueName="OSLER_INCOMING">
         <translation xmi:type="utility:ConstantString" string="To Incoming"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="365,137" computeExpression="esql://routine/osler.mb#HttpIn_AppendMethod.Main" computeMode="destinationAndMessage" treatWarningsAsErrors="true">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="365,137" computeExpression="esql://routine/osler.mb#RestIn_AppendMethod.Main" computeMode="destinationAndMessage" treatWarningsAsErrors="true">
         <translation xmi:type="utility:ConstantString" string="Append Method"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="376,38" computeExpression="esql://routine/osler.mb#HttpIn_GenerateAck.Main" treatWarningsAsErrors="true">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="376,38" computeExpression="esql://routine/osler.mb#RestIn_GenerateAck.Main" treatWarningsAsErrors="true">
         <translation xmi:type="utility:ConstantString" string="Generate Ack"/>
         <shortDescription xmi:type="utility:ConstantString" string="Generates a simple response and sends it back"/>
       </nodes>
@@ -34,14 +34,14 @@
         <translation xmi:type="utility:ConstantString" string="Incoming"/>
         <shortDescription xmi:type="utility:ConstantString" string="Used to debug incoming HTTP messages"/>
       </nodes>
-      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="13,268" URLSpecifier="/http/registerEvent-wodm" messageDomainProperty="XMLNSC">
-        <translation xmi:type="utility:ConstantString" string="/http/registerEvent-wodm"/>
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="17,185" URLSpecifier="/rest/registerEvent-wbe" messageDomainProperty="XMLNSC">
+        <translation xmi:type="utility:ConstantString" string="/rest/registerEvent-wodm"/>
       </nodes>
       <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="240,84" destination="none">
         <translation xmi:type="utility:ConstantString" string="Branch"/>
       </nodes>
-      <nodes xmi:type="ComIbmXslMqsi.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_10" location="159,266" stylesheetName="xsl/WODM-PFM.xsl" messageDomainProperty="XMLNSC">
-        <translation xmi:type="utility:ConstantString" string="WODM to PFM"/>
+      <nodes xmi:type="ComIbmXslMqsi.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_10" location="164,181" stylesheetName="xsl/WBE-PFM.xsl" messageDomainProperty="XMLNSC">
+        <translation xmi:type="utility:ConstantString" string="WBE to PFM"/>
         <shortDescription xmi:type="utility:ConstantString" string="Transforms an event from the format used by default by WODM to the standard format used by PFM"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_4" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_5" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>

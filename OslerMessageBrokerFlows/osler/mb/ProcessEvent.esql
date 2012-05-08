@@ -13,7 +13,7 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 		--	1.1 If not, initiate subflow to go get them
 		--2. Prepare routing information based on routing rules and input message 
 		--3. If appropriate, route a message to the outbound queue (JMS)
-		--4. Propagate messages to point-to-point destinations (HTTP or SOAP)
+		--4. Propagate messages to point-to-point destinations (REST or SOAP)
 		--5. Create a logEvent message and send it to the log queue
 	
 		IF CARDINALITY(ruleCache.oslerRoutingRules[]) = 0 THEN
@@ -75,10 +75,10 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 			SET numSentPubSub = numSentPubSub + 1;					
 		END IF; -- If hasJms
 		
-		-- Loop through each destination that requires point-to-point (HTTP and SOAP)
+		-- Loop through each destination that requires point-to-point (REST and SOAP)
 		FOR d AS ruleCache.oslerRoutingRules.destinations.destination[] DO
-			 -- If the destination uses HTTP or SOAP, and it's not disabled, then process it
-			IF (d.accessMethod = 'HTTP' OR d.accessMethod = 'SOAP') AND d.(XMLNSC.Attribute)disabled IS NULL THEN
+			 -- If the destination uses REST or SOAP, and it's not disabled, then process it
+			IF (d.accessMethod = 'REST' OR d.accessMethod = 'SOAP') AND d.(XMLNSC.Attribute)disabled IS NULL THEN
 			-- If this is a test message, only send to destinations starting with the word 'test' (i.e. the console)
 			IF NOT isTest OR LEFT(LOWER(d.name), 4) = 'test' THEN
 				-- Set some environment variables that can be used later for logging
@@ -109,7 +109,7 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 				  	SET numSentP2P = numSentP2P + 1; 
 			  	END IF;
 			END IF; -- If either not a test event or this destination is a test destination
-			END IF; -- If the destination is HTTP or SOAP, and not disabled
+			END IF; -- If the destination is REST or SOAP, and not disabled
 			
 		END FOR; 		  
 				
