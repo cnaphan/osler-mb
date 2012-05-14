@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmTrace.msgnode="ComIbmTrace.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="osler/mb/SendEventJms.msgflow"
+    nsPrefix="osler_mb_SendEventJms.msgflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <translation xmi:type="utility:TranslatableString" key="SendEventJms" bundleName="osler/mb/SendEventJms" pluginId="OslerMessageBrokerFlows"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/OslerMessageBrokerFlows/icons/full/obj16/SendEventJms.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/OslerMessageBrokerFlows/icons/full/obj30/SendEventJms.gif"/>
+    <shortDescription xmi:type="utility:ConstantString" string="Sends an event to a named JMS queue"/>
+    <longDescription xmi:type="utility:ConstantString" string="Performs transformation, sends to JMS and then sends out the response log event to the console"/>
+    <composition>
+      <nodes xmi:type="eflow:FCMSource" xmi:id="InTerminal.Input" location="54,220">
+        <translation xmi:type="utility:TranslatableString" key="InTerminal.Input" bundleName="osler/mb/SendEventJms" pluginId="OslerMessageBrokerFlows"/>
+      </nodes>
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="184,220" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Event sent to JMS [event=${FIELDNAME(Root.XMLNS.*[&lt;])}]. Not implemented yet.">
+        <translation xmi:type="utility:ConstantString" string="Not Implemented"/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_3" sourceNode="InTerminal.Input" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+    </composition>
+    <propertyOrganizer/>
+    <stickyBoard/>
+  </eClassifiers>
+</ecore:EPackage>

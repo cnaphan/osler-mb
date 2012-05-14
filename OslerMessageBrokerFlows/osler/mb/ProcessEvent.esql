@@ -12,8 +12,8 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 		--1. Check if routing rules are cached in memory
 		--	1.1 If not, initiate subflow to go get them
 		--2. Prepare routing information based on routing rules and input message 
-		--3. If appropriate, route a message to the outbound queue (JMS)
-		--4. Propagate messages to point-to-point destinations (REST or SOAP)
+		--3. If appropriate, route a message to the outbound queue (PubSub)
+		--4. Propagate messages to point-to-point destinations (P2P protocols)
 		--5. Create a logEvent message and send it to the log queue
 	
 		IF CARDINALITY(ruleCache.oslerRoutingRules[]) = 0 THEN
@@ -62,23 +62,23 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 		DECLARE numSentP2P INTEGER 0;
 		DECLARE numSentPubSub INTEGER 0;
 		
-		-- Check if any destination receives via JMS. If so, propagate one message to JMS
-		DECLARE hasJms BOOLEAN FALSE;
+		-- Check if any destination receives via PubSub. If so, propagate one message to PubSub
+		DECLARE hasPubSub BOOLEAN FALSE;
 		FOR d AS ruleCache.oslerRoutingRules.destinations.destination[] DO
-			IF NOT hasJms AND d.(XMLNSC.Attribute)disabled IS NULL AND d.accessMethod = 'JMS' THEN
-				SET hasJms = TRUE;
+			IF NOT hasPubSub AND d.(XMLNSC.Attribute)disabled IS NULL AND d.accessMethod = 'PubSub' THEN
+				SET hasPubSub = TRUE;
 			END IF;
 		END FOR;
-		IF hasJms THEN
+		IF hasPubSub THEN
 			CALL CopyEntireMessage();
-			PROPAGATE TO LABEL 'JMS'; 	
+			PROPAGATE TO LABEL 'PubSub'; 	
 			SET numSentPubSub = numSentPubSub + 1;					
-		END IF; -- If hasJms
+		END IF; -- If hasPubSub
 		
 		-- Loop through each destination that requires point-to-point (REST and SOAP)
 		FOR d AS ruleCache.oslerRoutingRules.destinations.destination[] DO
-			 -- If the destination uses REST or SOAP, and it's not disabled, then process it
-			IF (d.accessMethod = 'REST' OR d.accessMethod = 'SOAP') AND d.(XMLNSC.Attribute)disabled IS NULL THEN
+			 -- If the destination uses a P2P protocol, and it's not disabled, then process it
+			IF (d.accessMethod <> 'PubSub') AND d.(XMLNSC.Attribute)disabled IS NULL THEN
 			-- If this is a test message, only send to destinations starting with the word 'test' (i.e. the console)
 			IF NOT isTest OR LEFT(LOWER(d.name), 4) = 'test' THEN
 				-- Set some environment variables that can be used later for logging
