@@ -84,8 +84,9 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 				-- Set some environment variables that can be used later for logging
 			  	SET Environment.Variables.EventName = eventName;
 			  	SET Environment.Variables.DestinationName = d.name;
+				SET Environment.Variables.TwsSoapAction = 'http://WIN-687RHJV6VUL:19086/teamworks/webservices/OPPOD/WFMCoordinationEventService.tws' || '/' || UPPER(SUBSTRING(eventName FROM 1 FOR 1)) || SUBSTRING(eventName FROM 2);
 			  	SET Environment.Variables.AccessMethod = d.accessMethod;
-			  	SET Environment.Variables.Format = d.format;
+			  	SET Environment.Variables.Format = d.format;			  	
 				
 				-- Test to see if this destination routes to this event (assume not at first)
 			  	DECLARE hasEvent BOOLEAN FALSE;
