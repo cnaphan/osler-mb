@@ -9,9 +9,9 @@
 	
 	<xsl:variable name="lowercase" select="'abcdefghijklmnopqrstuvwxyz'" />
 	<xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
-	
+	                                    
 	<xsl:template match="/soapenv:Envelope/soapenv:Body/wfm:*">
-		<xsl:variable name="eventName" select="concat(translate(substring(name(.), 5, 1), $uppercase, $lowercase), substring(name(.), 6))"/>
+		<xsl:variable name="eventName" select="concat(translate(substring(local-name(.), 1, 1), $uppercase, $lowercase), substring(local-name(.), 2))"/>
 		<soapenv:Envelope>
 			<soapenv:Header/>
 			<soapenv:Body>
@@ -22,37 +22,37 @@
 		</soapenv:Envelope>
 	</xsl:template>
 	
-	<xsl:template match="/soapenv:Envelope/soapenv:Body/wfm:*/wfm:Patient_ID">
+	<xsl:template match="/soapenv:Envelope/soapenv:Body/*/wfm:Patient_ID">
 		<patientId><xsl:apply-templates/></patientId>
 	</xsl:template>
-	<xsl:template match="/soapenv:Envelope/soapenv:Body/wfm:*/wfm:Provider_ID">
+	<xsl:template match="/soapenv:Envelope/soapenv:Body/*/wfm:Provider_ID">
 		<providerId><xsl:apply-templates/></providerId>
 	</xsl:template>
-	<xsl:template match="/soapenv:Envelope/soapenv:Body/wfm:*/wfm:Physician_ID">
+	<xsl:template match="/soapenv:Envelope/soapenv:Body/*/wfm:Physician_ID">
 		<physicianId><xsl:apply-templates/></physicianId>
 	</xsl:template>
-	<xsl:template match="/soapenv:Envelope/soapenv:Body/wfm:*/wfm:Room_ID">
+	<xsl:template match="/soapenv:Envelope/soapenv:Body/*/wfm:Room_ID">
 		<roomId><xsl:apply-templates/></roomId>
 	</xsl:template>
-	<xsl:template match="/soapenv:Envelope/soapenv:Body/wfm:*/wfm:Bed_ID">
+	<xsl:template match="/soapenv:Envelope/soapenv:Body/*/wfm:Bed_ID">
 		<bedId><xsl:apply-templates/></bedId>
 	</xsl:template>
-	<xsl:template match="/soapenv:Envelope/soapenv:Body/wfm:*/wfm:Unit_ID">
+	<xsl:template match="/soapenv:Envelope/soapenv:Body/*/wfm:Unit_ID">
 		<unitId><xsl:apply-templates/></unitId>
 	</xsl:template>
-	<xsl:template match="/soapenv:Envelope/soapenv:Body/wfm:*/wfm:Location_ID">
+	<xsl:template match="/soapenv:Envelope/soapenv:Body/*/wfm:Location_ID">
 		<locationId><xsl:apply-templates/></locationId>
 	</xsl:template>
-	<xsl:template match="/soapenv:Envelope/soapenv:Body/wfm:*/wfm:Order_ID">
+	<xsl:template match="/soapenv:Envelope/soapenv:Body/*/wfm:Order_ID">
 		<orderId><xsl:apply-templates/></orderId>
 	</xsl:template>
-	<xsl:template match="/soapenv:Envelope/soapenv:Body/wfm:*/wfm:OrderType">
+	<xsl:template match="/soapenv:Envelope/soapenv:Body/*/wfm:OrderType">
 		<orderType><xsl:apply-templates/></orderType>
 	</xsl:template>
-	<xsl:template match="/soapenv:Envelope/soapenv:Body/wfm:*/wfm:CTAS">
+	<xsl:template match="/soapenv:Envelope/soapenv:Body/*/wfm:CTAS">
 		<ctas><xsl:apply-templates/></ctas>
 	</xsl:template>
-	<xsl:template match="/soapenv:Envelope/soapenv:Body/wfm:*/wfm:timestamp">
+	<xsl:template match="/soapenv:Envelope/soapenv:Body/*/wfm:timestamp">
 		<timestamp><xsl:apply-templates/></timestamp>
 	</xsl:template>	
 </xsl:stylesheet>

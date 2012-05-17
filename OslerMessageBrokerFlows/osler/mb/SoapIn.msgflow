@@ -19,7 +19,7 @@
       <nodes xmi:type="ComIbmSOAPExtract.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_11" location="136,124">
         <translation xmi:type="utility:ConstantString" string="Strip SOAP"/>
       </nodes>
-      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_12" location="14,80" URLSpecifier="/soap/registerEvent" messageDomainProperty="XMLNSC">
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_12" location="11,118" URLSpecifier="/soap/registerEvent" messageDomainProperty="XMLNSC">
         <translation xmi:type="utility:ConstantString" string="/soap/registerEvent"/>
         <nsMappingTable nsPrefix="ns1" namespace="*"/>
       </nodes>

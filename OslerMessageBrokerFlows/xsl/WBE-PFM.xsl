@@ -9,6 +9,7 @@
 	
 	<!-- Can't use the name directly because this format uses dynamic namespaces -->
 	<xsl:template match="/*[local-name()='connector']/*[local-name()='connector-bundle']/*">
+		<xsl:variable name="eventName" select="concat(translate(substring(local-name(.), 1, 1), $uppercase, $lowercase), substring(local-name(.), 2, string-length(local-name(.)) - string-length('object') - 1))"/>
 		<xsl:variable name="eventName" select="concat(translate(substring(name(.), 1, 1), $uppercase, $lowercase), substring(name(.), 2, string-length(name(.)) - string-length('object') - 1))"/>
 		<xsl:element name="pat:{$eventName}">
 			<xsl:apply-templates/>

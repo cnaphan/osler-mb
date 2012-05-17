@@ -11,7 +11,7 @@
 	<xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
 	
 	<xsl:template match="/soapenv:Envelope/soapenv:Body/pat:*">
-		<xsl:variable name="eventName" select="concat(translate(substring(name(.), 5, 1), $lowercase, $uppercase), substring(name(.), 6))"/>
+		<xsl:variable name="eventName" select="concat(translate(substring(local-name(.), 1, 1), $uppercase, $lowercase), substring(local-name(.), 2))"/>
 		<soapenv:Envelope>
 			<soapenv:Header/>
 			<soapenv:Body>
