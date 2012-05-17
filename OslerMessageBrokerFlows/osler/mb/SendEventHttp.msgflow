@@ -16,7 +16,7 @@
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="447,215" computeExpression="esql://routine/osler.mb#ProcessEvent_PrepareLogResponse.Main" computeMode="destinationAndMessage" treatWarningsAsErrors="true">
         <translation xmi:type="utility:ConstantString" string="Prepare Response Log"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="269,128" queueManagerName="MB7QMGR" queueName="OSLER_ERRORS">
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="244,76" queueManagerName="MB7QMGR" queueName="OSLER_ERRORS">
         <translation xmi:type="utility:ConstantString" string="To Errors"/>
       </nodes>
       <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="360,217" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Event service '${LEFT(LocalEnvironment.Destination.HTTP.RequestURL,20)}' replied with status code ${Root.HTTPResponseHeader.&quot;X-Original-HTTP-Status-Code&quot;}">
@@ -32,7 +32,7 @@
       <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="318,296" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Failed event ${Root.XMLNSC}">
         <translation xmi:type="utility:ConstantString" string="Print Error"/>
       </nodes>
-      <nodes xmi:type="ComIbmTryCatch.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="173,168">
+      <nodes xmi:type="ComIbmTryCatch.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="153,85">
         <translation xmi:type="utility:ConstantString" string="Try Send"/>
         <shortDescription xmi:type="utility:ConstantString" string="Ensures that failures to send to certain destinations do not roll back too far and interrupt other sends"/>
       </nodes>

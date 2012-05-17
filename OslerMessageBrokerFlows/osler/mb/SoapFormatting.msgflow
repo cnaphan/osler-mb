@@ -22,7 +22,7 @@
         <filterTable filterPattern="$Environment/Variables/Format = 'TWS'" routingOutputTerminal="TWS"/>
         <filterTable filterPattern="$Environment/Variables/Format = 'WBE'" routingOutputTerminal="WBE"/>
       </nodes>
-      <nodes xmi:type="ComIbmXslMqsi.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="455,225" stylesheetName="xsl/PFM-TWS.xsl" messageDomainProperty="XMLNSC">
+      <nodes xmi:type="ComIbmXslMqsi.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="428,226" stylesheetName="xsl/PFM-TWS.xsl" messageDomainProperty="XMLNSC">
         <translation xmi:type="utility:ConstantString" string="To TWS"/>
       </nodes>
       <nodes xmi:type="eflow:FCMSink" xmi:id="OutTerminal.Output" location="671,163">
@@ -31,7 +31,7 @@
       <nodes xmi:type="ComIbmXslMqsi.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="487,66" stylesheetName="xsl/PFM-WBE.xsl" messageDomainProperty="XMLNSC">
         <translation xmi:type="utility:ConstantString" string="To WBE"/>
       </nodes>
-      <nodes xmi:type="ComIbmHTTPHeader.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="540,227" httpRequestHeader="Modify">
+      <nodes xmi:type="ComIbmHTTPHeader.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="546,230" httpRequestHeader="Modify">
         <translation xmi:type="utility:ConstantString" string="Add SOAPAction"/>
         <nameValue4RequestHeader name="SOAPAction" type="XPath" value="$Environment/Variables/TwsSoapAction"/>
       </nodes>
@@ -40,8 +40,8 @@
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_3" sourceTerminalName="TWS" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_5" targetNode="FCMComposite_1_1" sourceNode="FCMComposite_1_3" sourceTerminalName="WBE" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_6" targetNode="OutTerminal.Output" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_19" targetNode="OutTerminal.Output" sourceNode="FCMComposite_1_7" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_23" targetNode="FCMComposite_1_7" sourceNode="FCMComposite_1_4" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_8" targetNode="OutTerminal.Output" sourceNode="FCMComposite_1_7" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
     </composition>
     <propertyOrganizer/>
     <stickyBoard/>

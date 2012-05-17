@@ -13,16 +13,13 @@
       <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="461,183" queueManagerName="MB7QMGR" queueName="OSLER_INCOMING" replyToQMgr="MB7QMGR" replyToQ="OSLER_SOAP_REPLY">
         <translation xmi:type="utility:ConstantString" string="To Incoming Queue"/>
       </nodes>
-      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="477,63">
+      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="504,64">
         <translation xmi:type="utility:ConstantString" string="Reply to Sender"/>
       </nodes>
-      <nodes xmi:type="ComIbmSOAPEnvelope.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="326,63" createEnvelope="true">
-        <translation xmi:type="utility:ConstantString" string="Add SOAP Envelope"/>
-      </nodes>
-      <nodes xmi:type="ComIbmSOAPExtract.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_11" location="120,110">
+      <nodes xmi:type="ComIbmSOAPExtract.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_11" location="136,124">
         <translation xmi:type="utility:ConstantString" string="Strip SOAP"/>
       </nodes>
-      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_12" location="14,110" URLSpecifier="/soap/registerEvent" messageDomainProperty="XMLNSC">
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_12" location="14,80" URLSpecifier="/soap/registerEvent" messageDomainProperty="XMLNSC">
         <translation xmi:type="utility:ConstantString" string="/soap/registerEvent"/>
         <nsMappingTable nsPrefix="ns1" namespace="*"/>
       </nodes>
@@ -35,13 +32,16 @@
       <nodes xmi:type="ComIbmHTTPHeader.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="334,183" httpInputHeader="DeleteHeader" httpResponseHeader="DeleteHeader" httpRequestHeader="DeleteHeader" httpReplyHeader="DeleteHeader">
         <translation xmi:type="utility:ConstantString" string="Strip HTTP Header"/>
       </nodes>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_7" targetNode="FCMComposite_1_6" sourceNode="FCMComposite_1_7" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <nodes xmi:type="ComIbmSOAPEnvelope.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_16" location="351,70" createEnvelope="true">
+        <translation xmi:type="utility:ConstantString" string="Add SOAP Envelope"/>
+      </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_5" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_11" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_9" targetNode="FCMComposite_1_11" sourceNode="FCMComposite_1_12" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_10" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_11" targetNode="FCMComposite_1_8" sourceNode="FCMComposite_1_3" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_1" sourceNode="FCMComposite_1_11" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_4" targetNode="FCMComposite_1_7" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_17" targetNode="FCMComposite_1_16" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_18" targetNode="FCMComposite_1_6" sourceNode="FCMComposite_1_16" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
     </composition>
     <propertyOrganizer/>
     <stickyBoard/>
