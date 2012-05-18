@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema targetNamespace="http://patientflowmonitoring/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:tns="http://patientflowmonitoring/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import namespace="http://schemas.xmlsoap.org/soap/envelope/" schemaLocation="../org/xmlsoap/schemas/soap/envelope/soapenv11.mxsd"/>
+  <xsd:include schemaLocation="PFMServer_InlineSchema1.mxsd"/>
+
+<!-- BEGIN Global group petaining to all wsdl:message definitions -->
+<!-- END Global group -->
+
+
+<!-- BEGIN Message Definitions for the wsdl:operations  -->
+<!-- END Message Definitions -->
+
+
+</xsd:schema>

@@ -1,0 +1,107 @@
+
+
+Importing file: C:\Documents and Settings\Administrator\Desktop\PFMServer.wsdl
+
+BIP0224W The message set has no XML Wire Format layer defined. Only the logical information will appear in the model.
+Copying source WSDL PFMServer.wsdl to PFMServer.wsdl.
+
+The following is a list of WS-I warning messages found when importing:
+WS-I BP 1.1: (BP2201) The XML declaration statement within the WSDL document does not use an expected encoding (UTF-8 or UTF-16)., Line: 1, Column: 1
+
+
+The WSDL import will proceed with bindings PFMServerServiceServiceSoapBinding.
+Creating wsdl schema document for file:///C:/Documents and Settings/Administrator/Desktop/PFMServer.wsdl.
+Parsing wsdl binding {http://patientflowmonitoring/}PFMServerServiceServiceSoapBinding.
+Parsing wsdl binding input consultationCompleted2.
+Parsing wsdl binding output consultationCompleted2.
+Parsing wsdl binding input patientAdmittedWithBed.
+Parsing wsdl binding output patientAdmittedWithBed.
+Parsing wsdl binding input patientRegistered.
+Parsing wsdl binding output patientRegistered.
+Parsing wsdl binding input consultationStarted1.
+Parsing wsdl binding output consultationStarted1.
+Parsing wsdl binding input discharge.
+Parsing wsdl binding output discharge.
+Parsing wsdl binding input orderExecutionCompleted.
+Parsing wsdl binding output orderExecutionCompleted.
+Parsing wsdl binding input consultationCompleted1.
+Parsing wsdl binding output consultationCompleted1.
+Parsing wsdl binding input patientInED.
+Parsing wsdl binding output patientInED.
+Parsing wsdl binding input waitForTransport.
+Parsing wsdl binding output waitForTransport.
+Parsing wsdl binding input physicianInED.
+Parsing wsdl binding output physicianInED.
+Parsing wsdl binding input ping.
+Parsing wsdl binding output ping.
+Parsing wsdl binding input waitForOrderExecution.
+Parsing wsdl binding output waitForOrderExecution.
+Parsing wsdl binding input patientOutED.
+Parsing wsdl binding output patientOutED.
+Parsing wsdl binding input consultationStarted2.
+Parsing wsdl binding output consultationStarted2.
+Parsing wsdl binding input patientTransportRequest.
+Parsing wsdl binding output patientTransportRequest.
+Parsing wsdl binding input waitForConsultation2.
+Parsing wsdl binding output waitForConsultation2.
+Parsing wsdl binding input bedRequest.
+Parsing wsdl binding output bedRequest.
+Parsing wsdl binding input waitForConsultation1.
+Parsing wsdl binding output waitForConsultation1.
+Parsing wsdl binding input patientArrivedInBed.
+Parsing wsdl binding output patientArrivedInBed.
+Parsing wsdl binding input patientTransportStarted.
+Parsing wsdl binding output patientTransportStarted.
+Parsing wsdl binding input waitForBed.
+Parsing wsdl binding output waitForBed.
+Parsing wsdl binding input triageScore.
+Parsing wsdl binding output triageScore.
+Parsing wsdl binding input orderRequest.
+Parsing wsdl binding output orderRequest.
+Parsing wsdl binding input orderRequestCompleted.
+Parsing wsdl binding output orderRequestCompleted.
+Parsing wsdl binding input patientAdmittedWithNoBed.
+Parsing wsdl binding output patientAdmittedWithNoBed.
+Parsing wsdl binding input patientInCCU.
+Parsing wsdl binding output patientInCCU.
+Parsing wsdl binding input physicianOutED.
+Parsing wsdl binding output physicianOutED.
+Processing doc style for operation consultationCompleted2.
+Processing doc style for operation patientAdmittedWithBed.
+Processing doc style for operation patientRegistered.
+Processing doc style for operation consultationStarted1.
+Processing doc style for operation discharge.
+Processing doc style for operation orderExecutionCompleted.
+Processing doc style for operation consultationCompleted1.
+Processing doc style for operation patientInED.
+Processing doc style for operation waitForTransport.
+Processing doc style for operation physicianInED.
+Processing doc style for operation ping.
+Processing doc style for operation waitForOrderExecution.
+Processing doc style for operation patientOutED.
+Processing doc style for operation consultationStarted2.
+Processing doc style for operation patientTransportRequest.
+Processing doc style for operation waitForConsultation2.
+Processing doc style for operation bedRequest.
+Processing doc style for operation waitForConsultation1.
+Processing doc style for operation patientArrivedInBed.
+Processing doc style for operation patientTransportStarted.
+Processing doc style for operation waitForBed.
+Processing doc style for operation triageScore.
+Processing doc style for operation orderRequest.
+Processing doc style for operation orderRequestCompleted.
+Processing doc style for operation patientAdmittedWithNoBed.
+Processing doc style for operation patientInCCU.
+Processing doc style for operation physicianOutED.
+Populating WSDL schema OslerMessageSetProject/patientflowmonitoring/PFMServer.mxsd.
+Removing unnecessary import statement with namespace http://www.w3.org/XML/1998/namespace from schema file:/C:/dev/OslerMessageSetProject/OslerMessageSetProject/org/xmlsoap/schemas/soap/envelope/soapenv11.mxsd.  This statement was not resolved and is never used.
+Creating file OslerMessageSetProject/patientflowmonitoring/PFMServer.mxsd in the workspace.
+Creating file OslerMessageSetProject/patientflowmonitoring/PFMServer_InlineSchema1.mxsd in the workspace.
+
+Elapsed time processing this message definition file: 60.453 seconds
+Number of warnings for this message definition file: 1
+
+
+Number of files processed: 1
+
+

@@ -1,0 +1,13 @@
+BROKER SCHEMA osler.mb
+
+
+CREATE COMPUTE MODULE SendEventJms_ErrorLog
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN				
+		SET OutputRoot.XMLNSC.logResponse.event = Environment.Variables.EventName;
+		SET OutputRoot.XMLNSC.logResponse.destinationName = Environment.Variables.DestinationName;
+		SET OutputRoot.XMLNSC.logResponse.accessMethod = Environment.Variables.AccessMethod;
+		SET OutputRoot.XMLNSC.logResponse.responseStatusCode = 500; -- Failed
+		RETURN TRUE;
+	END;
+END MODULE;

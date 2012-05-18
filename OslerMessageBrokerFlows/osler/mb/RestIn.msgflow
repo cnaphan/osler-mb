@@ -35,7 +35,7 @@
         <shortDescription xmi:type="utility:ConstantString" string="Used to debug incoming HTTP messages"/>
       </nodes>
       <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="17,185" URLSpecifier="/rest/registerEvent-wbe" messageDomainProperty="XMLNSC">
-        <translation xmi:type="utility:ConstantString" string="/rest/registerEvent-wodm"/>
+        <translation xmi:type="utility:ConstantString" string="/rest/registerEvent-wbe"/>
       </nodes>
       <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="240,84" destination="none">
         <translation xmi:type="utility:ConstantString" string="Branch"/>

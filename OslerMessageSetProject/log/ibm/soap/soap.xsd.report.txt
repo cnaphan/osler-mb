@@ -1,0 +1,12 @@
+
+
+Importing file: C:\Program Files\IBM\WMBT700\configuration\org.eclipse.osgi\bundles\711\1\.cp\ibm\soap\soap.xsd
+
+
+Elapsed time processing this message definition file: 0.484 seconds
+Number of warnings for this message definition file: 0
+
+
+Number of files processed: 1
+
+

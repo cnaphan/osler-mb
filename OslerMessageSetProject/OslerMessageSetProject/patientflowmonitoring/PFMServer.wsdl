@@ -1,0 +1,646 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions name="PFMServerServiceService" targetNamespace="http://patientflowmonitoring/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://patientflowmonitoring/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:documentation>
+    <wsdl:appinfo source="WMQI_APPINFO">
+      <MRWSDLAppInfo imported="true">
+        <generatedMXSD location="PFMServer_InlineSchema1.mxsd"/>
+        <binding hasEncoding="false" imported="true" name="PFMServerServiceServiceSoapBinding" originalBindingStyle="document"/>
+      </MRWSDLAppInfo>
+    </wsdl:appinfo>
+  </wsdl:documentation>
+  <wsdl:types>
+<xs:schema elementFormDefault="unqualified" targetNamespace="http://patientflowmonitoring/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xsd:include schemaLocation="PFMServer_InlineSchema1.mxsd"/>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="patientAdmittedWithNoBedResponse">
+    <wsdl:part element="tns:patientAdmittedWithNoBedResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="patientRegistered">
+    <wsdl:part element="tns:patientRegistered" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="consultationCompleted2">
+    <wsdl:part element="tns:consultationCompleted2" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="bedRequestResponse">
+    <wsdl:part element="tns:bedRequestResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="patientRegisteredResponse">
+    <wsdl:part element="tns:patientRegisteredResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="patientTransportRequestResponse">
+    <wsdl:part element="tns:patientTransportRequestResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="orderExecutionCompleted">
+    <wsdl:part element="tns:orderExecutionCompleted" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="consultationCompleted2Response">
+    <wsdl:part element="tns:consultationCompleted2Response" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="patientAdmittedWithBedResponse">
+    <wsdl:part element="tns:patientAdmittedWithBedResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="consultationStarted1Response">
+    <wsdl:part element="tns:consultationStarted1Response" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="waitForTransport">
+    <wsdl:part element="tns:waitForTransport" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="consultationCompleted1">
+    <wsdl:part element="tns:consultationCompleted1" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="physicianInED">
+    <wsdl:part element="tns:physicianInED" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="orderExecutionCompletedResponse">
+    <wsdl:part element="tns:orderExecutionCompletedResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="patientTransportRequest">
+    <wsdl:part element="tns:patientTransportRequest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="bedRequest">
+    <wsdl:part element="tns:bedRequest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="waitForOrderExecutionResponse">
+    <wsdl:part element="tns:waitForOrderExecutionResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="consultationStarted1">
+    <wsdl:part element="tns:consultationStarted1" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="consultationStarted2">
+    <wsdl:part element="tns:consultationStarted2" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="waitForConsultation2Response">
+    <wsdl:part element="tns:waitForConsultation2Response" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="orderRequestCompletedResponse">
+    <wsdl:part element="tns:orderRequestCompletedResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="consultationStarted2Response">
+    <wsdl:part element="tns:consultationStarted2Response" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="waitForBedResponse">
+    <wsdl:part element="tns:waitForBedResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="waitForBed">
+    <wsdl:part element="tns:waitForBed" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="waitForConsultation2">
+    <wsdl:part element="tns:waitForConsultation2" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="physicianOutED">
+    <wsdl:part element="tns:physicianOutED" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="waitForConsultation1">
+    <wsdl:part element="tns:waitForConsultation1" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="pingResponse">
+    <wsdl:part element="tns:pingResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="orderRequestCompleted">
+    <wsdl:part element="tns:orderRequestCompleted" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="patientInCCU">
+    <wsdl:part element="tns:patientInCCU" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="patientTransportStarted">
+    <wsdl:part element="tns:patientTransportStarted" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="physicianInEDResponse">
+    <wsdl:part element="tns:physicianInEDResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="discharge">
+    <wsdl:part element="tns:discharge" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ping">
+    <wsdl:part element="tns:ping" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="waitForTransportResponse">
+    <wsdl:part element="tns:waitForTransportResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="patientOutEDResponse">
+    <wsdl:part element="tns:patientOutEDResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="patientArrivedInBed">
+    <wsdl:part element="tns:patientArrivedInBed" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="waitForOrderExecution">
+    <wsdl:part element="tns:waitForOrderExecution" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="patientAdmittedWithBed">
+    <wsdl:part element="tns:patientAdmittedWithBed" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="triageScoreResponse">
+    <wsdl:part element="tns:triageScoreResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="triageScore">
+    <wsdl:part element="tns:triageScore" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="dischargeResponse">
+    <wsdl:part element="tns:dischargeResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="orderRequestResponse">
+    <wsdl:part element="tns:orderRequestResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="orderRequest">
+    <wsdl:part element="tns:orderRequest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="patientOutED">
+    <wsdl:part element="tns:patientOutED" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="patientAdmittedWithNoBed">
+    <wsdl:part element="tns:patientAdmittedWithNoBed" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="waitForConsultation1Response">
+    <wsdl:part element="tns:waitForConsultation1Response" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="patientInEDResponse">
+    <wsdl:part element="tns:patientInEDResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="patientInED">
+    <wsdl:part element="tns:patientInED" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="patientArrivedInBedResponse">
+    <wsdl:part element="tns:patientArrivedInBedResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="physicianOutEDResponse">
+    <wsdl:part element="tns:physicianOutEDResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="consultationCompleted1Response">
+    <wsdl:part element="tns:consultationCompleted1Response" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="patientInCCUResponse">
+    <wsdl:part element="tns:patientInCCUResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="patientTransportStartedResponse">
+    <wsdl:part element="tns:patientTransportStartedResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="PFMServerService">
+    <wsdl:operation name="patientAdmittedWithBed">
+      <wsdl:input message="tns:patientAdmittedWithBed" name="patientAdmittedWithBed">
+    </wsdl:input>
+      <wsdl:output message="tns:patientAdmittedWithBedResponse" name="patientAdmittedWithBedResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="consultationCompleted2">
+      <wsdl:input message="tns:consultationCompleted2" name="consultationCompleted2">
+    </wsdl:input>
+      <wsdl:output message="tns:consultationCompleted2Response" name="consultationCompleted2Response">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="patientRegistered">
+      <wsdl:input message="tns:patientRegistered" name="patientRegistered">
+    </wsdl:input>
+      <wsdl:output message="tns:patientRegisteredResponse" name="patientRegisteredResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="consultationStarted1">
+      <wsdl:input message="tns:consultationStarted1" name="consultationStarted1">
+    </wsdl:input>
+      <wsdl:output message="tns:consultationStarted1Response" name="consultationStarted1Response">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="orderExecutionCompleted">
+      <wsdl:input message="tns:orderExecutionCompleted" name="orderExecutionCompleted">
+    </wsdl:input>
+      <wsdl:output message="tns:orderExecutionCompletedResponse" name="orderExecutionCompletedResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="discharge">
+      <wsdl:input message="tns:discharge" name="discharge">
+    </wsdl:input>
+      <wsdl:output message="tns:dischargeResponse" name="dischargeResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="consultationCompleted1">
+      <wsdl:input message="tns:consultationCompleted1" name="consultationCompleted1">
+    </wsdl:input>
+      <wsdl:output message="tns:consultationCompleted1Response" name="consultationCompleted1Response">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="waitForTransport">
+      <wsdl:input message="tns:waitForTransport" name="waitForTransport">
+    </wsdl:input>
+      <wsdl:output message="tns:waitForTransportResponse" name="waitForTransportResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="patientInED">
+      <wsdl:input message="tns:patientInED" name="patientInED">
+    </wsdl:input>
+      <wsdl:output message="tns:patientInEDResponse" name="patientInEDResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="physicianInED">
+      <wsdl:input message="tns:physicianInED" name="physicianInED">
+    </wsdl:input>
+      <wsdl:output message="tns:physicianInEDResponse" name="physicianInEDResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ping">
+      <wsdl:input message="tns:ping" name="ping">
+    </wsdl:input>
+      <wsdl:output message="tns:pingResponse" name="pingResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="waitForOrderExecution">
+      <wsdl:input message="tns:waitForOrderExecution" name="waitForOrderExecution">
+    </wsdl:input>
+      <wsdl:output message="tns:waitForOrderExecutionResponse" name="waitForOrderExecutionResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="patientOutED">
+      <wsdl:input message="tns:patientOutED" name="patientOutED">
+    </wsdl:input>
+      <wsdl:output message="tns:patientOutEDResponse" name="patientOutEDResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="patientTransportRequest">
+      <wsdl:input message="tns:patientTransportRequest" name="patientTransportRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:patientTransportRequestResponse" name="patientTransportRequestResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="consultationStarted2">
+      <wsdl:input message="tns:consultationStarted2" name="consultationStarted2">
+    </wsdl:input>
+      <wsdl:output message="tns:consultationStarted2Response" name="consultationStarted2Response">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="waitForConsultation2">
+      <wsdl:input message="tns:waitForConsultation2" name="waitForConsultation2">
+    </wsdl:input>
+      <wsdl:output message="tns:waitForConsultation2Response" name="waitForConsultation2Response">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="bedRequest">
+      <wsdl:input message="tns:bedRequest" name="bedRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:bedRequestResponse" name="bedRequestResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="waitForConsultation1">
+      <wsdl:input message="tns:waitForConsultation1" name="waitForConsultation1">
+    </wsdl:input>
+      <wsdl:output message="tns:waitForConsultation1Response" name="waitForConsultation1Response">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="patientTransportStarted">
+      <wsdl:input message="tns:patientTransportStarted" name="patientTransportStarted">
+    </wsdl:input>
+      <wsdl:output message="tns:patientTransportStartedResponse" name="patientTransportStartedResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="patientArrivedInBed">
+      <wsdl:input message="tns:patientArrivedInBed" name="patientArrivedInBed">
+    </wsdl:input>
+      <wsdl:output message="tns:patientArrivedInBedResponse" name="patientArrivedInBedResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="waitForBed">
+      <wsdl:input message="tns:waitForBed" name="waitForBed">
+    </wsdl:input>
+      <wsdl:output message="tns:waitForBedResponse" name="waitForBedResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="triageScore">
+      <wsdl:input message="tns:triageScore" name="triageScore">
+    </wsdl:input>
+      <wsdl:output message="tns:triageScoreResponse" name="triageScoreResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="orderRequestCompleted">
+      <wsdl:input message="tns:orderRequestCompleted" name="orderRequestCompleted">
+    </wsdl:input>
+      <wsdl:output message="tns:orderRequestCompletedResponse" name="orderRequestCompletedResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="orderRequest">
+      <wsdl:input message="tns:orderRequest" name="orderRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:orderRequestResponse" name="orderRequestResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="patientInCCU">
+      <wsdl:input message="tns:patientInCCU" name="patientInCCU">
+    </wsdl:input>
+      <wsdl:output message="tns:patientInCCUResponse" name="patientInCCUResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="patientAdmittedWithNoBed">
+      <wsdl:input message="tns:patientAdmittedWithNoBed" name="patientAdmittedWithNoBed">
+    </wsdl:input>
+      <wsdl:output message="tns:patientAdmittedWithNoBedResponse" name="patientAdmittedWithNoBedResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="physicianOutED">
+      <wsdl:input message="tns:physicianOutED" name="physicianOutED">
+    </wsdl:input>
+      <wsdl:output message="tns:physicianOutEDResponse" name="physicianOutEDResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PFMServerServiceServiceSoapBinding" type="tns:PFMServerService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="consultationCompleted2">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="consultationCompleted2">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="consultationCompleted2Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="patientAdmittedWithBed">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="patientAdmittedWithBed">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="patientAdmittedWithBedResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="patientRegistered">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="patientRegistered">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="patientRegisteredResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="consultationStarted1">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="consultationStarted1">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="consultationStarted1Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="discharge">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="discharge">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="dischargeResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="orderExecutionCompleted">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="orderExecutionCompleted">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="orderExecutionCompletedResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="consultationCompleted1">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="consultationCompleted1">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="consultationCompleted1Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="patientInED">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="patientInED">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="patientInEDResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="waitForTransport">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="waitForTransport">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="waitForTransportResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="physicianInED">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="physicianInED">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="physicianInEDResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ping">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="ping">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="pingResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="waitForOrderExecution">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="waitForOrderExecution">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="waitForOrderExecutionResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="patientOutED">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="patientOutED">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="patientOutEDResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="consultationStarted2">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="consultationStarted2">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="consultationStarted2Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="patientTransportRequest">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="patientTransportRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="patientTransportRequestResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="waitForConsultation2">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="waitForConsultation2">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="waitForConsultation2Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="bedRequest">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="bedRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="bedRequestResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="waitForConsultation1">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="waitForConsultation1">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="waitForConsultation1Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="patientArrivedInBed">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="patientArrivedInBed">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="patientArrivedInBedResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="patientTransportStarted">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="patientTransportStarted">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="patientTransportStartedResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="waitForBed">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="waitForBed">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="waitForBedResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="triageScore">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="triageScore">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="triageScoreResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="orderRequest">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="orderRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="orderRequestResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="orderRequestCompleted">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="orderRequestCompleted">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="orderRequestCompletedResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="patientAdmittedWithNoBed">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="patientAdmittedWithNoBed">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="patientAdmittedWithNoBedResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="patientInCCU">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="patientInCCU">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="patientInCCUResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="physicianOutED">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="physicianOutED">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="physicianOutEDResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PFMServerServiceService">
+    <wsdl:port binding="tns:PFMServerServiceServiceSoapBinding" name="MBServerServicePort">
+      <soap:address location="http://fsa4.site.uottawa.ca:7800/soap/registerEvent"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

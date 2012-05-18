@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://schemas.xmlsoap.org/soap/envelope/">
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/xml.xsd"/>
+	<!-- Envelope, header and body -->
+	<xs:element name="Envelope" type="soapenv:Envelope">
+		<xs:annotation>
+			<xs:appinfo source="WMQI_APPINFO">
+				<MRMessage
+					messageDefinition="/0/Envelope;XSDElementDeclaration$MRObject" />
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:complexType name="Envelope">
+		<xs:sequence>
+			<xs:element minOccurs="0" ref="soapenv:Header" />
+			<xs:element minOccurs="1" ref="soapenv:Body" />
+		</xs:sequence>
+		<xs:attribute ref="soapenv:encodingStyle" />
+		<xs:anyAttribute namespace="##any" processContents="lax" />
+	</xs:complexType>
+	<xs:element name="Header" type="soapenv:Header" />
+	<xs:complexType name="Header">
+
+			<xs:sequence maxOccurs="unbounded">
+				<xs:choice>
+					<xs:annotation>
+						<xs:appinfo source="WMQI_APPINFO">
+							<MRLocalGroup composition="message" content="open" />
+						</xs:appinfo>
+					</xs:annotation>
+				</xs:choice>
+			</xs:sequence>
+		    <xs:anyAttribute namespace="##any" processContents="lax" />	 
+		    
+	</xs:complexType>
+	
+	<xs:element name="Body" type="soapenv:Body" />
+	<xs:complexType name="Body">
+
+			<xs:sequence maxOccurs="unbounded">
+				<xs:choice>
+					<xs:annotation>
+						<xs:appinfo source="WMQI_APPINFO">
+							<MRLocalGroup composition="message" content="openDefined" />
+						</xs:appinfo>
+					</xs:annotation>
+                    <xs:element ref="soapenv:Fault"/>
+				</xs:choice>
+			</xs:sequence>
+		    <xs:anyAttribute namespace="##any" processContents="lax" />	
+		    
+	</xs:complexType>
+
+	<!-- Global Attributes.  The following attributes are intended to be usable via qualified attribute names on any complex type referencing them.  -->
+	<xs:attribute name="mustUnderstand">
+		<xs:simpleType>
+			<xs:restriction base="xs:boolean">
+				<xs:pattern value="0|1" />
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:attribute>
+	<xs:attribute name="actor" type="xs:anyURI" />
+	<xs:attribute name="encodingStyle" type="xs:anyURI" />
+	<xs:attributeGroup name="encodingStyle">
+		<xs:attribute ref="soapenv:encodingStyle" />
+	</xs:attributeGroup>
+
+	<xs:element name="Fault" type="soapenv:Fault">
+		<xs:annotation>
+			<xs:appinfo source="WMQI_APPINFO">
+				<MRMessage
+					messageDefinition="/0/Fault;XSDElementDeclaration$MRObject" />
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType final="extension" name="Fault">
+		<xs:annotation>
+			<xs:documentation>
+				Fault reporting structure
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="faultcode" type="xs:QName" />
+			<xs:element name="faultstring">
+				<xs:complexType>                        
+      				<xs:simpleContent>                                       
+        				<xs:extension base="xs:string">                        
+          					<xs:attribute ref="xml:lang" use="optional"/>        
+        				</xs:extension>                                        
+      				</xs:simpleContent>                                      
+    			</xs:complexType>      
+			</xs:element>
+			<xs:element minOccurs="0" name="faultactor"
+				type="xs:anyURI" />
+			<xs:element minOccurs="0" name="detail"
+				type="soapenv:detail" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="detail">
+		<xs:sequence minOccurs="0">
+			<xs:choice>
+				<xs:annotation>
+					<xs:appinfo source="WMQI_APPINFO">
+						<MRLocalGroup composition="message"
+							content="open" />
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:choice>
+		</xs:sequence>		
+		<xs:anyAttribute namespace="##any" processContents="lax" />	
+	</xs:complexType>
+</xs:schema>

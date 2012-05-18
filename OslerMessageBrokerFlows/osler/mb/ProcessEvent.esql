@@ -84,6 +84,7 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 				-- Set some environment variables that can be used later for logging
 			  	SET Environment.Variables.EventName = eventName;
 			  	SET Environment.Variables.DestinationName = d.name;
+			  	-- TWS formatted messages use a special SOAPAction, so set it here (more efficient)
 				SET Environment.Variables.TwsSoapAction = '"http://WIN-687RHJV6VUL:19086/teamworks/webservices/OPPOD/WFMCoordinationEventService.tws' || '/' || UPPER(SUBSTRING(eventName FROM 1 FOR 1)) || SUBSTRING(eventName FROM 2) || '"';
 			  	SET Environment.Variables.AccessMethod = d.accessMethod;
 			  	SET Environment.Variables.Format = d.format;			  	
@@ -101,16 +102,21 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 			  	IF hasEvent THEN			  		
 			  		-- Copy the entire message to the output				  
 					CALL CopyEntireMessage();										
-					-- Set the destination parameters of the message (label is not strictly necessary since we are propagating directly to label, but it doesn't hurt)
+					-- Set the destination parameters of the message (label is not strictly necessary since 
+					-- we are propagating directly to label, but it doesn't hurt)
 				  	SET OutputLocalEnvironment.Destination.RouterList.DestinationData."label" = d.accessMethod;
+				  	-- Set the HTTP destination
 				  	SET OutputLocalEnvironment.Destination.HTTP.RequestURL = d.url;
+				  	-- Set the JMS destination
+				  	SET OutputLocalEnvironment.Destination.JMSDestinationList.DestinationData[1]  = d.url;
+				  	
 				  	-- Propagate to appropriate label
 				  	PROPAGATE TO LABEL d.accessMethod FINALIZE NONE;
 				  	-- Increment the counter
 				  	SET numSentP2P = numSentP2P + 1; 
 			  	END IF;
 			END IF; -- If either not a test event or this destination is a test destination
-			END IF; -- If the destination is REST or SOAP, and not disabled
+			END IF; -- If the destination is P2P and not disabled
 			
 		END FOR; 		  
 				
@@ -232,10 +238,14 @@ END MODULE;
 CREATE COMPUTE MODULE ProcessEvent_PrepareLogResponse
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN		
+		DECLARE status INTEGER InputRoot.HTTPResponseHeader."X-Original-HTTP-Status-Code";
+		IF status IS NULL THEN
+			SET status = 200; -- If there is no status in the HTTP header, just go with success, because some destination types do not have status codes (like JMS)
+		END IF;
 		SET OutputRoot.XMLNSC.logResponse.event = Environment.Variables.EventName;
 		SET OutputRoot.XMLNSC.logResponse.destinationName = Environment.Variables.DestinationName;
 		SET OutputRoot.XMLNSC.logResponse.accessMethod = Environment.Variables.AccessMethod;
-		SET OutputRoot.XMLNSC.logResponse.responseStatusCode = InputRoot.HTTPResponseHeader."X-Original-HTTP-Status-Code";
+		SET OutputRoot.XMLNSC.logResponse.responseStatusCode = status;
 		RETURN TRUE;
 	END;
 END MODULE;
