@@ -25,7 +25,7 @@
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="421,257" computeExpression="esql://routine/osler.mb#SoapIn_AppendMethod.Main" computeMode="destinationAndMessage">
         <translation xmi:type="utility:ConstantString" string="Append Method"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="660,257" queueManagerName="MB7QMGR" queueName="OSLER_INCOMING" replyToQMgr="MB7QMGR" replyToQ="OSLER_SOAP_REPLY">
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="660,257" queueManagerName="QMGR" queueName="Osler.Incoming" replyToQMgr="MB7QMGR" replyToQ="OSLER_SOAP_REPLY">
         <translation xmi:type="utility:ConstantString" string="To Incoming Queue"/>
       </nodes>
       <nodes xmi:type="ComIbmHTTPHeader.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="533,257" httpInputHeader="DeleteHeader" httpResponseHeader="DeleteHeader" httpRequestHeader="DeleteHeader" httpReplyHeader="DeleteHeader">

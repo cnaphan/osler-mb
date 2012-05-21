@@ -1,6 +1,6 @@
 BROKER SCHEMA osler.mb
 
-DECLARE logResponseURL EXTERNAL CHARACTER 'http://localhost/osler-mb/log/logResponse';
+DECLARE logResponseURL EXTERNAL CHARACTER 'http://localhost:8080/osler-mb/log/logResponse';
 
 CREATE COMPUTE MODULE LogResponse_SetURL
 	

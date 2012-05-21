@@ -107,7 +107,7 @@ CREATE COMPUTE MODULE RestIn_AppendMethod
 		CALL ChangeNamespace (rootNode, oldNs, pfmNs);
 		
 		SET OutputRoot.XMLNSC.*[<].(XMLNSC.Attribute)inputMethod = 'REST';
-		SET OutputRoot.XMLNSC.*[<].(XMLNSC.Attribute)remoteHost = InputRoot.HTTPInputHeader."X-Remote-Host";		
+		SET OutputRoot.XMLNSC.*[<].(XMLNSC.Attribute)remoteHost = InputRoot.HTTPInputHeader."X-Remote-Addr";		
 		RETURN TRUE;
 	END;
 

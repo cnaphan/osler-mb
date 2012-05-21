@@ -13,7 +13,7 @@
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/OslerMessageBrokerFlows/icons/full/obj30/ProcessEvent.gif"/>
     <shortDescription xmi:type="utility:ConstantString" string="Processes events from the incoming queue and sends them out in the proper manner"/>
     <composition>
-      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="10,21" queueName="OSLER_INCOMING" messageDomainProperty="XMLNSC">
+      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="10,21" queueName="Osler.Incoming" messageDomainProperty="XMLNSC">
         <translation xmi:type="utility:ConstantString" string="From Incoming"/>
         <shortDescription xmi:type="utility:ConstantString" string="Get event from the Incoming queue"/>
       </nodes>
@@ -29,7 +29,7 @@
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="316,21" computeExpression="esql://routine/osler.mb#ProcessEvent_ApplyRoutingRules.Main" computeMode="all" treatWarningsAsErrors="true">
         <translation xmi:type="utility:ConstantString" string="Apply Routing Rules"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="598,21" queueManagerName="MB7QMGR" queueName="OSLER_LOG" transactionMode="no" persistenceMode="no">
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="598,21" queueManagerName="QMGR" queueName="Osler.IncomingLog" transactionMode="no" persistenceMode="no">
         <translation xmi:type="utility:ConstantString" string="To Log Queue"/>
       </nodes>
       <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_13" location="145,459" outputDirectory="routing" outputFilename="routing-rules.xml" outputMode="archiveAndReplace" replaceDuplicateArchives="true">

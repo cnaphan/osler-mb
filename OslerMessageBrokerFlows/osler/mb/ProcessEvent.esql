@@ -1,6 +1,6 @@
 BROKER SCHEMA osler.mb
 
-DECLARE getDefaultRoutingRulesURL EXTERNAL CHARACTER 'http://localhost/osler-mb/event/getDefaultRoutingRules';
+DECLARE getDefaultRoutingRulesURL EXTERNAL CHARACTER 'http://localhost:8080/osler-mb/event/getDefaultRoutingRules';
 
 DECLARE ruleCache SHARED ROW;
 DECLARE ruleRefreshAttempts SHARED INTEGER 0; -- Can be used to prevent endless refresh loops
@@ -19,6 +19,7 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 		IF CARDINALITY(ruleCache.oslerRoutingRules[]) = 0 THEN
 			-- If the routing rules in shared memory is null, then go into the refresh routing rules sub-flow
 			IF ruleRefreshAttempts > 0 THEN
+				SET ruleRefreshAttempts = 0;
 				THROW USER EXCEPTION VALUES ('Attempted to get routing-rules twice in a row. Failed...');
 			END IF;
 			SET ruleRefreshAttempts = ruleRefreshAttempts + 1; 

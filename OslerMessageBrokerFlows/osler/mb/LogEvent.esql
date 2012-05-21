@@ -1,6 +1,6 @@
 BROKER SCHEMA osler.mb
 
-DECLARE logEventURL EXTERNAL CHARACTER 'http://localhost/osler-mb/log/logEvent';
+DECLARE logEventURL EXTERNAL CHARACTER 'http://localhost:8080/osler-mb/log/logEvent';
 
 CREATE COMPUTE MODULE LogEvent_Set_URL
 	CREATE FUNCTION Main() RETURNS BOOLEAN

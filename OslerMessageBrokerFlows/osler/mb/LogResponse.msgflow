@@ -5,7 +5,7 @@
     nsPrefix="osler_mb_LogResponse.msgflow">
   <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1">
     <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
-    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.logResponseURL" name="logResponseURL" defaultValueLiteral="http://localhost/osler-mb/log/logResponse">
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.logResponseURL" name="logResponseURL" defaultValueLiteral="http://localhost:8080/osler-mb/log/logResponse">
       <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
     <translation xmi:type="utility:TranslatableString" key="LogResponse" bundleName="osler/mb/LogResponse" pluginId="OslerMessageBrokerFlows"/>
@@ -18,10 +18,10 @@
       <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="478,113" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Response log service ${LocalEnvironment.Destination.HTTP.RequestURL} returned failure with status code ${Root.HTTPResponseHeader.&quot;X-Original-HTTP-Status-Code&quot;}">
         <translation xmi:type="utility:ConstantString" string="Log Fail"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="348,30" queueManagerName="MB7QMGR" queueName="OSLER_ERRORS">
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="348,30" queueManagerName="QMGR" queueName="Osler.Errors">
         <translation xmi:type="utility:ConstantString" string="To Errors"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="33,105" queueName="OSLER_RESPONSELOG" messageDomainProperty="XMLNSC">
+      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="33,105" queueName="Osler.ResponseLog" messageDomainProperty="XMLNSC">
         <translation xmi:type="utility:ConstantString" string="From Log Queue"/>
       </nodes>
       <nodes xmi:type="ComIbmTryCatch.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="232,105">

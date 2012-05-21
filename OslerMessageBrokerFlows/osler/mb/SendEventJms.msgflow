@@ -24,16 +24,16 @@
       <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="302,155" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Failed JMS event to ${LocalEnvironment.Destination.JMSDestinationList.DestinationData[1]} ${Root.XMLNSC}">
         <translation xmi:type="utility:ConstantString" string="Print Error"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="615,214" queueManagerName="MB7QMGR" queueName="OSLER_RESPONSELOG">
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="615,214" queueManagerName="QMGR" queueName="Osler.ResponseLog">
         <translation xmi:type="utility:ConstantString" string="To Response Log"/>
       </nodes>
       <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="299,273" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Event sent to JMS queue '${LocalEnvironment.Destination.JMSDestinationList.DestinationData[1]}'">
         <translation xmi:type="utility:ConstantString" string="Log Result"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="432,273" computeExpression="esql://routine/osler.mb#ProcessEvent_PrepareLogResponse.Main" computeMode="destinationAndMessage" treatWarningsAsErrors="true">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="432,273" computeExpression="esql://routine/osler.mb#ProcessEvent_PrepareLogResponse.Main" treatWarningsAsErrors="true">
         <translation xmi:type="utility:ConstantString" string="Prepare Response Log"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="415,155" computeExpression="esql://routine/osler.mb#SendEventJms_ErrorLog.Main" computeMode="destination">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="415,155" computeExpression="esql://routine/osler.mb#SendEventJms_ErrorLog.Main">
         <translation xmi:type="utility:ConstantString" string="Prepare Error Response Log"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_1" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.default" targetTerminalName="InTerminal.in"/>

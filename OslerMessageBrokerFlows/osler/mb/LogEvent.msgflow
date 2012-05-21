@@ -5,7 +5,7 @@
     nsPrefix="osler_mb_LogEvent.msgflow">
   <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1">
     <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
-    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.logEventURL" name="logEventURL" lowerBound="1" defaultValueLiteral="http://localhost/osler-mb/log/logEvent">
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.logEventURL" name="logEventURL" lowerBound="1" defaultValueLiteral="http://localhost:8080/osler-mb/log/logEvent">
       <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
     <translation xmi:type="utility:TranslatableString" key="LogEvent" bundleName="osler/mb/LogEvent" pluginId="OslerMessageBrokerFlows"/>
@@ -18,7 +18,7 @@
       <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="481,161" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Log service ${LocalEnvironment.Destination.HTTP.RequestURL} returned failure with status code ${Root.HTTPResponseHeader.&quot;X-Original-HTTP-Status-Code&quot;}">
         <translation xmi:type="utility:ConstantString" string="Log Fail"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="42,162" queueName="OSLER_LOG" messageDomainProperty="XMLNS">
+      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="42,162" queueName="Osler.IncomingLog" messageDomainProperty="XMLNS">
         <translation xmi:type="utility:ConstantString" string="From Log Queue"/>
       </nodes>
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="149,162" computeExpression="esql://routine/osler.mb#LogEvent_Set_URL.Main" computeMode="destinationAndMessage">
@@ -29,7 +29,7 @@
         <shortDescription xmi:type="utility:ConstantString" string="Catch any errors that result from sending the log"/>
         <longDescription xmi:type="utility:ConstantString" string="We don't want exceptions to go back to the queue. If the logging service fails, trace the failure and ignore it."/>
       </nodes>
-      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="357,87" queueManagerName="MB7QMGR" queueName="OSLER_ERRORS">
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="357,87" queueManagerName="QMGR" queueName="Osler.Errors">
         <translation xmi:type="utility:ConstantString" string="To Errors"/>
       </nodes>
       <nodes xmi:type="ComIbmThrow.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="562,158">

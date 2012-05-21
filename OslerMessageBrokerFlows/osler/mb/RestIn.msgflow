@@ -20,7 +20,7 @@
       <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="492,38">
         <translation xmi:type="utility:ConstantString" string="HTTP Reply"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="682,142" queueManagerName="MB7QMGR" queueName="OSLER_INCOMING">
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="682,142" queueManagerName="QMGR" queueName="Osler.Incoming">
         <translation xmi:type="utility:ConstantString" string="To Incoming"/>
       </nodes>
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="365,137" computeExpression="esql://routine/osler.mb#RestIn_AppendMethod.Main" computeMode="destinationAndMessage" treatWarningsAsErrors="true">

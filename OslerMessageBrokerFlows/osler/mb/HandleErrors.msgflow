@@ -8,7 +8,7 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/OslerMessageBrokerFlows/icons/full/obj16/HandleErrors.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/OslerMessageBrokerFlows/icons/full/obj30/HandleErrors.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="97,144" queueName="OSLER_ERRORS" messageDomainProperty="XMLNSC">
+      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="97,144" queueName="Osler.Errors" messageDomainProperty="XMLNSC">
         <translation xmi:type="utility:ConstantString" string="From Errors"/>
       </nodes>
       <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="380,144" outputDirectory="errors" outputFilename="error-log.txt" outputMode="archiveAndReplaceWithTimestamp" replaceDuplicateArchives="true" recordDefinition="asIs">

@@ -24,7 +24,7 @@
       <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="342,61" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Read local routing rules [event=${FIELDNAME(Environment.Variables.EventBody.*[&lt;])}, method=${FIELDVALUE(Environment.Variables.EventBody.*[&lt;].(XMLNSC.Attribute)inputMethod)}]">
         <translation xmi:type="utility:ConstantString" string="Read Local"/>
       </nodes>
-      <nodes xmi:type="ComIbmFileRead.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="155,126" inputDirectory="/routing/" filenamePattern="routing-rules.xml" messageDomainProperty="XMLNSC">
+      <nodes xmi:type="ComIbmFileRead.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="155,126" inputDirectory="C:\MQSIFileInput\routing" filenamePattern="routing-rules.xml" messageDomainProperty="XMLNSC">
         <translation xmi:type="utility:ConstantString" string="Read Rules"/>
       </nodes>
       <nodes xmi:type="ComIbmWSRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="285,247" URLSpecifier="http://bad.uottawa.ca/noservice" httpMethod="GET" messageDomainProperty="XMLNSC" responseMsgLocationInTree="OutputRoot.XMLNSC">
