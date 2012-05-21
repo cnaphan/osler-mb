@@ -6,8 +6,8 @@
 *.jar
 *.war
 *.ear
+*.bar
 
-OslerMessageBrokerFlows/*.bar
 OslerMessageSet/log
 *.mbtest
 readlog.*
