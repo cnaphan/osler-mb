@@ -18,4 +18,4 @@ The purpose of the Osler Message Broker is to route and transform event messages
 	* LogResponse.msgflow - Takes a response log message and sends it to the console via REST
 	* TestJms.msgflow - Takes a JMS response message and sends it to the console via REST
 The relationship between the message flows is given in the diagram below.
-![Message Flow Diagram](osler-mb/MessageFlows.png)
+![Message Flow Diagram](https://github.com/cnaphan/osler-mb/MessageFlows.png)
