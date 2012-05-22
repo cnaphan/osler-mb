@@ -13,3 +13,5 @@
 OslerMessageSet/log
 *.mbtest
 readlog.*
+xsl/*.xml
+xsl/*.txt
