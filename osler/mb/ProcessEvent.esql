@@ -82,11 +82,11 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 			IF NOT isTest OR LEFT(LOWER(d.name), 4) = 'test' THEN
 				-- Set some environment variables that can be used later for logging
 			  	SET Environment.Variables.EventName = eventName;
-			  	SET Environment.Variables.DestinationName = d.name;
+			  	SET Environment.Variables.DestinationName = TRIM(d.name);
 			  	-- TWS formatted messages use a special SOAPAction, so set it here (more efficient)
 				SET Environment.Variables.TwsSoapAction = '"http://WIN-687RHJV6VUL:19086/teamworks/webservices/OPPOD/WFMCoordinationEventService.tws' || '/' || eventName || '"';
-			  	SET Environment.Variables.AccessMethod = d.accessMethod;
-			  	SET Environment.Variables.Format = d.format;			  	
+			  	SET Environment.Variables.AccessMethod = TRIM(d.accessMethod);
+			  	SET Environment.Variables.Format = TRIM(d.format);			  	
 				
 				-- Test to see if this destination routes to this event (assume not at first)
 			  	DECLARE hasEvent BOOLEAN FALSE;
@@ -103,7 +103,7 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 					CALL CopyEntireMessage();										
 					-- Set the destination parameters of the message (label is not strictly necessary since 
 					-- we are propagating directly to label, but it doesn't hurt)
-				  	SET OutputLocalEnvironment.Destination.RouterList.DestinationData."label" = d.accessMethod;
+				  	SET OutputLocalEnvironment.Destination.RouterList.DestinationData."label" = TRIM(d.accessMethod);
 				  	-- Set the HTTP destination
 				  	SET OutputLocalEnvironment.Destination.HTTP.RequestURL = TRIM(d.url);
 				  	-- Set the JMS destination
