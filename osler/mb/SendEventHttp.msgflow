@@ -22,7 +22,7 @@
       <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="360,217" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Event service '${LEFT(LocalEnvironment.Destination.HTTP.RequestURL,20)}' replied with status code ${Root.HTTPResponseHeader.&quot;X-Original-HTTP-Status-Code&quot;}">
         <translation xmi:type="utility:ConstantString" string="Log Result"/>
       </nodes>
-      <nodes xmi:type="ComIbmWSRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="259,215" URLSpecifier="http://bad.uottawa.ca/noservice" messageDomainProperty="BLOB" replaceInputMsgWithHTTPError="false" errorMsgLocationInTree="Environment.Variables.HTTP.Error" responseMsgLocationInTree="OutputRoot.Response">
+      <nodes xmi:type="ComIbmWSRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="259,215" URLSpecifier="http://bad.uottawa.ca/noservice" httpVersion="1.1" messageDomainProperty="BLOB" replaceInputMsgWithHTTPError="false" errorMsgLocationInTree="Environment.Variables.HTTP.Error" responseMsgLocationInTree="OutputRoot.Response">
         <translation xmi:type="utility:ConstantString" string="To Destination"/>
         <shortDescription xmi:type="utility:ConstantString" string="Sends the messages via HTTP to the destination that was set in &quot;Apply Routing Rules&quot;"/>
       </nodes>

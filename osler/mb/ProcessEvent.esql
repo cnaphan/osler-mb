@@ -64,7 +64,7 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 		-- Check if any destination receives via PubSub. If so, propagate one message to PubSub
 		DECLARE hasPubSub BOOLEAN FALSE;
 		FOR d AS ruleCache.oslerRoutingRules.destinations.destination[] DO
-			IF NOT hasPubSub AND d.(XMLNSC.Attribute)disabled IS NULL AND d.accessMethod = 'PubSub' THEN
+			IF NOT hasPubSub AND d.disabled IS NULL AND d.accessMethod = 'PubSub' THEN
 				SET hasPubSub = TRUE;
 			END IF;
 		END FOR;
@@ -77,14 +77,14 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 		-- Loop through each destination that requires point-to-point (REST and SOAP)
 		FOR d AS ruleCache.oslerRoutingRules.destinations.destination[] DO
 			 -- If the destination uses a P2P protocol, and it's not disabled, then process it
-			IF (d.accessMethod <> 'PubSub') AND (isTest OR d.(XMLNSC.Attribute)disabled IS NULL) THEN
+			IF (d.accessMethod <> 'PubSub') AND (isTest OR d.disabled <> 'true') THEN
 			-- If this is a test message, only send to destinations starting with the word 'test' (i.e. the console)
 			IF NOT isTest OR LEFT(LOWER(d.name), 4) = 'test' THEN
 				-- Set some environment variables that can be used later for logging
 			  	SET Environment.Variables.EventName = eventName;
 			  	SET Environment.Variables.DestinationName = d.name;
 			  	-- TWS formatted messages use a special SOAPAction, so set it here (more efficient)
-				SET Environment.Variables.TwsSoapAction = '"http://WIN-687RHJV6VUL:19086/teamworks/webservices/OPPOD/WFMCoordinationEventService.tws' || '/' || UPPER(SUBSTRING(eventName FROM 1 FOR 1)) || SUBSTRING(eventName FROM 2) || '"';
+				SET Environment.Variables.TwsSoapAction = '"http://WIN-687RHJV6VUL:19086/teamworks/webservices/OPPOD/WFMCoordinationEventService.tws' || '/' || eventName || '"';
 			  	SET Environment.Variables.AccessMethod = d.accessMethod;
 			  	SET Environment.Variables.Format = d.format;			  	
 				
@@ -105,9 +105,9 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 					-- we are propagating directly to label, but it doesn't hurt)
 				  	SET OutputLocalEnvironment.Destination.RouterList.DestinationData."label" = d.accessMethod;
 				  	-- Set the HTTP destination
-				  	SET OutputLocalEnvironment.Destination.HTTP.RequestURL = d.url;
+				  	SET OutputLocalEnvironment.Destination.HTTP.RequestURL = TRIM(d.url);
 				  	-- Set the JMS destination
-				  	SET OutputLocalEnvironment.Destination.JMSDestinationList.DestinationData[1]  = d.url;
+				  	SET OutputLocalEnvironment.Destination.JMSDestinationList.DestinationData[1]  = TRIM(d.url);
 				  	
 				  	-- Propagate to appropriate label
 				  	PROPAGATE TO LABEL d.accessMethod FINALIZE NONE;

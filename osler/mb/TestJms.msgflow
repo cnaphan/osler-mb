@@ -8,7 +8,7 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/OslerMessageBrokerFlows/icons/full/obj16/TestJms.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/OslerMessageBrokerFlows/icons/full/obj30/TestJms.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmJMSClientInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="52,141" sourceQueueName="queue://QMGR/Osler.JmsTest" locationJndiBindings="C:\MQSIFileInput\JNDI" connectionFactoryName="OslerConnectionFactory" messageDomainProperty="XMLNSC">
+      <nodes xmi:type="ComIbmJMSClientInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="52,141" sourceQueueName="queue://QMGR/Osler.JmsTest" locationJndiBindings="C:\MQSIFileInput\jndi" connectionFactoryName="OslerJndiConnectionFactory" messageDomainProperty="BLOB">
         <translation xmi:type="utility:ConstantString" string="From JMS"/>
       </nodes>
       <nodes xmi:type="ComIbmWSRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="165,141" URLSpecifier="http://localhost:8080/osler-mb/receive/jms">

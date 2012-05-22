@@ -13,7 +13,7 @@
       <nodes xmi:type="eflow:FCMSource" xmi:id="InTerminal.Input" location="33,212">
         <translation xmi:type="utility:TranslatableString" key="InTerminal.Input" bundleName="osler/mb/SendEventJms" pluginId="OslerMessageBrokerFlows"/>
       </nodes>
-      <nodes xmi:type="ComIbmJMSClientOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="314,212" useDistList="true" locationJndiBindings="C:\MQSIFileInput\JNDI" connectionFactoryName="OslerConnectionFactory">
+      <nodes xmi:type="ComIbmJMSClientOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="314,212" useDistList="true" locationJndiBindings="C:\MQSIFileInput\jndi" connectionFactoryName="OslerJndiConnectionFactory">
         <translation xmi:type="utility:ConstantString" string="To JMS"/>
       </nodes>
       <nodes xmi:type="ComIbmRoute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="120,212">

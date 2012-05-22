@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmHTTPHeader.msgnode="ComIbmHTTPHeader.msgnode" xmlns:ComIbmRoute.msgnode="ComIbmRoute.msgnode" xmlns:ComIbmXslMqsi.msgnode="ComIbmXslMqsi.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="osler/mb/SoapFormatting.msgflow"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmHTTPHeader.msgnode="ComIbmHTTPHeader.msgnode" xmlns:ComIbmRoute.msgnode="ComIbmRoute.msgnode" xmlns:ComIbmTrace.msgnode="ComIbmTrace.msgnode" xmlns:ComIbmXslMqsi.msgnode="ComIbmXslMqsi.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="osler/mb/SoapFormatting.msgflow"
     nsPrefix="osler_mb_SoapFormatting.msgflow">
   <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1">
     <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
@@ -8,6 +8,7 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/OslerMessageBrokerFlows/icons/full/obj16/SoapFormatting.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/OslerMessageBrokerFlows/icons/full/obj30/SoapFormatting.gif"/>
     <shortDescription xmi:type="utility:ConstantString" string="Applies conditional formatting to a SOAP message"/>
+    <longDescription xmi:type="utility:ConstantString" string="This flow is run after adding a SOAP envelope but before sending the message via SOAP. It's role is simply to apply the proper formatting and return."/>
     <composition>
       <nodes xmi:type="eflow:FCMSource" xmi:id="InTerminal.Input" location="130,163">
         <translation xmi:type="utility:TranslatableString" key="InTerminal.Input" bundleName="osler/mb/SoapFormatting" pluginId="OslerMessageBrokerFlows"/>
@@ -16,11 +17,13 @@
         <outTerminals terminalNodeID="Match" dynamic="true" label="Match"/>
         <outTerminals terminalNodeID="PFM" dynamic="true" label="PFM"/>
         <outTerminals terminalNodeID="WBE" dynamic="true" label="WBE"/>
+        <outTerminals terminalNodeID="TWS" dynamic="true" label="TWS"/>
         <translation xmi:type="utility:ConstantString" string="Apply Formatting"/>
         <shortDescription xmi:type="utility:ConstantString" string="Before sending to output, apply special formatting to the message"/>
         <longDescription xmi:type="utility:ConstantString" string="Based on an environment variable set in Process Events, special formatting rules can be applied to the message before it is sent. This node uses XPath expressions to branch to a dynamic output terminal, where the formatting is performed using XLST. If no format expression is matched, the message is sent as is. This is the case for the default format."/>
-        <filterTable filterPattern="$Environment/Variables/Format = 'TWS'" routingOutputTerminal="PFM"/>
+        <filterTable filterPattern="$Environment/Variables/Format = 'PFM'" routingOutputTerminal="PFM"/>
         <filterTable filterPattern="$Environment/Variables/Format = 'WBE'" routingOutputTerminal="WBE"/>
+        <filterTable filterPattern="$Environment/Variables/Format = 'TWS'" routingOutputTerminal="TWS"/>
       </nodes>
       <nodes xmi:type="eflow:FCMSink" xmi:id="OutTerminal.Output" location="671,163">
         <translation xmi:type="utility:TranslatableString" key="OutTerminal.Output" bundleName="osler/mb/SoapFormatting" pluginId="OslerMessageBrokerFlows"/>
@@ -28,20 +31,24 @@
       <nodes xmi:type="ComIbmXslMqsi.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="487,66" stylesheetName="xsl/TWS-WBE.xsl" messageDomainProperty="XMLNSC">
         <translation xmi:type="utility:ConstantString" string="TWS-WBE"/>
       </nodes>
-      <nodes xmi:type="ComIbmHTTPHeader.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="480,163" httpRequestHeader="Modify">
+      <nodes xmi:type="ComIbmHTTPHeader.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="480,159" httpRequestHeader="Modify">
         <translation xmi:type="utility:ConstantString" string="Add SOAPAction"/>
         <nameValue4RequestHeader name="SOAPAction" type="XPath" value="$Environment/Variables/TwsSoapAction"/>
       </nodes>
-      <nodes xmi:type="ComIbmXslMqsi.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="492,243" stylesheetName="xsl/TWS-PFM.xsl">
+      <nodes xmi:type="ComIbmXslMqsi.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="492,243" stylesheetName="xsl/TWS-PFM.xsl" messageDomainProperty="XMLNSC">
         <translation xmi:type="utility:ConstantString" string="TWS-PFM"/>
+      </nodes>
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="496,311" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Tried to apply SOAP formatting but no format matched '${Environment.Variables.Format}'">
+        <translation xmi:type="utility:ConstantString" string="No Match"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_4" targetNode="FCMComposite_1_3" sourceNode="InTerminal.Input" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_5" targetNode="FCMComposite_1_1" sourceNode="FCMComposite_1_3" sourceTerminalName="WBE" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_6" targetNode="OutTerminal.Output" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_8" targetNode="OutTerminal.Output" sourceNode="FCMComposite_1_7" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_7" sourceNode="FCMComposite_1_3" sourceTerminalName="OutTerminal.default" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_3" sourceTerminalName="PFM" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_7" targetNode="OutTerminal.Output" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_10" targetNode="FCMComposite_1_5" sourceNode="FCMComposite_1_3" sourceTerminalName="OutTerminal.default" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_13" targetNode="FCMComposite_1_7" sourceNode="FCMComposite_1_3" sourceTerminalName="TWS" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_14" targetNode="OutTerminal.Output" sourceNode="FCMComposite_1_7" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
     </composition>
     <propertyOrganizer/>
     <stickyBoard/>
