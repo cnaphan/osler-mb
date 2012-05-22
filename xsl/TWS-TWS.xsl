@@ -19,4 +19,5 @@
 	<xsl:template match="/soapenv:Envelope/soapenv:Body/tws:*/tws:*">
 		<xsl:element name="{local-name(.)}"><xsl:value-of select="."/></xsl:element>
 	</xsl:template>
+	
 </xsl:stylesheet>
