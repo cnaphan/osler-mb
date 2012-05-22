@@ -10,9 +10,6 @@
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/OslerMessageBrokerFlows/icons/full/obj30/RestIn.gif"/>
     <shortDescription xmi:type="utility:ConstantString" string="Accepts input on a HTTP (REST) web service and puts it on the incoming queue"/>
     <composition>
-      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="29,88" URLSpecifier="/rest/registerEvent" messageDomainProperty="XMLNSC">
-        <translation xmi:type="utility:ConstantString" string="/rest/registerEvent"/>
-      </nodes>
       <nodes xmi:type="ComIbmHTTPHeader.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="490,137" httpInputHeader="DeleteHeader" httpReplyHeader="CarryForward">
         <translation xmi:type="utility:ConstantString" string="Strip Header"/>
         <shortDescription xmi:type="utility:ConstantString" string="Strips out the request header and creates a response header"/>
@@ -40,7 +37,7 @@
       <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="240,84" destination="none">
         <translation xmi:type="utility:ConstantString" string="Branch"/>
       </nodes>
-      <nodes xmi:type="ComIbmXslMqsi.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_10" location="164,181" stylesheetName="xsl/WBE-PFM.xsl" messageDomainProperty="XMLNSC">
+      <nodes xmi:type="ComIbmXslMqsi.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_10" location="164,181" stylesheetName="xsl/WBE-TWS.xsl" messageDomainProperty="XMLNSC">
         <translation xmi:type="utility:ConstantString" string="WBE to PFM"/>
         <shortDescription xmi:type="utility:ConstantString" string="Transforms an event from the format used by default by WODM to the standard format used by PFM"/>
       </nodes>
@@ -49,7 +46,6 @@
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_9" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_5" sourceNode="FCMComposite_1_9" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_6" sourceNode="FCMComposite_1_9" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_9" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_6" targetNode="FCMComposite_1_10" sourceNode="FCMComposite_1_7" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_7" targetNode="FCMComposite_1_9" sourceNode="FCMComposite_1_10" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
     </composition>

@@ -5,9 +5,6 @@
     nsPrefix="osler_mb_ProcessEvent.msgflow">
   <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1">
     <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
-    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.getDefaultRoutingRulesURL" name="getDefaultRoutingRulesURL" lowerBound="1" defaultValueLiteral="http://localhost/osler-mb/event/getDefaultRoutingRules">
-      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    </eStructuralFeatures>
     <translation xmi:type="utility:TranslatableString" key="ProcessEvent" bundleName="osler/mb/ProcessEvent" pluginId="OslerMessageBrokerFlows"/>
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/OslerMessageBrokerFlows/icons/full/obj16/ProcessEvent.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/OslerMessageBrokerFlows/icons/full/obj30/ProcessEvent.gif"/>
@@ -118,11 +115,7 @@
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_20" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_11" sourceTerminalName="OutTerminal.Output" targetTerminalName="InTerminal.Input"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_5" targetNode="FCMComposite_1_10" sourceNode="FCMComposite_1_9" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.Input"/>
     </composition>
-    <propertyOrganizer>
-      <propertyDescriptor groupName="Group.Basic" configurable="true" userDefined="true" describedAttribute="Property.getDefaultRoutingRulesURL">
-        <propertyName xmi:type="utility:TranslatableString" key="Property.getDefaultRoutingRulesURL" bundleName="osler/mb/ProcessEvent" pluginId="OslerMessageBrokerFlows"/>
-      </propertyDescriptor>
-    </propertyOrganizer>
+    <propertyOrganizer/>
     <stickyBoard/>
   </eClassifiers>
 </ecore:EPackage>

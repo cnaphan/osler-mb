@@ -1,7 +1,5 @@
 BROKER SCHEMA osler.mb
 
-DECLARE getDefaultRoutingRulesURL EXTERNAL CHARACTER 'http://localhost:8080/osler-mb/event/getDefaultRoutingRules';
-
 DECLARE ruleCache SHARED ROW;
 DECLARE ruleRefreshAttempts SHARED INTEGER 0; -- Can be used to prevent endless refresh loops
 
@@ -150,14 +148,6 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 		SET OutputRoot.XMLNSC.*[<].(XMLNSC.Attribute)test = NULL;		
 	END;
 
-END MODULE;
-
-CREATE COMPUTE MODULE RefreshRoutingRules_SetURL
-	CREATE FUNCTION Main() RETURNS BOOLEAN
-	BEGIN
-		SET OutputLocalEnvironment.Destination.HTTP.RequestURL = getDefaultRoutingRulesURL;
-		RETURN TRUE;
-	END;
 END MODULE;
 
 CREATE COMPUTE MODULE ProcessEvent_ReplyWithRules

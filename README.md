@@ -7,7 +7,7 @@ The purpose of the Osler Message Broker is to route and transform event messages
 
 * Receiving events and translating them into the canonical format
 	* RestIn.msgflow - Receives events via REST and puts them on the incoming queue
-	* SoapIn.msgflow - Receives events via SOAP, strips the SOAP envelope and adds them to the incoming queue 
+	* SoapIn.msgflow - Receives events via SOAP in the PFM format, strips the SOAP envelope and adds them to the incoming queue 
 	* TwsIn.msgflow - Receives events via SOAP in TWS format according to BPM's WSDL, strips the SOAP envelope and adds them to the incoming queue
 	
 * Processing the event
@@ -16,7 +16,7 @@ The purpose of the Osler Message Broker is to route and transform event messages
 	* SendEventHttp.msgflow - Takes a message and sends it via HTTP to the destination URL
 	* SendEventJms.msgflow - Takes a message and sends it to a JMS queue	
 	
-* Logging the resposne
+* Logging the response
 	* LogEvent.msgflow - Takes a log message and sends it to the console via REST.
 	* LogResponse.msgflow - Takes a response log message and sends it to the console via REST.
 	* TestJms.msgflow - Takes a JMS response message and sends it to the console via REST.
@@ -26,5 +26,5 @@ The relationship between the message flows is given in the diagram below.
 
 Developing XSL
 --------------
-Message transformations are achieved
+Message transformations are achieved using XML stylesheet transformations, a standard XML tool and a standard node in Message Broker.
 
