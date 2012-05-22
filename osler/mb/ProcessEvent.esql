@@ -77,7 +77,7 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 		-- Loop through each destination that requires point-to-point (REST and SOAP)
 		FOR d AS ruleCache.oslerRoutingRules.destinations.destination[] DO
 			 -- If the destination uses a P2P protocol, and it's not disabled, then process it
-			IF (d.accessMethod <> 'PubSub') AND d.(XMLNSC.Attribute)disabled IS NULL THEN
+			IF (d.accessMethod <> 'PubSub') AND (isTest OR d.(XMLNSC.Attribute)disabled IS NULL) THEN
 			-- If this is a test message, only send to destinations starting with the word 'test' (i.e. the console)
 			IF NOT isTest OR LEFT(LOWER(d.name), 4) = 'test' THEN
 				-- Set some environment variables that can be used later for logging
