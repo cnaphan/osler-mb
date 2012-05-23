@@ -46,7 +46,7 @@
 	<xsl:template match="/soapenv:Envelope/soapenv:Body/*/wfm:Order_ID">
 		<orderId><xsl:apply-templates/></orderId>
 	</xsl:template>
-	<xsl:template match="/soapenv:Envelope/soapenv:Body/*/wfm:OrderType">
+	<xsl:template match="/soapenv:Envelope/soapenv:Body/*/wfm:Order_Type">
 		<orderType><xsl:apply-templates/></orderType>
 	</xsl:template>
 	<xsl:template match="/soapenv:Envelope/soapenv:Body/*/wfm:CTAS">
