@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmCompute.msgnode="ComIbmCompute.msgnode" xmlns:ComIbmJMSClientOutput.msgnode="ComIbmJMSClientOutput.msgnode" xmlns:ComIbmMQOutput.msgnode="ComIbmMQOutput.msgnode" xmlns:ComIbmRoute.msgnode="ComIbmRoute.msgnode" xmlns:ComIbmTrace.msgnode="ComIbmTrace.msgnode" xmlns:ComIbmXslMqsi.msgnode="ComIbmXslMqsi.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="osler/mb/SendEventJms.msgflow"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmCompute.msgnode="ComIbmCompute.msgnode" xmlns:ComIbmJMSClientOutput.msgnode="ComIbmJMSClientOutput.msgnode" xmlns:ComIbmMQOutput.msgnode="ComIbmMQOutput.msgnode" xmlns:ComIbmRoute.msgnode="ComIbmRoute.msgnode" xmlns:ComIbmTrace.msgnode="ComIbmTrace.msgnode" xmlns:ComIbmTryCatch.msgnode="ComIbmTryCatch.msgnode" xmlns:ComIbmXslMqsi.msgnode="ComIbmXslMqsi.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow"
+    xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="osler/mb/SendEventJms.msgflow"
     nsPrefix="osler_mb_SendEventJms.msgflow">
   <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1">
     <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
@@ -10,38 +11,47 @@
     <shortDescription xmi:type="utility:ConstantString" string="Sends an event to a named JMS queue"/>
     <longDescription xmi:type="utility:ConstantString" string="Performs transformation, sends to JMS and then sends out the response log event to the console"/>
     <composition>
-      <nodes xmi:type="eflow:FCMSource" xmi:id="InTerminal.Input" location="33,212">
+      <nodes xmi:type="eflow:FCMSource" xmi:id="InTerminal.Input" location="40,216">
         <translation xmi:type="utility:TranslatableString" key="InTerminal.Input" bundleName="osler/mb/SendEventJms" pluginId="OslerMessageBrokerFlows"/>
       </nodes>
-      <nodes xmi:type="ComIbmJMSClientOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="314,212" useDistList="true" locationJndiBindings="C:\MQSIFileInput\jndi" connectionFactoryName="OslerJndiConnectionFactory">
+      <nodes xmi:type="ComIbmJMSClientOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="364,216" useDistList="true" locationJndiBindings="file:/c:/MQSIFileInput/jndi/" connectionFactoryName="OslerJndiConnectionFactory">
         <translation xmi:type="utility:ConstantString" string="To JMS"/>
       </nodes>
-      <nodes xmi:type="ComIbmRoute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="120,212">
+      <nodes xmi:type="ComIbmRoute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="195,216">
         <outTerminals terminalNodeID="Match" dynamic="true" label="Match"/>
         <outTerminals terminalNodeID="AMQ" dynamic="true" label="AMQ"/>
         <translation xmi:type="utility:ConstantString" string="Select Format"/>
         <filterTable filterPattern="$Environment/Variables/Format = 'AMQ'" routingOutputTerminal="AMQ"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="406,157" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Failed JMS event to ${LocalEnvironment.Destination.JMSDestinationList.DestinationData[1]} ${Root.XMLNSC}">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="475,131" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - JMS queue ${LocalEnvironment.Destination.JMSDestinationList.DestinationData[1]} responded with failure&#xD;&#xA;Body: ${Root.BLOB} ${Root.XMLNSC}&#xD;&#xA;ExceptionList: ${ExceptionList}">
         <translation xmi:type="utility:ConstantString" string="Print Error"/>
       </nodes>
       <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="719,216" queueManagerName="QMGR" queueName="Osler.ResponseLog">
         <translation xmi:type="utility:ConstantString" string="To Response Log"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="403,275" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Event sent to JMS queue '${LocalEnvironment.Destination.JMSDestinationList.DestinationData[1]}'">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="475,273" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - JMS queue ${LocalEnvironment.Destination.JMSDestinationList.DestinationData[1]} responded with success">
         <translation xmi:type="utility:ConstantString" string="Log Result"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="536,275" computeExpression="esql://routine/osler.mb#ProcessEvent_PrepareLogResponse.Main" treatWarningsAsErrors="true">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="578,273" computeExpression="esql://routine/osler.mb#ProcessEvent_PrepareLogResponse.Main" treatWarningsAsErrors="true">
         <translation xmi:type="utility:ConstantString" string="Prepare Response Log"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="519,157" computeExpression="esql://routine/osler.mb#SendEventJms_ErrorLog.Main">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="564,131" computeExpression="esql://routine/osler.mb#SendEventJms_ErrorLog.Main">
         <translation xmi:type="utility:ConstantString" string="Prepare Error Response Log"/>
       </nodes>
-      <nodes xmi:type="ComIbmXslMqsi.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="220,293" stylesheetName="xsl/TWS-AMQ.xsl">
+      <nodes xmi:type="ComIbmXslMqsi.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="279,273" stylesheetName="xsl/TWS-AMQ.xsl" messageDomainProperty="BLOB">
         <translation xmi:type="utility:ConstantString" string="TWS-AMQ"/>
       </nodes>
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="245,82" queueManagerName="QMGR" queueName="Osler.Errors">
+        <translation xmi:type="utility:ConstantString" string="To Errors"/>
+      </nodes>
+      <nodes xmi:type="ComIbmTryCatch.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_10" location="115,216">
+        <translation xmi:type="utility:ConstantString" string="Try Send"/>
+        <shortDescription xmi:type="utility:ConstantString" string="Ensures that failures to send to certain destinations do not roll back too far and interrupt other sends"/>
+      </nodes>
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_11" location="174,139" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Failure caught sending JMS&#xD;&#xA;Message: ${Root}&#xD;&#xA;Errors: ${ExceptionList}">
+        <translation xmi:type="utility:ConstantString" string="Log JMS Error"/>
+      </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_1" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.default" targetTerminalName="InTerminal.in"/>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_4" targetNode="FCMComposite_1_2" sourceNode="InTerminal.Input" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_5" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_6" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_6" targetNode="FCMComposite_1_6" sourceNode="FCMComposite_1_5" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_8" targetNode="FCMComposite_1_5" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
@@ -50,6 +60,10 @@
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_12" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_7" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_8" sourceNode="FCMComposite_1_2" sourceTerminalName="AMQ" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_1" sourceNode="FCMComposite_1_8" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_10" targetNode="FCMComposite_1_10" sourceNode="InTerminal.Input" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_13" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_10" sourceTerminalName="OutTerminal.try" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_4" targetNode="FCMComposite_1_11" sourceNode="FCMComposite_1_10" sourceTerminalName="OutTerminal.catch" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_7" targetNode="FCMComposite_1_9" sourceNode="FCMComposite_1_11" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
     </composition>
     <propertyOrganizer/>
     <stickyBoard/>
