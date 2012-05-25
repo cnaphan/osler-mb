@@ -11,7 +11,7 @@
       <nodes xmi:type="ComIbmJMSClientInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="52,141" sourceQueueName="Osler.JmsTest" locationJndiBindings="file:/c:/MQSIFileInput/jndi/" connectionFactoryName="OslerJndiConnectionFactory" messageDomainProperty="BLOB">
         <translation xmi:type="utility:ConstantString" string="From JMS"/>
       </nodes>
-      <nodes xmi:type="ComIbmWSRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="295,141" URLSpecifier="http://localhost:8080/osler-mb/receive/jms">
+      <nodes xmi:type="ComIbmWSRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="295,141" URLSpecifier="http://localhost:8080/osler-mb/receive/amq">
         <translation xmi:type="utility:ConstantString" string="REST to JMS"/>
       </nodes>
       <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="409,29" destination="file" filePath="C:\MQSIFileInput\process-event-log.txt" pattern="${CURRENT_TIMESTAMP} - Failure forward JMS message to REST service&#xD;&#xA;Message: ${Root}&#xD;&#xA;Errors: ${ExceptionList}">
