@@ -76,10 +76,11 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 		
 		-- Loop through each destination that requires point-to-point (REST and SOAP)
 		FOR d AS ruleCache.oslerRoutingRules.destinations.destination[] DO
+			DECLARE isTestDestination BOOLEAN (LEFT(LOWER(d.name), 4) = 'test');
 			 -- If the destination uses a P2P protocol, and it's not disabled, then process it
 			IF (d.accessMethod <> 'PubSub') AND (isTest OR d.disabled <> 'true') THEN
 			-- If this is a test message, only send to destinations starting with the word 'test' (i.e. the console)
-			IF NOT isTest OR LEFT(LOWER(d.name), 4) = 'test' THEN
+			IF NOT isTest OR isTestDestination THEN
 				-- Set some environment variables that can be used later for logging
 			  	SET Environment.Variables.EventName = eventName;
 			  	SET Environment.Variables.DestinationName = TRIM(d.name);
@@ -98,7 +99,7 @@ CREATE COMPUTE MODULE ProcessEvent_ApplyRoutingRules
 			  	END FOR;
 			  	
 			  	-- If the destination routes to this event, package up the message and propagate it accordingly
-			  	IF hasEvent THEN			  		
+			  	IF hasEvent OR (isTest AND isTestDestination) THEN			  		
 			  		-- Copy the entire message to the output				  
 					CALL CopyEntireMessage();										
 					-- Set the destination parameters of the message (label is not strictly necessary since 
